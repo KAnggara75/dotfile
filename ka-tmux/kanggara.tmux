@@ -40,7 +40,7 @@ __load() {
   if [ "$(tmux show-option -gqv "clock-mode-style")" == '12' ]; then
     tmux set-environment -g KA_TIME_FORMAT "%I:%M %p"
   else
-    tmux set-environment -g KA_TIME_FORMAT "%H:%M:%S"
+    tmux set-environment -g KA_TIME_FORMAT "%H:%M"
   fi
 
   if [ -z "$date_format" ]; then
