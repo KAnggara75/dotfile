@@ -12,7 +12,7 @@ export TERM=screen-256color
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
 
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions shrink-path)
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
@@ -45,6 +45,7 @@ alias gcr="git checkout release"
 alias ghcreate="gh repo create $1 --public"
 alias gcmm="git commit -m "$1""
 alias add="git add $1"
+alias diff="git diff $1"
 
 # Flutter alias
 alias fpg="flutter pub get"
@@ -113,5 +114,5 @@ alias sp81="brew unlink php && brew link --overwrite --force php@8.1"
 # eval "$(pyenv init -)"
 prompt_context () {}
 prompt_dir() {
-    prompt_segment blue $CURRENT_FG '%25<..<%~%<<'
+    prompt_segment blue $CURRENT_FG $(shrink_path -f)
 }
