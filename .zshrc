@@ -1,3 +1,20 @@
+if [ "$TERM_PROGRAM" != tmux ];
+then
+  read -q T\?"We are not in TMUX, Let's get in? "
+  if [ $T = "y" ]
+  then
+    clear
+    if (tmux ls) | sort -Vk3 | tail -1 | grep -q "windows" ;
+    then
+      tmux a -t $(tmux ls | sort -Vk3 | tail -1 | awk '{print $1}')
+    else
+      tmux new -s KA
+    fi
+  else
+    clear
+  fi
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -64,8 +81,9 @@ alias act="source env/bin/activate"
 alias pip="pip3"
 
 # ZSH Alias
-alias zshconfig="code ~/.zshrc"
+alias tmuxconfig="code ~/.tmux.conf"
 alias ohmyzsh="code ~/.oh-my-zsh"
+alias zshconfig="code ~/.zshrc"
 alias reload="source ~/.zshrc"
 
 # TMUX ALIAS
