@@ -4,7 +4,7 @@ then
   if [ $T = "y" ]
   then
     clear
-    if (tmux ls) | sort -Vk3 | tail -1 | grep -q "windows" ;
+    if (tmux ls > /dev/null) | sort -Vk3 | tail -1 | grep -q "windows" ;
     then
       tmux a -t $(tmux ls | sort -Vk3 | tail -1 | awk '{print $1}')
     else
@@ -37,6 +37,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Adb and android tools
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
+export GPG_TTY=$(tty)
 export PATH=$HOME/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
@@ -49,20 +50,24 @@ export PATH="$PATH:/Users/k/dev/flutter/bin"
 export PATH="/usr/local/opt/node@16/bin:$PATH"
 
 # exa alias
-# ls
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 alias ls=' exa --group-directories-first'
-alias la=' ls -a'
+alias la=' ls -lah'
 alias ll=' ls --git -l'
-alias lt=' ls --tree -D -L 2 -I ${TREE_IGNORE}'
+alias lt=' ls --tree -D -L 3 -I ${TREE_IGNORE}'
+
+# ADB alias
+alias adbwifi='adb tcpip 5555'
 
 # Git Custom alisa
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 alias gcr="git checkout release"
 alias ghcreate="gh repo create $1 --public"
 alias gcmm="git commit -m "$1""
+alias gcms="git commit -S -m "$1""
 alias add="git add $1"
 alias diff="git diff $1"
+alias gv="gitversion|grep NuGetVersionV2"
 
 # Flutter alias
 alias fpg="flutter pub get"
@@ -71,12 +76,15 @@ alias fcl="flutter clean"
 alias fcrun="fcl && fpg && frn"
 alias fcr="flutter create $1"
 
+# node js 
+alias npm="pnpm $1"
+
 #mySQL Alias
 alias startsql="brew services start mysql"
 alias stopsql="brew services stop mysql"
 
 # Python Virtual Env
-alias venv="python -m venv env && source env/bin/activate"
+alias venv="python3 -m venv env && source env/bin/activate"
 alias act="source env/bin/activate"
 alias pip="pip3"
 
@@ -92,25 +100,27 @@ alias :mm='f(){ if [ -z "$1" ]; then tmux a; else tmux new-session -s "$1"; fi; 
 alias att='f(){ if  (tmux a -t "$1" | grep -q TMUX) 2>/dev/null; then tmux a -t "$1"; else tmux switch -t "$1"; fi; }; f'
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
 
-# Cusom Alias
+# Custom Alias
 alias c="clear"
+alias q="exit"
 alias nv="nvim $1"
 alias new="touch $1"
-alias q="exit"
+alias data="cd /Volumes/DATA/"
+
+alias pku="cd /Users/k/Work/projectku"
+alias ka="cd /Users/k/Work/projectku/kanggara"
+alias 75="cd /Users/k/Work/projectku/kanggara75"
 alias mku="cd /Users/k/Work/kuroject_mac"
-alias kuroject="cd /Volumes/DATA/kuroject"
-alias 2022="cd /Volumes/DATA/Downloads/2022"
-alias kan="cd /Volumes/DATA/kuroject/KAnggara"
-alias ka75="cd /Volumes/DATA/kuroject/KAnggara75"
-alias gotmp-web="/Users/k/Work/kuroject_mac/KAnggara/gotmp/web"
-alias gotmp-app="/Users/k/Work/kuroject_mac/KAnggara/gotmp/app"
+
+# Laravel alias
+alias artisan="php artisan $1"
+alias mfs="php artisan migrate:fresh --seed"
 
 # api-whatsapp
-alias wapi="cd /Users/k/Work/kuroject_mac/wapi"
+alias wapi="cd /Users/k/Work/projectku/wapi"
 
 # Thesis Project alias
-alias thesis-web="cd /Users/k/Work/kuroject_mac/KAnggara75/TheSiS/web"
-alias thesis-app="cd /Users/k/Work/kuroject_mac/KAnggara75/TheSiS/app"
+alias thesis="cd /Users/k/Work/projectku/kanggara75/thesis"
 alias iphone="open -a simulator"
 
 # my Project Folder
@@ -118,6 +128,7 @@ alias sil="cd /Volumes/DATA/kuroject/KAnggara75/SiListrik/docs"
 alias siapi="cd /Volumes/DATA/kuroject/KAnggara75/SiListrik/api"
 alias siapp="cd /Volumes/DATA/kuroject/KAnggara75/SiListrik/app"
 alias siuno="cd /Volumes/DATA/kuroject/KAnggara75/SiListrik/uno"
+alias hackintosh="cd /Users/k/Work/projectku/KAnggara75/hackintosh"
 
 # Web Framework alias
 alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
@@ -134,3 +145,9 @@ prompt_context () {}
 prompt_dir() {
     prompt_segment blue $CURRENT_FG $(shrink_path -f)
 }
+
+export PNPM_HOME="/Users/k/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
