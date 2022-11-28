@@ -111,6 +111,8 @@ alias pku="cd /Users/k/Work/projectku"
 alias ka="cd /Users/k/Work/projectku/kanggara"
 alias 75="cd /Users/k/Work/projectku/kanggara75"
 alias mku="cd /Users/k/Work/kuroject_mac"
+alias wo="cd /Volumes/DATA/Work"
+
 
 # Laravel alias
 alias artisan="php artisan $1"
