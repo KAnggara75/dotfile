@@ -141,7 +141,7 @@ if [ "$TERM_PROGRAM" != tmux ]; then
     if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
       tmux a -t $(tmux ls | tail -1 | cut -d : -f1) 2>/dev/null
     else
-      tmux new -A KA 2>/dev/nullno
+      tmux new -A KA 2>/dev/null
     fi
   else
     clear
