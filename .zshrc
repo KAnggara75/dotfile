@@ -89,10 +89,8 @@ alias nv="nvim $1"
 alias new="touch $1"
 alias data="cd /Volumes/DATA/"
 
-alias pku="cd /Users/k/Work/projectku"
-alias ka="cd /Users/k/Work/projectku/kanggara"
-alias 75="cd /Users/k/Work/projectku/kanggara75"
-alias mku="cd /Users/k/Work/kuroject_mac"
+alias ka="cd /Volumes/DATA/Work/KAnggara"
+alias 75="cd /Volumes/DATA/Work/KAnggara75"
 alias wo="cd /Volumes/DATA/Work"
 
 # Laravel alias
