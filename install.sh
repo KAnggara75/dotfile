@@ -1,6 +1,6 @@
 #!/bin/bash
 # KAnggara dot-file Automatic Installer
-# url: https://github.com/KAnggara75/dotfile-mac
+# url: https://github.com/KAnggara75/dotfile
 
 # Global Variable
 KA_DIR=~/.tmux/themes/ka-tmux
