@@ -115,10 +115,6 @@ alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
 # DNS cache Clear
 alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
-# PHP Change version
-alias sp80="brew unlink php && brew link --overwrite --force php@8.0"
-alias sp81="brew unlink php && brew link --overwrite --force php@8.1"
-
 # eval "$(pyenv init -)"
 prompt_context() {}
 prompt_dir() {
