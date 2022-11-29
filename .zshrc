@@ -99,11 +99,7 @@ alias wo="cd /Volumes/DATA/Work"
 alias artisan="php artisan $1"
 alias mfs="php artisan migrate:fresh --seed"
 
-# api-whatsapp
-alias wapi="cd /Users/k/Work/projectku/wapi"
-
 # Thesis Project alias
-alias thesis="cd /Users/k/Work/projectku/kanggara75/thesis"
 alias iphone="open -a simulator"
 
 # my Project Folder
