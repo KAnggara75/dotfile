@@ -1,11 +1,8 @@
-if [ "$TERM_PROGRAM" != tmux ];
-then
+if [ "$TERM_PROGRAM" != tmux ]; then
   read -q T\?"We are not in TMUX, Let's get in? "
-  if [ $T = "y" ]
-  then
+  if [ $T = "y" ]; then
     clear
-    if (tmux ls > /dev/null) | sort -Vk3 | tail -1 | grep -q "windows" ;
-    then
+    if (tmux ls >/dev/null) | sort -Vk3 | tail -1 | grep -q "windows"; then
       tmux a -t $(tmux ls | sort -Vk3 | tail -1 | awk '{print $1}')
     else
       tmux new -s KA
@@ -24,7 +21,7 @@ export ZSH="/Users/k/.oh-my-zsh"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-export TERM=screen-256color
+export TERM=xterm-256color
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
@@ -76,7 +73,7 @@ alias fcl="flutter clean"
 alias fcrun="fcl && fpg && frn"
 alias fcr="flutter create $1"
 
-# node js 
+# node js
 alias npm="pnpm $1"
 
 #mySQL Alias
@@ -113,7 +110,6 @@ alias 75="cd /Users/k/Work/projectku/kanggara75"
 alias mku="cd /Users/k/Work/kuroject_mac"
 alias wo="cd /Volumes/DATA/Work"
 
-
 # Laravel alias
 alias artisan="php artisan $1"
 alias mfs="php artisan migrate:fresh --seed"
@@ -143,13 +139,12 @@ alias sp80="brew unlink php && brew link --overwrite --force php@8.0"
 alias sp81="brew unlink php && brew link --overwrite --force php@8.1"
 
 # eval "$(pyenv init -)"
-prompt_context () {}
+prompt_context() {}
 prompt_dir() {
-    prompt_segment blue $CURRENT_FG $(shrink_path -f)
+  prompt_segment blue $CURRENT_FG $(shrink_path -f)
 }
 
 export PNPM_HOME="/Users/k/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
