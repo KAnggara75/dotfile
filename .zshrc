@@ -1,17 +1,3 @@
-if [ "$TERM_PROGRAM" != tmux ]; then
-  read -q T\?"We are not in TMUX, Let's get in? "
-  if [ $T = "y" ]; then
-    clear
-    if (tmux ls >/dev/null) | sort -Vk3 | tail -1 | grep -q "windows"; then
-      tmux a -t $(tmux ls | sort -Vk3 | tail -1 | awk '{print $1}')
-    else
-      tmux new -s KA
-    fi
-  else
-    clear
-  fi
-fi
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -44,7 +30,9 @@ export PATH="/usr/local/opt/php@8.0/bin:$PATH"
 export PATH="/usr/local/opt/php@8.0/sbin:$PATH"
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 export PATH="$PATH:/Users/k/dev/flutter/bin"
-export PATH="/usr/local/opt/node@16/bin:$PATH"
+export PATH="/usr/local/opt/node@18/bin:$PATH"
+export PNPM_HOME="/Users/k/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
 
 # exa alias
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
@@ -144,7 +132,18 @@ prompt_dir() {
   prompt_segment blue $CURRENT_FG $(shrink_path -f)
 }
 
-export PNPM_HOME="/Users/k/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+if [ "$TERM_PROGRAM" != tmux ]; then
+  read -q T\?"We are not in TMUX, Let's get in? "
+  clear
+  if [ $T = "y" ]; then
+    if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
+      tmux a -t $(tmux ls | tail -1 | cut -d : -f1) 2>/dev/null
+    else
+      tmux new -A KA 2>/dev/nullno
+    fi
+  else
+    clear
+  fi
+fi
