@@ -80,9 +80,6 @@ alias zshconfig="code ~/.zshrc"
 alias reload="source ~/.zshrc"
 
 # TMUX ALIAS
-alias :new="tmux new -s $1"
-alias :mm='f(){ if [ -z "$1" ]; then tmux a; else tmux new-session -s "$1"; fi; }; f'
-alias att='f(){ if  (tmux a -t "$1" | grep -q TMUX) 2>/dev/null; then tmux a -t "$1"; else tmux switch -t "$1"; fi; }; f'
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
 
 # Custom Alias
