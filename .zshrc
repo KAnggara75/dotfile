@@ -18,24 +18,28 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
 
-# Adb and android tools
-export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export GPG_TTY=$(tty)
-export PATH=$HOME/bin:$PATH
-export PATH=$JAVA_HOME/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/Users/k/.composer/vendor/bin:$PATH
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
-export PATH="/usr/local/opt/php@8.0/bin:$PATH"
-export PATH="/usr/local/opt/php@8.0/sbin:$PATH"
-export PATH="$PATH":"$HOME/.pub-cache/bin"
-export PATH="$PATH:/Users/k/dev/flutter/bin"
-export PATH="/usr/local/opt/node@18/bin:$PATH"
-export PNPM_HOME="/Users/k/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+
+# Adb and android tools
+export JAVA_HOME="$HOME/dev/jdk-19.0.1.jdk/Contents/Home"
+export MAVEN_HOME="$HOME/dev/apache-maven-3.8.6/bin"
+export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export NODE_HOME="/usr/local/opt/node@18/bin"
+export FLUTTER_HOME="$HOME/dev/flutter/bin"
+export PNPM_HOME="$HOME/Library/pnpm"
+
+export PATH=$MAVEN_HOME:$PATH
+export PATH=$NODE_HOME:$PATH
+export PATH=$JAVA_HOME:$PATH
+export PATH=$PNPM_HOME:$PATH
+export PATH=$FLUTTER_HOME:$PATH
+export PATH=$COMPOSER_HOME:$PATH
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # exa alias
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
+
 alias ls='exa --group-directories-first'
 alias la='ls -lah'
 alias ll='ls --git -l'
@@ -118,7 +122,9 @@ alias 75="cd /Volumes/DATA/Work/KAnggara75"
 alias api="cd /Volumes/DATA/Work/KAnggara/SiListrik/api"
 alias uno="cd /Volumes/DATA/Work/KAnggara/SiListrik/uno"
 alias sil="cd /Volumes/DATA/Work/KAnggara/SiListrik/docs"
+alias alif="cd /Users/k/work/KAnggara/alif"
 alias hackintosh="cd /Users/k/Work/projectku/KAnggara75/hackintosh"
+alias eday="cp /Users/k/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
 
 # eval "$(pyenv init -)"
 prompt_context() {}
