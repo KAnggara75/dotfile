@@ -2,7 +2,7 @@
 # KAnggara MySQL, php, composer, valet, PhpMyAdmin Automatic Installer
 # url: https://github.com/KAnggara75/dotfile
 
-PMA=https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip
+PMA=https://files.phpmyadmin.net/phpMyAdmin/5.2.1/phpMyAdmin-5.2.1-all-languages.zip
 
 set -u
 abort() {
