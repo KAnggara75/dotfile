@@ -1,49 +1,54 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/k/.oh-my-zsh"
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-
-export TERM=xterm-256color
-
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-
-plugins=(git zsh-autosuggestions shrink-path)
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
 
+plugins=(git zsh-autosuggestions shrink-path)
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/k/.oh-my-zsh"
 export GPG_TTY=$(tty)
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM=xterm-256color
 
 # Adb and android tools
-export JAVA_HOME="$HOME/dev/jdk-19.0.1.jdk/Contents/Home"
 export MAVEN_HOME="$HOME/dev/apache-maven-3.8.6/bin"
-export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+# export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+# export COMPOSER_HOME="$HOME/.composer/vendor/bin/vendor/bin"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
+export JAVA_HOME="$HOME/dev/jdk/Contents/Home"
 export NODE_HOME="/usr/local/opt/node@18/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export PNPM_HOME="$HOME/Library/pnpm"
+
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
 
 export PATH=$MAVEN_HOME:$PATH
 export PATH=$NODE_HOME:$PATH
 export PATH=$JAVA_HOME:$PATH
 export PATH=$PNPM_HOME:$PATH
 export PATH=$FLUTTER_HOME:$PATH
-export PATH=$COMPOSER_HOME:$PATH
+# export PATH=$COMPOSER_HOME:$PATH
 export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+
+# Node Compiler Cofig
+export LDFLAGS="-L/usr/local/opt/node@18/lib"
+export CPPFLAGS="-I/usr/local/opt/node@18/include"
 
 # exa alias
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
 alias ls='exa --group-directories-first'
-alias la='ls -lah'
-alias ll='ls --git -l'
-alias lt='ls --tree -D -L 3 -I ${TREE_IGNORE}'
+alias la='exa --group-directories-first -lah'
+alias ll='exa --group-directories-first --git -l'
+alias lt='exa --group-directories-first --tree -D -L 3 -I ${TREE_IGNORE}'
 
 # ADB alias
 alias adbwifi='adb tcpip 5555'
@@ -119,12 +124,16 @@ alias ka="cd /Volumes/DATA/Work/KAnggara"
 alias 75="cd /Volumes/DATA/Work/KAnggara75"
 
 # my Project Folder
-alias api="cd /Volumes/DATA/Work/KAnggara/SiListrik/api"
-alias uno="cd /Volumes/DATA/Work/KAnggara/SiListrik/uno"
-alias sil="cd /Volumes/DATA/Work/KAnggara/SiListrik/docs"
 alias alif="cd /Users/k/work/KAnggara/alif"
 alias hackintosh="cd /Users/k/Work/projectku/KAnggara75/hackintosh"
 alias eday="cp /Users/k/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
+
+alias tms="cd /Users/k/work/ATMC/tms_package/ && ./tms_package.sh"
+alias efts="cd /Volumes/DATA/efts/atm"
+
+# fix ssh agent
+# eval "$(ssh-agent -s)" 2>/dev/null
+# ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
 
 # eval "$(pyenv init -)"
 prompt_context() {}
@@ -132,11 +141,7 @@ prompt_dir() {
   prompt_segment blue $CURRENT_FG $(shrink_path -f)
 }
 
-# fix ssh agent
-# eval "$(ssh-agent -s)" 2>/dev/null
-# ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
 if [ "$TERM_PROGRAM" != tmux ]; then
   read -q T\?"We are not in TMUX, Let's get in? "
@@ -151,3 +156,4 @@ if [ "$TERM_PROGRAM" != tmux ]; then
     clear
   fi
 fi
+
