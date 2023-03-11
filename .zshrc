@@ -1,21 +1,15 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/k/.oh-my-zsh"
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export TERM=xterm-256color
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-
+plugins=(git zsh-autosuggestions shrink-path)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
-
-plugins=(git zsh-autosuggestions shrink-path)
-
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/k/.oh-my-zsh"
-export GPG_TTY=$(tty)
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
 
 # Adb and android tools
 export MAVEN_HOME="$HOME/dev/apache-maven-3.8.6/bin"
@@ -136,6 +130,7 @@ alias efts="cd /Volumes/DATA/efts/atm"
 # ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
 
 # eval "$(pyenv init -)"
+
 prompt_context() {}
 prompt_dir() {
   prompt_segment blue $CURRENT_FG $(shrink_path -f)
