@@ -143,7 +143,7 @@ tmux_config() {
       echo "Installinng config."
       rm -rf $KA_DIR
       rm -rf dotfile
-      git clone --depth=1 https://github.com/KAnggara75/dotfile.git
+      git clone --depth=1 git@github.com:KAnggara75/dotfile.git
       mkdir -p ~/.tmux/themes
       ln -sf $(pwd)/dotfile/ka-tmux/ ~/.tmux/themes/ka-tmux
       mv ~/.tmux.conf ~/.tmux.conf.old
