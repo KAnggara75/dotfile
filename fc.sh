@@ -27,6 +27,7 @@ get_url() {
 
 main() {
   export LC_CTYPE="en_US.UTF-8"
+  brew install fontconfig;
   if (fc-list) | grep -q "FiraCode"; then
     echo "FiraCode already installed."
   else
