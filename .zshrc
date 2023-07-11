@@ -36,6 +36,9 @@ export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 export LDFLAGS="-L/usr/local/opt/node@18/lib"
 export CPPFLAGS="-I/usr/local/opt/node@18/include"
 
+# For tkinter
+export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+
 # exa alias
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
@@ -65,8 +68,8 @@ alias fcr="flutter create $1"
 alias fcrun="fcl && fpg && frn"
 
 # node js
-alias npm="pnpm $1"
-alias npx="pnpm dlx"
+# alias npm="pnpm $1"
+# alias npx="pnpm dlx"
 alias pnpx="pnpm dlx"
 
 #mySQL Alias
@@ -75,7 +78,7 @@ alias startsql="brew services start mysql"
 
 # Python Virtual Env
 alias pip="pip3"
-alias python="python3"
+# alias python="python3"
 alias act="source .env/bin/activate"
 alias venv="python3 -m venv .env && source .env/bin/activate"
 
@@ -84,7 +87,8 @@ alias reload="source ~/.zshrc"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
-alias sadd="/usr/bin/ssh-add -K ~/.ssh/KAnggara75-GitHub"
+# alias sadd="/usr/bin/ssh-add -K ~/.ssh/KAnggara75-GitHub"
+alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75-GitHub"
 
 # TMUX ALIAS
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
@@ -124,6 +128,7 @@ alias eday="cp /Users/k/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/
 
 alias tms="cd /Users/k/work/ATMC/tms_package/ && ./tms_package.sh"
 alias efts="cd /Volumes/DATA/efts/atm"
+alias wa="cd /Users/k/work/wa"
 
 # fix ssh agent
 # eval "$(ssh-agent -s)" 2>/dev/null
@@ -151,4 +156,3 @@ if [ "$TERM_PROGRAM" != tmux ]; then
     clear
   fi
 fi
-
