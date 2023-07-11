@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/k/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export TERM=xterm-256color
@@ -114,19 +114,19 @@ alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
 # =================================================================================================
 # Change Directory
-alias wp="cd /Users/k/work"
+alias wp="cd $HOME/work"
 alias da="cd /Volumes/DATA/"
-alias dot="cd /Users/k/dotfile"
+alias dot="cd $HOME/dotfile"
 alias wo="cd /Volumes/DATA/Work"
 alias ka="cd /Volumes/DATA/Work/KAnggara"
 alias 75="cd /Volumes/DATA/Work/KAnggara75"
 
 # my Project Folder
-alias alif="cd /Users/k/work/KAnggara/alif"
-alias hackintosh="cd /Users/k/Work/projectku/KAnggara75/hackintosh"
-alias eday="cp /Users/k/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
+alias alif="cd $HOME/work/KAnggara/alif"
+alias hackintosh="cd $HOME/Work/projectku/KAnggara75/hackintosh"
+alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
 
-alias tms="cd /Users/k/work/ATMC/tms_package/ && ./tms_package.sh"
+alias tms="cd $HOME/work/ATMC/tms_package/ && ./tms_package.sh"
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd /Users/k/work/wa"
 
