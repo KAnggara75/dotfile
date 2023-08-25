@@ -70,7 +70,7 @@ alias fcrun="fcl && fpg && frn"
 # node js
 # alias npm="pnpm $1"
 # alias npx="pnpm dlx"
-alias pnpx="pnpm dlx"
+alias pnpx="pnpm exec"
 
 #mySQL Alias
 alias stopsql="brew services stop mysql"
