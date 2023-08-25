@@ -97,8 +97,11 @@ alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux spli
 alias c="clear"
 alias q="exit"
 alias nv="nvim $1"
+alias cod="code ."
 alias new="touch $1"
+alias gcq="git checkout qa"
 alias iphone="open -a simulator"
+alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/4c3902ea56a418dad5e9a6079fa3734fccdbebca/GitVersion.sh)"'
 
 # Laravel alias
 alias artisan="php artisan $1"
@@ -120,6 +123,8 @@ alias dot="cd $HOME/dotfile"
 alias wo="cd /Volumes/DATA/Work"
 alias ka="cd /Volumes/DATA/Work/KAnggara"
 alias 75="cd /Volumes/DATA/Work/KAnggara75"
+alias hk="cd ~/work/KAnggara75/HK"
+alias pwa="cd ~/work/PakaiWA"
 
 # my Project Folder
 alias alif="cd $HOME/work/KAnggara/alif"
@@ -128,13 +133,11 @@ alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Wor
 
 alias tms="cd $HOME/work/ATMC/tms_package/ && ./tms_package.sh"
 alias efts="cd /Volumes/DATA/efts/atm"
-alias wa="cd /Users/k/work/wa"
+alias wa="cd ~/work/wa"
 
 # fix ssh agent
 # eval "$(ssh-agent -s)" 2>/dev/null
 # ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
-
-# eval "$(pyenv init -)"
 
 prompt_context() {}
 prompt_dir() {
