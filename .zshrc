@@ -13,7 +13,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Adb and android tools
 export MAVEN_HOME="$HOME/dev/apache-maven-3.8.6/bin"
-# export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+export COMPOSER_HOME="$HOME/.composer/vendor/bin"
 # export COMPOSER_HOME="$HOME/.composer/vendor/bin/vendor/bin"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export JAVA_HOME="$HOME/dev/jdk/Contents/Home"
@@ -29,7 +29,7 @@ export PATH=$NODE_HOME:$PATH
 export PATH=$JAVA_HOME:$PATH
 export PATH=$PNPM_HOME:$PATH
 export PATH=$FLUTTER_HOME:$PATH
-# export PATH=$COMPOSER_HOME:$PATH
+export PATH=$COMPOSER_HOME:$PATH
 export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
