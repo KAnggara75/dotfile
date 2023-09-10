@@ -125,6 +125,7 @@ alias ka="cd /Volumes/DATA/Work/KAnggara"
 alias 75="cd /Volumes/DATA/Work/KAnggara75"
 alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
+alias ids="cd ~/work/IDScript"
 
 # my Project Folder
 alias alif="cd $HOME/work/KAnggara/alif"
