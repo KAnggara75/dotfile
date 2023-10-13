@@ -1,6 +1,6 @@
 {
   "Working Directory" : "\/Users\/k",
-  "Prompt Before Closing 2" : false,
+  "Prompt Before Closing 2" : 2,
   "Selected Text Color" : {
     "Green Component" : 1,
     "Red Component" : 1,
@@ -22,8 +22,8 @@
   "Character Encoding" : 4,
   "Selection Color" : {
     "Green Component" : 0.22352941176470587,
-    "Red Component" : 0.031372549019607836,
-    "Blue Component" : 0.019607843137254909
+    "Red Component" : 0.031372549019607843,
+    "Blue Component" : 0.019607843137254902
   },
   "Blend" : 0.50219748676687059,
   "Mouse Reporting" : true,
@@ -46,13 +46,15 @@
   "Non-ASCII Ligatures" : false,
   "Scrollback Lines" : 0,
   "Scrollback in Alternate Screen" : true,
+  "Scrollback With Status Bar" : false,
+  "Draw Powerline Glyphs" : true,
   "Flashing Bell" : false,
   "Cursor Guide Color" : {
-    "Red Component" : 0.70213186740875244,
+    "Red Component" : 0.70214027166366577,
     "Color Space" : "sRGB",
     "Blue Component" : 1,
     "Alpha Component" : 0.25,
-    "Green Component" : 0.9268307089805603
+    "Green Component" : 0.92681378126144409
   },
   "BM Growl" : true,
   "Ansi 3 Color" : {
@@ -64,9 +66,9 @@
   "Link Color" : {
     "Red Component" : 0,
     "Color Space" : "sRGB",
-    "Blue Component" : 0.73423302173614502,
+    "Blue Component" : 0.73422712087631226,
     "Alpha Component" : 1,
-    "Green Component" : 0.35916060209274292
+    "Green Component" : 0.35915297269821167
   },
   "Shortcut" : "",
   "Background Image Location" : "",
@@ -285,7 +287,7 @@
     "Blue Component" : 0
   },
   "Name" : "KAnggara",
-  "Blinking Cursor" : true,
+  "Blinking Cursor" : false,
   "Guid" : "5C95E25F-970B-41A8-9CE2-0051910BA4C1",
   "Idle Code" : 0,
   "Ansi 10 Color" : {
@@ -303,7 +305,7 @@
     "Color Space" : "sRGB",
     "Blue Component" : 0,
     "Alpha Component" : 0.5,
-    "Green Component" : 0.1491314172744751
+    "Green Component" : 0.14910027384757996
   },
   "Ambiguous Double Width" : false,
   "Blur Radius" : 20,
@@ -314,8 +316,8 @@
     "Blue Component" : 0
   },
   "Blur" : true,
+  "Normal Font" : "FiraCode-Regular 12",
   "Vertical Spacing" : 1,
-  "Normal Font" : "FiraCode-Regular 13",
   "Ansi 7 Color" : {
     "Green Component" : 0.74901960784313726,
     "Red Component" : 0.74901960784313726,
@@ -355,14 +357,14 @@
     "Red Component" : 0.89803921568627454,
     "Blue Component" : 0.89803921568627454
   },
-  "Columns" : 81,
+  "Columns" : 83,
   "Unicode Normalization" : 3,
   "Visual Bell" : true,
-  "Custom Directory" : "No",
+  "ASCII Ligatures" : true,
   "Ansi 5 Color" : {
     "Green Component" : 0,
     "Red Component" : 0.69803921568627447,
     "Blue Component" : 0.69803921568627447
   },
-  "ASCII Ligatures" : true
+  "Custom Directory" : "No"
 }
