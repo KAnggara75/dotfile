@@ -1,7 +1,7 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 export TERM=xterm-256color
 
 ZSH_THEME="agnoster"
@@ -12,25 +12,28 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 source $ZSH/oh-my-zsh.sh
 
 # Adb and android tools
-export MAVEN_HOME="$HOME/dev/apache-maven-3.8.6/bin"
-export COMPOSER_HOME="$HOME/.composer/vendor/bin"
-# export COMPOSER_HOME="$HOME/.composer/vendor/bin/vendor/bin"
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export JAVA_HOME="$HOME/dev/openjdk-20.0.1/Contents/Home"
-export NODE_HOME="/usr/local/opt/node@18/bin"
-export FLUTTER_HOME="$HOME/dev/flutter/bin"
+export SBIN_PATH="/usr/local/sbin"
+export RUBY_PATH="/usr/local/opt/ruby/bin"
+export NODE_PATH="/usr/local/opt/node@18/bin"
+# User PATH
 export PNPM_HOME="$HOME/Library/pnpm"
-
-export PATH="/usr/local/sbin:$PATH"
-export PATH="/usr/local/opt/ruby/bin:$PATH"
-
-export PATH=$MAVEN_HOME:$PATH
-export PATH=$NODE_HOME:$PATH
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+# Personal dev PATH
+export MAVEN_HOME="$HOME/dev/mvn/bin"
+export FLUTTER_HOME="$HOME/dev/flutter/bin"
+export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+# Update PATH
+export PATH=$SBIN_PATH:$PATH
+export PATH=$RUBY_PATH:$PATH
+export PATH=$NODE_PATH:$PATH
 export PATH=$JAVA_HOME:$PATH
 export PATH=$PNPM_HOME:$PATH
+export PATH=$MAVEN_HOME:$PATH
 export PATH=$FLUTTER_HOME:$PATH
 export PATH=$COMPOSER_HOME:$PATH
-export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/tools:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
 export LDFLAGS="-L/usr/local/opt/node@18/lib"
@@ -53,10 +56,11 @@ alias adbwifi='adb tcpip 5555'
 # Git Custom alisa
 alias add="git add $1"
 alias diff="git diff $1"
+alias gcq="git checkout qa"
 alias gcmm="git commit -m "$1""
-alias gchr="git checkout release"
+alias gcr="git checkout release"
 alias gcms="git commit -S -m "$1""
-alias gcr="gh repo create $1 --public"
+alias gcma="git commit --amend -S -m "$1""
 alias gv="gitversion | grep NuGetVersionV2"
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 
@@ -83,7 +87,7 @@ alias act="source .env/bin/activate"
 alias venv="python3 -m venv .env && source .env/bin/activate"
 
 # ZSH Alias
-alias reload="source ~/.zshrc"
+alias reload="source ~/.zshrc && clear"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
@@ -95,11 +99,12 @@ alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux spli
 
 # Custom Alias
 alias c="clear"
+alias st.="stree ."
 alias q="exit"
 alias nv="nvim $1"
 alias cod="code ."
 alias new="touch $1"
-alias gcq="git checkout qa"
+alias rmnm="rm -rf node_modules"
 alias iphone="open -a simulator"
 alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/4c3902ea56a418dad5e9a6079fa3734fccdbebca/GitVersion.sh)"'
 
