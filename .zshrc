@@ -133,6 +133,14 @@ alias tms="cd $HOME/work/ATMC/tms_package/ && ./tms_package.sh"
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
 
+# SNV Alias
+export SVN_EDITOR=code
+alias sup="svn up"
+alias sst="svn st"
+alias slog="svn log -l 10"
+alias msit="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/trunk/ -c $1"
+alias muat="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/branches/SIT/ -c $1"
+
 # fix ssh agent
 # eval "$(ssh-agent -s)" 2>/dev/null
 # ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
