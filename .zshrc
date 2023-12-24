@@ -98,7 +98,7 @@ alias cod="code ."
 alias new="touch $1"
 alias rmnm="rm -rf node_modules"
 alias iphone="open -a simulator"
-alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/4c3902ea56a418dad5e9a6079fa3734fccdbebca/GitVersion.sh)"'
+alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/e8260cbf0b5d5ea859703da35edcfe3b0f314580/GitVersion.sh)"'
 
 # Laravel alias
 alias artisan="php artisan $1"
