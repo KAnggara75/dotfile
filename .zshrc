@@ -20,20 +20,12 @@ export PNPM_HOME="$HOME/Library/pnpm"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
 # Personal dev PATH
+export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 # Update PATH
-export PATH=$SBIN_PATH:$PATH
-export PATH=$RUBY_PATH:$PATH
-export PATH=$NODE_PATH:$PATH
-export PATH=$JAVA_HOME:$PATH
-export PATH=$PNPM_HOME:$PATH
-export PATH=$MAVEN_HOME:$PATH
-export PATH=$FLUTTER_HOME:$PATH
-export PATH=$COMPOSER_HOME:$PATH
-export PATH=$ANDROID_HOME/tools:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
 export LDFLAGS="-L/usr/local/opt/node@18/lib"
