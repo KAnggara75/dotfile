@@ -141,6 +141,9 @@ alias slog="svn log -l 10"
 alias msit="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/trunk/ -c $1"
 alias muat="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/branches/SIT/ -c $1"
 
+# Spring boot alias
+# alias spring-run="export $(cat .env | xargs) && mvn spring-boot:run"
+
 # fix ssh agent
 # eval "$(ssh-agent -s)" 2>/dev/null
 # ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
