@@ -588,7 +588,7 @@
 				<integer>0</integer>
 			</dict>
 			<key>Mouse Reporting</key>
-			<false/>
+			<true/>
 			<key>Name</key>
 			<string>KAnggara</string>
 			<key>Non Ascii Font</key>
