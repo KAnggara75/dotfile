@@ -14,10 +14,10 @@ source $ZSH/oh-my-zsh.sh
 # Adb and android tools
 export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/usr/local/opt/ruby/bin"
-export NODE_PATH="/usr/local/opt/node@18/bin"
+export NODE_PATH="/usr/local/opt/node@20/bin"
 # User PATH
 export PNPM_HOME="$HOME/Library/pnpm"
-export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
 # Personal dev PATH
 export DART_PUB="$HOME/.pub-cache/bin"
@@ -25,11 +25,11 @@ export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 # Update PATH
-export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
+export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
-export LDFLAGS="-L/usr/local/opt/node@18/lib"
-export CPPFLAGS="-I/usr/local/opt/node@18/include"
+export LDFLAGS="-L/usr/local/opt/node@20/lib"
+export CPPFLAGS="-I/usr/local/opt/node@20/include"
 
 # For tkinter
 export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -150,7 +150,7 @@ alias muat="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengada
 
 prompt_context() {}
 prompt_dir() {
-  prompt_segment blue $CURRENT_FG $(shrink_path -f)
+  prompt_segment red white $(shrink_path -f)
 }
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
