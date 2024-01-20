@@ -19,13 +19,14 @@ export NODE_PATH="/usr/local/opt/node@20/bin"
 export PNPM_HOME="$HOME/Library/pnpm"
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
+export COMPOSER_BIN="$COMPOSER_HOME/vendor/bin"
 # Personal dev PATH
 export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 # Update PATH
-export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
 export LDFLAGS="-L/usr/local/opt/node@20/lib"
@@ -91,7 +92,7 @@ alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux spli
 
 # Custom Alias
 alias c="clear"
-alias st.="stree ."
+alias st="stree ."
 alias q="exit"
 alias nv="nvim $1"
 alias cod="code ."
@@ -156,15 +157,15 @@ prompt_dir() {
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
 
 if [ "$TERM_PROGRAM" != tmux ]; then
-  read -q T\?"We are not in TMUX, Let's get in? "
-  clear
-  if [ $T = "y" ]; then
+#   read -q T\?"We are not in TMUX, Let's get in? "
+#   clear
+  # if [ $T = "y" ]; then
     if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
       tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
     else
       tmux new -s KA
     fi
-  else
-    clear
-  fi
+  # else
+    # clear
+  # fi
 fi
