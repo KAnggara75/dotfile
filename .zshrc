@@ -37,13 +37,11 @@ export CPPFLAGS="-I/usr/local/opt/node@20/include"
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 
-# exa alias
-TREE_IGNORE="cache|log|logs|node_modules|vendor"
-
-alias ls='exa --group-directories-first'
-alias la='exa --group-directories-first -lah'
-alias ll='exa --group-directories-first --git -l'
-alias lt='exa --group-directories-first --tree -D -L 3 -I ${TREE_IGNORE}'
+# lsd alias
+alias ls='lsd --group-directories-first'
+alias la='ls -lah'
+alias ll='ls --git -l'
+alias lt='ls --tree'
 
 # ADB alias
 alias adbwifi='adb tcpip 5555'
