@@ -28,7 +28,7 @@ export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 
 # Update PATH
-export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
 # Node Compiler Cofig
 export LDFLAGS="-L/usr/local/opt/node@20/lib"
