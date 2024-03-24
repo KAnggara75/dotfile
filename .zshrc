@@ -14,6 +14,7 @@ source $ZSH/oh-my-zsh.sh
 # Adb and android tools
 export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/usr/local/opt/ruby/bin"
+export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
 # User PATH
 export PNPM_HOME="$HOME/Library/pnpm"
@@ -25,6 +26,7 @@ export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+
 # Update PATH
 export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$NODE_PATH:$JAVA_HOME:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
 
@@ -33,7 +35,7 @@ export LDFLAGS="-L/usr/local/opt/node@20/lib"
 export CPPFLAGS="-I/usr/local/opt/node@20/include"
 
 # For tkinter
-export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+# export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 
 # exa alias
 TREE_IGNORE="cache|log|logs|node_modules|vendor"
@@ -76,8 +78,8 @@ alias startsql="brew services start mysql"
 # Python Virtual Env
 alias pip="pip3"
 # alias python="python3"
-alias act="source .env/bin/activate"
-alias venv="python3 -m venv .env && source .env/bin/activate"
+# alias act="source .env/bin/activate"
+# alias venv="python3 -m venv .env && source .env/bin/activate"
 
 # ZSH Alias
 alias reload="source ~/.zshrc && clear"
@@ -125,9 +127,11 @@ alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
 alias ids="cd ~/work/IDScript"
 
+# JDK Version
+alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
+alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+
 # my Project Folder
-alias alif="cd $HOME/work/KAnggara/alif"
-alias hackintosh="cd $HOME/Work/projectku/KAnggara75/hackintosh"
 alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
 
 alias tms="cd $HOME/work/ATMC/tms_package/ && ./tms_package.sh"
@@ -139,8 +143,8 @@ export SVN_EDITOR=code
 alias sup="svn up"
 alias sst="svn st"
 alias slog="svn log -l 10"
-alias msit="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/trunk/ -c $1"
-alias muat="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/branches/SIT/ -c $1"
+alias msit="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/trunk/efts/ -c $1"
+alias muat="svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/branches/SIT/efts/ -c $1"
 
 # Spring boot alias
 # alias spring-run="export $(cat .env | xargs) && mvn spring-boot:run"
