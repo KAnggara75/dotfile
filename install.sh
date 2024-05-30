@@ -21,7 +21,7 @@ main() {
 				brew_check
 		fi
 		git_check
-		exa_check
+		lsd_check
 		zsh_check
 		ohzsh_check
 		tmux_check
@@ -78,18 +78,18 @@ git_check() {
 		fi
 }
 
-exa_check() {
-		if (exa -v) | sort -Vk3 | tail -1 | grep -q exa; then
-				echo "exa	already installed."
+lsd_check() {
+		if (lsd -V) | sort -Vk3 | tail -1 | grep -q lsd; then
+				echo "lsd	already installed."
 		else
 				clear
-				echo "Exa is not installed."
-				echo "Installing Exa."
+				echo "lsd is not installed."
+				echo "Installing lsd."
 				if [ "${platform}" = "macos" ]; then
-						brew install exa
+						brew install lsd
 				fi
 				if [ "${platform}" = "linux" ]; then
-						sudo apt install exa -y
+						sudo apt install lsd -y
 				fi
 		fi
 }
