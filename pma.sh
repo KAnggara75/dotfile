@@ -50,6 +50,7 @@ brew_check() {
 php_install() {
   if (php -v) | sort -Vk3 | tail -1 | grep -q PHP; then
     clear
+    php -v
   else
     echo "Installing PHP."
     brew install php
