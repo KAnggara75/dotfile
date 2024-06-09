@@ -48,8 +48,12 @@ brew_check() {
 }
 
 php_install() {
-  echo "Installing PHP."
-  brew install php
+  if (php -v) | sort -Vk3 | tail -1 | grep -q PHP; then
+    clear
+  else
+    echo "Installing PHP."
+    brew install php
+  fi
   composer_install
 }
 
