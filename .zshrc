@@ -11,7 +11,6 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
 
-# Adb and android tools
 export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/usr/local/opt/ruby/bin"
 export SVN_PATH="/Users/k/dev/svn/bin"
@@ -37,11 +36,15 @@ export CPPFLAGS="-I/usr/local/opt/node@20/include"
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
 
+# KAnggara auto Setup
+alias gitsetup='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/KAnggara75/dotfile/main/gitsetup.sh)"'
+alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/c9cface5d79fd565c6aa8d147146aa57ff78454c/GitVersion.sh)"'
+
 # lsd alias
 alias ls='lsd --group-directories-first'
 alias la='ls -lah'
 alias ll='ls --git -l'
-alias lt='ls --tree'
+alias lt='ls -a --tree -I .git -I node_modules'
 
 # ADB alias
 alias adbwifi='adb tcpip 5555'
@@ -60,6 +63,7 @@ alias ghpage="git add . && git status && git commit -m 'Some descriptive commit 
 # Flutter alias
 alias frn="flutter run"
 alias fcl="flutter clean"
+alias fpa="flutter pub add $1"
 alias fpg="flutter pub get"
 alias fcr="flutter create $1"
 alias fcrun="fcl && fpg && frn"
@@ -68,6 +72,7 @@ alias fcrun="fcl && fpg && frn"
 # alias npm="pnpm $1"
 # alias npx="pnpm dlx"
 alias pnpx="pnpm exec"
+alias pmg="pnpm prisma generate"
 
 #mySQL Alias
 alias stopsql="brew services stop mysql"
@@ -99,7 +104,6 @@ alias cod="code ."
 alias new="touch $1"
 alias rmnm="rm -rf node_modules"
 alias iphone="open -a simulator"
-alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/e8260cbf0b5d5ea859703da35edcfe3b0f314580/GitVersion.sh)"'
 
 # Laravel alias
 alias artisan="php artisan $1"
@@ -131,18 +135,8 @@ alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
 
 # my Project Folder
 alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
-
-alias tms="cd $HOME/work/ATMC/tms_package/ && ./tms_package.sh"
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
-
-# SNV Alias
-export SVN_EDITOR=code
-alias sup="svn up"
-alias sst="svn st"
-alias slog="svn log -l 10"
-alias msit="svn up && svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/trunk/efts/ -c $1"
-alias muat="svn up && svn merge https://wakatobi.telkomsigma.co.id/svn/JALIN%20-%20Pengadaan%20Solusi%20e-Channel%20Platform_SourceCode/atm-link/branches/SIT/efts/ -c $1"
 
 # Spring boot alias
 # alias spring-run="export $(cat .env | xargs) && mvn spring-boot:run"
@@ -156,18 +150,13 @@ prompt_dir() {
   prompt_segment red white $(shrink_path -f)
 }
 
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-
-if [ "$TERM_PROGRAM" != tmux ]; then
-#   read -q T\?"We are not in TMUX, Let's get in? "
-#   clear
-  # if [ $T = "y" ]; then
+if [ $TERM_PROGRAM != tmux ] && [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+  if [ $TERM_PROGRAM != "WarpTerminal" ]; then
+    # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
     if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
       tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
     else
       tmux new -s KA
     fi
-  # else
-    # clear
-  # fi
+  fi
 fi
