@@ -147,16 +147,22 @@ alias wa="cd ~/work/wa"
 
 prompt_context() {}
 prompt_dir() {
-  prompt_segment red white $(shrink_path -f)
+  if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+    prompt_segment red white $(shrink_path -f)
+  else
+    prompt_segment blue white $(shrink_path -f)
+  fi
 }
 
-if [ $TERM_PROGRAM != tmux ] && [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-  if [ $TERM_PROGRAM != "WarpTerminal" ]; then
-    # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-    if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
-      tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
-    else
-      tmux new -s KA
+if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+  if [ $TERM_PROGRAM != tmux ]; then
+    if [ $TERM_PROGRAM != "WarpTerminal" ]; then
+      # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+      if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
+        tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
+      else
+        tmux new -s KA
+      fi
     fi
   fi
 fi
