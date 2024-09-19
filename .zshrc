@@ -15,8 +15,8 @@ export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/usr/local/opt/ruby/bin"
 export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
+export NVM_DIR="$HOME/.nvm"
 # User PATH
-export PNPM_HOME="$HOME/Library/pnpm"
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
 export COMPOSER_BIN="$COMPOSER_HOME/vendor/bin"
@@ -24,14 +24,15 @@ export COMPOSER_BIN="$COMPOSER_HOME/vendor/bin"
 export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
-export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
-
-# Update PATH
-export PATH=$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH
+export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
+export LIBPQ="/usr/local/opt/libpq/bin"
 
 # Node Compiler Cofig
 export LDFLAGS="-L/usr/local/opt/node@20/lib"
 export CPPFLAGS="-I/usr/local/opt/node@20/include"
+
+# Update PATH
+export PATH=$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -66,7 +67,7 @@ alias fcl="flutter clean"
 alias fpa="flutter pub add $1"
 alias fpg="flutter pub get"
 alias fcr="flutter create $1"
-alias fcrun="fcl && fpg && frn"
+alias fcrun="fcl && jdk17 && fpg && frn"
 
 # node js
 # alias npm="pnpm $1"
@@ -89,8 +90,6 @@ alias reload="source ~/.zshrc && clear"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
-# alias sadd="/usr/bin/ssh-add -K ~/.ssh/KAnggara75-GitHub"
-alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75-GitHub"
 
 # TMUX ALIAS
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
@@ -129,21 +128,25 @@ alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
 alias ids="cd ~/work/IDScript"
 
-# JDK Version
-alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
-alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
-
 # my Project Folder
 alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
 
-# Spring boot alias
-# alias spring-run="export $(cat .env | xargs) && mvn spring-boot:run"
+if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+  export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+  alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75-GitHub"
+  # JDK Version
+  alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
+  alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
+  eval "$(ssh-agent -s)" 2>/dev/null
+  alias sadd="/usr/bin/ssh-add -K ~/.ssh/KAnggara75-GitHub"
+fi
 
-# fix ssh agent
-# eval "$(ssh-agent -s)" 2>/dev/null
-# ssh-add -K ~/.ssh/KAnggara75-GitHub 2>/dev/null
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 prompt_context() {}
 prompt_dir() {
