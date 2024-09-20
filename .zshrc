@@ -142,7 +142,7 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
   eval "$(ssh-agent -s)" 2>/dev/null
-  alias sadd="/usr/bin/ssh-add -K ~/.ssh/KAnggara75-GitHub"
+  alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75-GitHub"
 fi
 
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
