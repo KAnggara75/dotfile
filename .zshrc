@@ -73,6 +73,7 @@ alias fcrun="fcl && jdk17 && fpg && frn"
 # alias npm="pnpm $1"
 # alias npx="pnpm dlx"
 alias pnpx="pnpm exec"
+alias psu="pnpm self-update"
 alias pmg="pnpm prisma generate"
 
 #mySQL Alias
