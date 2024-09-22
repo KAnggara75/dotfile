@@ -33,7 +33,7 @@ git_ssh() {
   done
 
   if [ "$n" -eq 0 ]; then
-    echo >&2 No images found.
+    echo >&2 No SSH File found.
     exit
   fi
 
