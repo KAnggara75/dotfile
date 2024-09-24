@@ -24,12 +24,14 @@ main() {
 	lsd_check
 	zsh_check
 	ohzsh_check
-	tmux_check
 	# nerd_check
 	if [ "${platform}" = "macos" ]; then
 		iterm_check
 	fi
-	tmux source-file ~/.tmux.conf
+	if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+    		tmux_check
+		tmux source-file ~/.tmux.conf
+    	fi
 	exec zsh -l
 }
 
