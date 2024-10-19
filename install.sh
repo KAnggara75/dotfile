@@ -19,6 +19,7 @@ main() {
 	if [ "${platform}" = "macos" ]; then
 		brew_check
 	fi
+
 	git_check
 	lsd_check
 	zsh_check
@@ -123,12 +124,15 @@ ohzsh_check() {
 }
 
 nerd_check() {
-	if (fc-list) | grep -q "Inconsolata"; then
-		echo "Installing Nerd Fonts"
+	if (fc-list) | grep -q "FiraCodeNerdFont"; then
+		echo "FiraCodeNerdFont already installed."
 	else
 		clear
-		echo "Installing Nerd Fonts"
-		cd ~/Library/Fonts && curl -fLo "Inconsolata Regular Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/Inconsolata/complete/Inconsolata%20Regular%20Nerd%20Font%20Complete.otf
+		echo "Installing FiraCodeNerdFont"
+		rm ~/Library/Fonts/FiraCodeNerdFont-Regular.ttf
+		rm ~/Library/Fonts/FiraCodeNerdFontPropo-Regular.ttf
+		cp fonts/FiraCodeNerdFont-Regular.ttf ~/Library/Fonts
+		cp fonts/FiraCodeNerdFontPropo-Regular.ttf ~/Library/Fonts
 		cd ~
 	fi
 }
