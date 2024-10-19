@@ -24,14 +24,15 @@ main() {
 	lsd_check
 	zsh_check
 	ohzsh_check
-	# nerd_check
+	nerd_check
 	if [ "${platform}" = "macos" ]; then
 		iterm_check
 	fi
+
 	if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-    		tmux_check
+		tmux_check
 		tmux source-file ~/.tmux.conf
-    	fi
+	fi
 	exec zsh -l
 }
 
@@ -141,30 +142,29 @@ tmux_check() {
 	if (tmux -V) | sort -Vk3 | tail -1 | grep -q tmux; then
 		echo "tmux already installed."
 	else
-		while true; do
-			clear
-			read -p "Do you wish to install tmux? (Y/n) " yn
-			case $yn in
-			[Yy]*)
-				echo "Tmux is not installed."
-				echo "Installing Tmux."
-				if [ "${platform}" = "macos" ]; then
-					brew install tmux
-				fi
-				if [ "${platform}" = "linux" ]; then
-					sudo apt install tmux -y
-				fi
-				clear
-				break
-				;;
-			[Nn]*)
-				break
-				;;
-			*) echo "Install" ;;
-			esac
-		done
+		tmux_install
 	fi
 	tmux_config
+}
+
+tmux_install() {
+	clear
+	read -p "Do you wish to install tmux? (Y/n) " yn
+	case $yn in
+	[Yy]*)
+		echo "Tmux is not installed."
+		echo "Installing Tmux."
+		if [ "${platform}" = "macos" ]; then
+			brew install tmux
+		fi
+		if [ "${platform}" = "linux" ]; then
+			sudo apt install tmux -y
+		fi
+		clear
+		;;
+	[Nn]*) ;;
+	*) echo "Install" ;;
+	esac
 }
 
 tmux_config() {
@@ -172,6 +172,8 @@ tmux_config() {
 	case $yn in
 	[Yy]*)
 		echo "Installing config."
+		cd ~
+		pwd
 		rm -rf $KA_DIR
 		rm -rf dotfile
 		git clone --depth=1 https://github.com/KAnggara75/dotfile.git
@@ -181,33 +183,32 @@ tmux_config() {
 		ln -sf $(pwd)/dotfile/.tmux.conf ~/.tmux.conf
 		ln -sf $(pwd)/dotfile/.zshrc ~/.zshrc
 		ln -sf $(pwd)/dotfile/.vimrc ~/.vimrc
-		while true; do
-			read -p "Install zsh-autosuggestions? (Y/n) " yn
-			case $yn in
-			[Yy]*)
-				git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-				break
-				;;
-			[Nn]*)
-				echo "Skip."
-				break
-				;;
-			*) echo "Install" ;;
-			esac
-		done
-		if [ "${platform}" = "linux" ]; then
-			sudo update-locale
-		fi
-		break
+		autosuggestions
 		;;
 	[Nn]*)
 		echo "Skip."
-		break
 		;;
 	*) echo "Install" ;;
+	esac
+}
 
+autosuggestions() {
+	read -p "Install zsh-autosuggestions? (Y/n) " yn
+
+	case $yn in
+	[Yy]*)
+		rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		;;
+	[Nn]*)
+		echo "Skip."
+		;;
+	*) echo "Install" ;;
 	esac
 
+	if [ "${platform}" = "linux" ]; then
+		sudo update-locale
+	fi
 }
 
 iterm_check() {
