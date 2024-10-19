@@ -7,7 +7,6 @@ KA_DIR=~/.tmux/themes/ka-tmux
 OH_ZSH_DIR=~/.oh-my-zsh/oh-my-zsh.sh
 platform=''
 
-set -u
 abort() {
 	echo $platform
 	echo "$@"
