@@ -16,6 +16,7 @@ export RUBY_PATH="/usr/local/opt/ruby/bin"
 export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
 export NVM_DIR="$HOME/.nvm"
+export MY_BIN="$HOME/dotfile/bin"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
@@ -32,7 +33,7 @@ export LDFLAGS="-L/usr/local/opt/node@20/lib"
 export CPPFLAGS="-I/usr/local/opt/node@20/include"
 
 # Update PATH
-export PATH=$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
+export PATH=$MY_BIN:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -137,6 +138,7 @@ alias wa="cd ~/work/wa"
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   export PNPM_HOME="$HOME/Library/pnpm"
   export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+  export PATH=$PNPM_HOME:$IDEA_HOME:$PATH
   alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75-GitHub"
   # JDK Version
   alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
