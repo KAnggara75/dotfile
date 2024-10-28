@@ -129,6 +129,7 @@ alias 75="cd /Volumes/DATA/Work/KAnggara75"
 alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
 alias ids="cd ~/work/IDScript"
+alias idea='open -na "IntelliJ IDEA CE.app" --args "$@"'
 
 # my Project Folder
 alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
