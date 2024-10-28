@@ -140,8 +140,9 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   export PNPM_HOME="$HOME/Library/pnpm"
   export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
   export PATH=$PNPM_HOME:$IDEA_HOME:$PATH
-  alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
+  PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
   alias saad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
+  alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
   # JDK Version
   alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
   alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
@@ -149,8 +150,9 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
   eval "$(ssh-agent -s)" 2>/dev/null
-  alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
   alias saad="/usr/bin/ssh-add ~/.ssh/KAnggara"
+  alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
+  alias nnginx="sudo certbot --nginx -d $1"
   [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
   [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 fi
