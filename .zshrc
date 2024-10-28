@@ -29,11 +29,11 @@ export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
 export LIBPQ="/usr/local/opt/libpq/bin"
 
 # Node Compiler Cofig
-export LDFLAGS="-L/usr/local/opt/node@20/lib"
-export CPPFLAGS="-I/usr/local/opt/node@20/include"
+export LDFLAGS="-L/$NVM_DIR/versions/node/v22.10.0/lib"
+export CPPFLAGS="-I/$NVM_DIR/versions/node/v22.10.0/include"
 
 # Update PATH
-export PATH=$MY_BIN:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$PNPM_HOME:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
+export PATH=$MY_BIN:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
@@ -145,14 +145,15 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   # JDK Version
   alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
   alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
   eval "$(ssh-agent -s)" 2>/dev/null
   alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
   alias saad="/usr/bin/ssh-add ~/.ssh/KAnggara"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 fi
-
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 prompt_context() {}
 prompt_dir() {

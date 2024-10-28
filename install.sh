@@ -24,8 +24,8 @@ main() {
 	lsd_check
 	zsh_check
 	ohzsh_check
-	nerd_check
 	if [ "${platform}" = "macos" ]; then
+	 	nerd_check
 		iterm_check
 	fi
 
