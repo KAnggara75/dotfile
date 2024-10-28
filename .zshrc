@@ -6,7 +6,7 @@ export TERM=xterm-256color
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-plugins=(git zsh-autosuggestions shrink-path)
+plugins=(git zsh-autosuggestions shrink-path mvn)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
