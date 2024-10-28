@@ -25,7 +25,7 @@ main() {
 	zsh_check
 	ohzsh_check
 	if [ "${platform}" = "macos" ]; then
-	 	nerd_check
+		nerd_check
 		iterm_check
 	fi
 
