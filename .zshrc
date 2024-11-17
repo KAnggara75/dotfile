@@ -25,6 +25,7 @@ export COMPOSER_BIN="$COMPOSER_HOME/vendor/bin"
 export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
+export MONGO_HOME="$HOME/dev/mongo/bin"
 export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
 
 # Node Compiler Cofig
@@ -118,6 +119,7 @@ alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 # =================================================================================================
 # Change Directory
 alias wp="cd $HOME/work"
+alias xl="cd $HOME/Axiata"
 alias da="cd /Volumes/DATA/"
 alias dot="cd $HOME/dotfile"
 alias wo="cd /Volumes/DATA/Work"
@@ -134,16 +136,21 @@ alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
 
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
+  # provide mac only path here
   export PNPM_HOME="$HOME/Library/pnpm"
   export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
-  export PATH=$PNPM_HOME:$IDEA_HOME:$PATH
+  export SOLACE_JMS="$HOME/dev/solace-jms/bin"
   export LIBPQ="/opt/homebrew/opt/libpq/bin"
+  export PATH=$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
   PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
   alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
   alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
   # JDK Version
+  alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
   alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
   alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+  
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
