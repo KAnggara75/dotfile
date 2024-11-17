@@ -16,7 +16,7 @@ export RUBY_PATH="/usr/local/opt/ruby/bin"
 export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
 export NVM_DIR="$HOME/.nvm"
-export MY_BIN="$HOME/dotfile/bin"
+export MY_BIN="$HOME/dev/bin"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor/bin"
