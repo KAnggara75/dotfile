@@ -113,8 +113,6 @@ alias mfs="php artisan migrate:fresh --seed"
 # Web Framework alias
 alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
 
-# DNS cache Clear
-alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
 # =================================================================================================
 # Change Directory
@@ -135,6 +133,7 @@ alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Wor
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
 
+# ALIAS
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
   # provide mac only path here
   export PNPM_HOME="$HOME/Library/pnpm"
@@ -146,6 +145,13 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 
   alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
   alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
+
+  # DNS cache Clear
+  alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+  alias chdns="networksetup -getdnsservers Wi-Fi"
+  alias rmdns="networksetup -setdnsservers Wi-Fi 94.140.14.14 94.140.15.15 1.1.1.1 8.8.8.8 8.8.4.4 && chdns"
+  alias addns="networksetup -setdnsservers Wi-Fi 10.26.171.174 10.26.171.175 8.8.8.8 && chdns"
+
   # JDK Version
   alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
   alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
