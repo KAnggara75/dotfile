@@ -113,6 +113,9 @@ alias mfs="php artisan migrate:fresh --seed"
 # Web Framework alias
 alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
 
+# Java Spring Maven Alias
+alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
+alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
 # =================================================================================================
 # Change Directory
