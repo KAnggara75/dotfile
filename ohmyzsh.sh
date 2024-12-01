@@ -1,4 +1,43 @@
 #!/bin/sh
+#
+# This script should be run via curl:
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# or via wget:
+#   sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# or via fetch:
+#   sh -c "$(fetch -o - https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#
+# As an alternative, you can first download the install script and run it afterwards:
+#   wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+#   sh install.sh
+#
+# You can tweak the install behavior by setting variables when running the script. For
+# example, to change the path to the Oh My Zsh repository:
+#   ZSH=~/.zsh sh install.sh
+#
+# Respects the following environment variables:
+#   ZDOTDIR - path to Zsh dotfiles directory (default: unset). See [1][2]
+#             [1] https://zsh.sourceforge.io/Doc/Release/Parameters.html#index-ZDOTDIR
+#             [2] https://zsh.sourceforge.io/Doc/Release/Files.html#index-ZDOTDIR_002c-use-of
+#   ZSH     - path to the Oh My Zsh repository folder (default: $HOME/.oh-my-zsh)
+#   REPO    - name of the GitHub repo to install from (default: ohmyzsh/ohmyzsh)
+#   REMOTE  - full remote URL of the git repo to install (default: GitHub via HTTPS)
+#   BRANCH  - branch to check out immediately after install (default: master)
+#
+# Other options:
+#   CHSH       - 'no' means the installer will not change the default shell (default: yes)
+#   RUNZSH     - 'no' means the installer will not run zsh after the install (default: yes)
+#   KEEP_ZSHRC - 'yes' means the installer will not replace an existing .zshrc (default: no)
+#
+# You can also pass some arguments to the install script to set some these options:
+#   --skip-chsh: has the same behavior as setting CHSH to 'no'
+#   --unattended: sets both CHSH and RUNZSH to 'no'
+#   --keep-zshrc: sets KEEP_ZSHRC to 'yes'
+# For example:
+#   sh install.sh --unattended
+# or:
+#   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+#
 set -e
 
 # Make sure important variables exist if not already defined
@@ -293,11 +332,11 @@ setup_zshrc() {
 	echo "${FMT_BLUE}Looking for an existing zsh config...${FMT_RESET}"
 
 	# Must use this exact name so uninstall.sh can find it
-	OLD_ZSHRC=~/.zshrc.pre-oh-my-zsh
-	if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
+	OLD_ZSHRC="$zdot/.zshrc.pre-oh-my-zsh"
+	if [ -f "$zdot/.zshrc" ] || [ -h "$zdot/.zshrc" ]; then
 		# Skip this if the user doesn't want to replace an existing .zshrc
 		if [ "$KEEP_ZSHRC" = yes ]; then
-			echo "${FMT_YELLOW}Found ~/.zshrc.${FMT_RESET} ${FMT_GREEN}Keeping...${FMT_RESET}"
+			echo "${FMT_YELLOW}Found ${zdot}/.zshrc.${FMT_RESET} ${FMT_GREEN}Keeping...${FMT_RESET}"
 			return
 		fi
 		if [ -e "$OLD_ZSHRC" ]; then
@@ -309,14 +348,14 @@ setup_zshrc() {
 			fi
 			mv "$OLD_ZSHRC" "${OLD_OLD_ZSHRC}"
 
-			echo "${FMT_YELLOW}Found old ~/.zshrc.pre-oh-my-zsh." \
+			echo "${FMT_YELLOW}Found old .zshrc.pre-oh-my-zsh." \
 				"${FMT_GREEN}Backing up to ${OLD_OLD_ZSHRC}${FMT_RESET}"
 		fi
-		echo "${FMT_YELLOW}Found ~/.zshrc.${FMT_RESET} ${FMT_GREEN}Backing up to ${OLD_ZSHRC}${FMT_RESET}"
-		mv ~/.zshrc "$OLD_ZSHRC"
+		echo "${FMT_YELLOW}Found ${zdot}/.zshrc.${FMT_RESET} ${FMT_GREEN}Backing up to ${OLD_ZSHRC}${FMT_RESET}"
+		mv "$zdot/.zshrc" "$OLD_ZSHRC"
 	fi
 
-	echo "${FMT_GREEN}Using the Oh My Zsh template file and adding it to ~/.zshrc.${FMT_RESET}"
+	echo "${FMT_GREEN}Using the Oh My Zsh template file and adding it to $zdot/.zshrc.${FMT_RESET}"
 
 	# Modify $ZSH variable in .zshrc directory to use the literal $ZDOTDIR or $HOME
 	omz="$ZSH"
@@ -403,9 +442,9 @@ EOF
 
 	# We're going to change the default shell, so back up the current one
 	if [ -n "$SHELL" ]; then
-		echo "$SHELL" >~/.shell.pre-oh-my-zsh
+		echo "$SHELL" >"$zdot/.shell.pre-oh-my-zsh"
 	else
-		grep "^$USER:" /etc/passwd | awk -F: '{print $7}' >~/.shell.pre-oh-my-zsh
+		grep "^$USER:" /etc/passwd | awk -F: '{print $7}' >"$zdot/.shell.pre-oh-my-zsh"
 	fi
 
 	echo "Changing your shell to $zsh..."
@@ -447,7 +486,7 @@ print_success() {
 	printf '\n'
 	printf '\n'
 	printf "%s %s %s\n" "Before you scream ${FMT_BOLD}${FMT_YELLOW}Oh My Zsh!${FMT_RESET} look over the" \
-		"$(fmt_code "$(fmt_link ".zshrc" "file://$HOME/.zshrc" --text)")" \
+		"$(fmt_code "$(fmt_link ".zshrc" "file://$zdot/.zshrc" --text)")" \
 		"file to select plugins, themes, and options."
 	printf '\n'
 	printf '%s\n' "• Follow us on X: $(fmt_link @ohmyzsh https://x.com/ohmyzsh)"
