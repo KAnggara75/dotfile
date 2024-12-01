@@ -16,8 +16,19 @@ HOME="${HOME:-$(eval echo ~$USER)}"
 # Track if $ZSH was provided
 custom_zsh=${ZSH:+yes}
 
-# Default settings
+# Use $zdot to keep track of where the directory is for zsh dotfiles
+# To check if $ZDOTDIR was provided, explicitly check for $ZDOTDIR
+zdot="${ZDOTDIR:-$HOME}"
+
+# Default value for $ZSH
+# a) if $ZDOTDIR is supplied and not $HOME: $ZDOTDIR/ohmyzsh
+# b) otherwise, $HOME/.oh-my-zsh
+if [ -n "$ZDOTDIR" ] && [ "$ZDOTDIR" != "$HOME" ]; then
+	ZSH="${ZSH:-$ZDOTDIR/ohmyzsh}"
+fi
 ZSH="${ZSH:-$HOME/.oh-my-zsh}"
+
+# Default settings
 REPO=${REPO:-ohmyzsh/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
