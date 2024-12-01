@@ -500,6 +500,11 @@ EOF
 		exit 1
 	fi
 
+	# Create ZDOTDIR folder structure if it doesn't exist
+	if [ -n "$ZDOTDIR" ]; then
+		mkdir -p "$ZDOTDIR"
+	fi
+
 	setup_ohmyzsh
 	setup_zshrc
 	setup_shell
