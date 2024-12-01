@@ -318,10 +318,15 @@ setup_zshrc() {
 
 	echo "${FMT_GREEN}Using the Oh My Zsh template file and adding it to ~/.zshrc.${FMT_RESET}"
 
-	# Replace $HOME path with '$HOME' in $ZSH variable in .zshrc file
-	omz=$(echo "$ZSH" | sed "s|^$HOME/|\$HOME/|")
-	sed "s|^export ZSH=.*$|export ZSH=\"${omz}\"|" "$ZSH/templates/zshrc.zsh-template" >~/.zshrc-omztemp
-	mv -f ~/.zshrc-omztemp ~/.zshrc
+	# Modify $ZSH variable in .zshrc directory to use the literal $ZDOTDIR or $HOME
+	omz="$ZSH"
+	if [ -n "$ZDOTDIR" ] && [ "$ZDOTDIR" != "$HOME" ]; then
+		omz=$(echo "$omz" | sed "s|^$ZDOTDIR/|\$ZDOTDIR/|")
+	fi
+	omz=$(echo "$omz" | sed "s|^$HOME/|\$HOME/|")
+
+	sed "s|^export ZSH=.*$|export ZSH=\"${omz}\"|" "$ZSH/templates/zshrc.zsh-template" >"$zdot/.zshrc-omztemp"
+	mv -f "$zdot/.zshrc-omztemp" "$zdot/.zshrc"
 
 	echo
 }
