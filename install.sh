@@ -29,6 +29,8 @@ main() {
     iterm_check
   fi
 
+  kanggara_config
+
   if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
     tmux_check
     tmux source-file ~/.tmux.conf
@@ -138,6 +140,34 @@ nerd_check() {
   fi
 }
 
+kanggara_config() {
+  echo "Installing KAnggara config."
+  rm -rf ~/dotfile
+  git clone --depth=1 https://github.com/KAnggara75/dotfile.git ~/dotfile
+  ln -sf $(pwd)/dotfile/.zshrc ~/.zshrc
+  ln -sf $(pwd)/dotfile/.vimrc ~/.vimrc
+  autosuggestions
+}
+
+autosuggestions() {
+  read -p "Install zsh-autosuggestions? (Y/n) " yn
+
+  case $yn in
+  [Yy]*)
+    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    ;;
+  [Nn]*)
+    echo "Skip."
+    ;;
+  *) echo "Install" ;;
+  esac
+
+  if [ "${platform}" = "linux" ]; then
+    sudo update-locale
+  fi
+}
+
 tmux_check() {
   if (tmux -V) | sort -Vk3 | tail -1 | grep -q tmux; then
     echo "tmux already installed."
@@ -168,47 +198,12 @@ tmux_install() {
 }
 
 tmux_config() {
-  read -p "Use KAnggara config? (Y/n) " yn
-  case $yn in
-  [Yy]*)
-    echo "Installing config."
-    cd ~
-    pwd
-    rm -rf $KA_DIR
-    rm -rf dotfile
-    git clone --depth=1 https://github.com/KAnggara75/dotfile.git
-    mkdir -p ~/.tmux/themes
-    ln -sf $(pwd)/dotfile/ka-tmux/ ~/.tmux/themes/ka-tmux
-    mv ~/.tmux.conf ~/.tmux.conf.old 2>/dev/null
-    ln -sf $(pwd)/dotfile/.tmux.conf ~/.tmux.conf
-    ln -sf $(pwd)/dotfile/.zshrc ~/.zshrc
-    ln -sf $(pwd)/dotfile/.vimrc ~/.vimrc
-    autosuggestions
-    ;;
-  [Nn]*)
-    echo "Skip."
-    ;;
-  *) echo "Install" ;;
-  esac
-}
-
-autosuggestions() {
-  read -p "Install zsh-autosuggestions? (Y/n) " yn
-
-  case $yn in
-  [Yy]*)
-    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    ;;
-  [Nn]*)
-    echo "Skip."
-    ;;
-  *) echo "Install" ;;
-  esac
-
-  if [ "${platform}" = "linux" ]; then
-    sudo update-locale
-  fi
+  echo "Installing Tmux config."
+  rm -rf $KA_DIR
+  mkdir -p ~/.tmux/themes
+  ln -sf $(pwd)/dotfile/ka-tmux/ ~/.tmux/themes/ka-tmux
+  mv ~/.tmux.conf ~/.tmux.conf.old 2>/dev/null
+  ln -sf $(pwd)/dotfile/.tmux.conf ~/.tmux.conf
 }
 
 iterm_check() {
