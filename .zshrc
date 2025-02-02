@@ -115,6 +115,8 @@ alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
 
 # Java Spring Maven Alias
 alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
+alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
+alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
 # =================================================================================================
