@@ -56,7 +56,7 @@ alias gcmm="git commit -m "$1""
 alias gcr="git checkout release"
 alias gcms="git commit -S -m "$1""
 alias gcma="git commit --amend -S -m "$1""
-alias gv="gitversion | grep NuGetVersionV2"
+alias gv="gitversion | grep FullSemVer"
 alias gcld="git clone --depth=1 $1"
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 
