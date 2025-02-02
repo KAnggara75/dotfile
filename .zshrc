@@ -26,7 +26,6 @@ export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
-export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
 
 # Node Compiler Cofig
 export LDFLAGS="-L/$NVM_DIR/versions/node/v22.10.0/lib"
@@ -157,6 +156,7 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 	alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
 	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
 	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+	alias jdk23="export JAVA_HOME='$HOME/dev/openjdk23/Contents/Home'"
 
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 	eval "$(ssh-agent -s)" 2>/dev/null
@@ -169,26 +169,29 @@ fi
 
 # PATH
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
-  # General Path both mac and linux
-  export PNPM_HOME="$HOME/Library/pnpm"
-  export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
-  export SOLACE_JMS="$HOME/dev/solace-jms/bin"
-  export LIBPQ="/opt/homebrew/opt/libpq/bin"
-  export PATH=$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
+	# General Path both mac and linux
+	export PNPM_HOME="$HOME/Library/pnpm"
+	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
+	export SOLACE_JMS="$HOME/dev/solace-jms/bin"
+	export LIBPQ="/opt/homebrew/opt/libpq/bin"
+	export BUN_INSTALL="$HOME/.bun"
+	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
+	export PATH=$BUN_INSTALL/bin:$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
 
-  PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+	# Provide mac only path here
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-  # Specific linux only Path Provide mac only path here
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+	# bun completions
+	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
-  # General Path both mac and linux
-  export LIBPQ="/usr/local/opt/libpq/bin"
-  # Specific linux only Path
-
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+	export LIBPQ="/usr/local/opt/libpq/bin"
+	export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
+	# Specific linux only Path
+	[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
+	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 fi
 
