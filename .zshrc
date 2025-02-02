@@ -124,6 +124,7 @@ alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 # Change Directory
 alias wp="cd $HOME/work"
 alias xl="cd $HOME/Axiata"
+alias yt="cd $HOME/YouTube"
 alias da="cd /Volumes/DATA/"
 alias dot="cd $HOME/dotfile"
 alias wo="cd /Volumes/DATA/Work"
@@ -135,33 +136,34 @@ alias ids="cd ~/work/IDScript"
 alias idea='open -na "IntelliJ IDEA CE.app" --args "$@"'
 
 # my Project Folder
-alias eday="cp $HOME/Pictures/Photo\ Booth\ Library/Pictures/* /Volumes/DATA/Work/KAnggara75/everyday/2022/"
+# alias eday="cd $HOME/Pictures/Photo\ Booth\ Library/Pictures"
+alias eday="cd $HOME/work/KAnggara75/eday"
 alias efts="cd /Volumes/DATA/efts/atm"
 alias wa="cd ~/work/wa"
 
 # ALIAS
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 
-  alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
-  alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
+	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
+	alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
 
-  # DNS cache Clear
-  alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
-  alias chdns="networksetup -getdnsservers Wi-Fi"
-  alias rmdns="networksetup -setdnsservers Wi-Fi 94.140.14.14 94.140.15.15 1.1.1.1 8.8.8.8 8.8.4.4 && chdns"
-  alias addns="networksetup -setdnsservers Wi-Fi 10.26.171.174 10.26.171.175 8.8.8.8 && chdns"
+	# DNS cache Clear
+	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
+	alias chdns="networksetup -getdnsservers Wi-Fi"
+	alias rmdns="networksetup -setdnsservers Wi-Fi 9.9.9.9 1.1.1.1 8.8.8.8 8.8.4.4 && chdns"
+	alias addns="networksetup -setdnsservers Wi-Fi 10.26.171.174 10.26.171.175 8.8.8.8 && chdns"
 
-  # JDK Version
-  alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
-  alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
-  alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
+	# JDK Version
+	alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
+	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
+	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
 
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
-  eval "$(ssh-agent -s)" 2>/dev/null
+	eval "$(ssh-agent -s)" 2>/dev/null
 
-  alias kaad="/usr/bin/ssh-add ~/.ssh/KAnggara"
-  alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
-  alias nnginx="sudo certbot --nginx -d $1"
+	alias kaad="/usr/bin/ssh-add ~/.ssh/KAnggara"
+	alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
+	alias nnginx="sudo certbot --nginx -d $1"
 
 fi
 
@@ -195,22 +197,22 @@ export PATH=$MY_BIN:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_
 
 prompt_context() {}
 prompt_dir() {
-  if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-    prompt_segment red white $(shrink_path -f)
-  else
-    prompt_segment blue white $(shrink_path -f)
-  fi
+	if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+		prompt_segment red white $(shrink_path -f)
+	else
+		prompt_segment blue white $(shrink_path -f)
+	fi
 }
 
 if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-  if [ $TERM_PROGRAM != tmux ]; then
-    if [ $TERM_PROGRAM != "WarpTerminal" ]; then
-      # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-      if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
-        tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
-      else
-        tmux new -s KA
-      fi
-    fi
-  fi
+	if [ $TERM_PROGRAM != tmux ]; then
+		if [ $TERM_PROGRAM != "WarpTerminal" ]; then
+			# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
+			if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
+				tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
+			else
+				tmux new -s KA
+			fi
+		fi
+	fi
 fi
