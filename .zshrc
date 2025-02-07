@@ -187,6 +187,7 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
+	export KUBECONFIG=~/.kube/config
 	export LIBPQ="/usr/local/opt/libpq/bin"
 	export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
 	# Specific linux only Path
