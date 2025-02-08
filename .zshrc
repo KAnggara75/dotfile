@@ -161,6 +161,7 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 	eval "$(ssh-agent -s)" 2>/dev/null
 
+	alias k="kubectl $@"
 	alias kaad="/usr/bin/ssh-add ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
 	alias nnginx="sudo certbot --nginx -d $1"
