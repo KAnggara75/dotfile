@@ -16,6 +16,7 @@ export RUBY_PATH="/usr/local/opt/ruby/bin"
 export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
 export NVM_DIR="$HOME/.nvm"
+export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
@@ -178,9 +179,8 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
 	export SOLACE_JMS="$HOME/dev/solace-jms/bin"
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
-	export BUN_INSTALL="$HOME/.bun"
 	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
-	export PATH=$BUN_INSTALL/bin:$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
+	export PATH=$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
 
 	# Provide mac only path here
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
@@ -200,7 +200,7 @@ elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 fi
 
 # Update PATH
-export PATH=$MY_BIN:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
+export PATH=$MY_BIN:$BUN_INSTALL:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
 prompt_context() {}
 prompt_dir() {
