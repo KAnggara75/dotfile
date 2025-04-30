@@ -27,6 +27,7 @@ export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
+export GOPATH="$HOME/go"
 
 # Node Compiler Cofig
 export LDFLAGS="-L/$NVM_DIR/versions/node/v22.10.0/lib"
@@ -124,16 +125,21 @@ alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 # Change Directory
 alias wp="cd $HOME/work"
 alias xl="cd $HOME/Axiata"
+alias xll="cd $HOME/AxiataGo"
 alias yt="cd $HOME/YouTube"
 alias da="cd /Volumes/DATA/"
 alias dot="cd $HOME/dotfile"
 alias wo="cd /Volumes/DATA/Work"
+alias ply="cd $HOME/work/playground"
+alias xldb="cd $HOME/Axiata/xlDB"
 alias ka="cd /Volumes/DATA/Work/KAnggara"
 alias 75="cd /Volumes/DATA/Work/KAnggara75"
 alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
 alias ids="cd ~/work/IDScript"
-alias idea='open -na "IntelliJ IDEA CE.app" --args "$@"'
+alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
+alias goland='open -na "GoLand.app" --args nosplash "$@"'
+alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 
 # my Project Folder
 # alias eday="cd $HOME/Pictures/Photo\ Booth\ Library/Pictures"
@@ -200,7 +206,7 @@ elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 fi
 
 # Update PATH
-export PATH=$MY_BIN:$BUN_INSTALL:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
+export PATH=$MY_BIN:$GOPATH/bin:$BUN_INSTALL:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
 prompt_context() {}
 prompt_dir() {
