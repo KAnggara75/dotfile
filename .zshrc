@@ -57,9 +57,10 @@ alias gcmm="git commit -m "$1""
 alias gcr="git checkout release"
 alias gcms="git commit -S -m "$1""
 alias gcma="git commit --amend -S -m "$1""
-alias gv="gitversion | grep FullSemVer"
+alias gv="gitversion | jq -r '.FullSemVer'"
 alias gcld="git clone --depth=1 $1"
 alias gpt="git push --follow-tags"
+alias gtag='git tag $(gitversion | jq -r ".FullSemVer") && git push origin $(gitversion | jq -r ".FullSemVer")'
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 
 # Flutter alias
@@ -68,7 +69,7 @@ alias fcl="flutter clean"
 alias fpa="flutter pub add $1"
 alias fpg="flutter pub get"
 alias fcr="flutter create $1"
-alias fcrun="fcl && jdk17 && fpg && frn"
+alias fcrun="fcl && fpg && frn"
 
 # node js
 # alias npm="pnpm $1"
@@ -123,6 +124,7 @@ alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
 # =================================================================================================
 # Change Directory
+alias kcc="cd $HOME/work/KAnggara/scc"
 alias wp="cd $HOME/work"
 alias xl="cd $HOME/Axiata"
 alias xll="cd $HOME/AxiataGo"
