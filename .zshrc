@@ -60,10 +60,10 @@ alias gcmm="git commit -m "$1""
 alias gcr="git checkout release"
 alias gcms="git commit -S -m "$1""
 alias gcma="git commit --amend -S -m "$1""
-alias gv="gitversion | jq -r '.FullSemVer'"
+alias gv='echo v$(gitversion | jq -r ".MajorMinorPatch")'
 alias gcld="git clone --depth=1 $1"
 alias gpt="git push --follow-tags"
-alias gtag='git tag $(gitversion | jq -r ".FullSemVer") && git push origin $(gitversion | jq -r ".FullSemVer")'
+alias gtag='git tag v$(gitversion | jq -r ".MajorMinorPatch") && git push origin v$(gitversion | jq -r ".MajorMinorPatch")'
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 
 # Flutter alias
@@ -103,7 +103,6 @@ alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux spli
 # Custom Alias
 alias c="clear"
 alias st="stree ."
-alias q="exit"
 alias nv="nvim $1"
 alias cod="code ."
 alias new="touch $1"
