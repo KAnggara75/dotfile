@@ -212,6 +212,12 @@ fi
 # Update PATH
 export PATH=$MY_BIN:$GOPATH/bin:$BUN_INSTALL:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
 
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/k/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
 
