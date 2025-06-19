@@ -118,6 +118,7 @@ alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
 alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
+# Redis CLI
 # Change Directory
 alias kcc="cd $HOME/work/KAnggara/scc"
 alias wp="cd $HOME/work"
@@ -181,6 +182,7 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 
 elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 	export KUBECONFIG=~/.kube/config
+	fpath=("$HOME/.docker/completions" $fpath)
 	export LIBPQ="/usr/local/opt/libpq/bin"
 	export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
 	# Specific linux only Path
@@ -188,6 +190,9 @@ elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 fi
+# -------------------------------------
+# AUTH & SERVICE URL
+# -------------------------------------
 
 # -------------------------------------
 # PATH HANDLING: Unique, clean, ordered
@@ -222,11 +227,10 @@ for d in $ZSH_PATHS; do
 done
 export PATH
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/k/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+# -------------------------------------
+# DOCKER COMPLETIONS (autoload once)
+# -------------------------------------
+autoload -Uz compinit && compinit
 
 # -------------------------------------
 # PROMPT CONFIG
