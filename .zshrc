@@ -32,9 +32,9 @@ export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
 export GOPATH="$HOME/go"
 
-# Node Compiler Cofig
-export LDFLAGS="-L/$NVM_DIR/versions/node/v22.10.0/lib"
-export CPPFLAGS="-I/$NVM_DIR/versions/node/v22.10.0/include"
+# Node Compiler Config
+export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
+export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
 
 # For tkinter
 # export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
