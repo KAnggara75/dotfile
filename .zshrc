@@ -136,9 +136,11 @@ alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 
-# ALIAS
-if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
-
+# -------------------------------------
+# OS SPECIFIC ALIAS & ENV
+# -------------------------------------
+case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
+darwin)
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
 	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
@@ -148,9 +150,26 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
 	alias jdk23="export JAVA_HOME='$HOME/dev/openjdk23/Contents/Home'"
 
-elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
-	eval "$(ssh-agent -s)" 2>/dev/null
 
+	export PGPASSWORD="password"
+	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
+	export PNPM_HOME="$HOME/Library/pnpm"
+	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
+	export SOLACE_JMS="$HOME/dev/solace-jms/bin"
+	export LIBPQ="/opt/homebrew/opt/libpq/bin"
+	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
+
+	# NVM & bun
+	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+	# Docker completion (Mac)
+	fpath=("$HOME/.docker/completions" $fpath)
+	;;
+linux)
+	eval "$(ssh-agent -s)" 2>/dev/null
 	alias k="kubectl $@"
 	alias kga="kubectl get all"
 	alias kgp="kubectl get pod $@"
@@ -158,38 +177,16 @@ elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 	alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
 	alias nnginx="sudo certbot --nginx -d $1"
 
-fi
-
-# PATH
-if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
-	export PGPASSWORD="password"
-	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
-	# General Path both mac and linux
-	export PNPM_HOME="$HOME/Library/pnpm"
-	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
-	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
-	export SOLACE_JMS="$HOME/dev/solace-jms/bin"
-	export LIBPQ="/opt/homebrew/opt/libpq/bin"
-	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
-	export PATH=$PNPM_HOME:$IDEA_HOME:$SOLACE_JMS:$PATH
-
-	# Provide mac only path here
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
-
-	# bun completions
-	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
-	export KUBECONFIG=~/.kube/config
-	fpath=("$HOME/.docker/completions" $fpath)
+	export KUBECONFIG="$HOME/.kube/config"
 	export LIBPQ="/usr/local/opt/libpq/bin"
 	export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
-	# Specific linux only Path
-	[ -s "/usr/local/opt/nvm/nvm.sh" ] && \. "/usr/local/opt/nvm/nvm.sh"                                       # This loads nvm
-	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/usr/local/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
-fi
+	# NVM
+	[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
+	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+	;;
+esac
+
 # -------------------------------------
 # AUTH & SERVICE URL
 # -------------------------------------
