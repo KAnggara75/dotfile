@@ -122,6 +122,7 @@ alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
 # Redis CLI
+
 # Change Directory
 alias kcc="cd $HOME/work/KAnggara/scc"
 alias wp="cd $HOME/work"
@@ -152,7 +153,6 @@ darwin)
 	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
 	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
 	alias jdk23="export JAVA_HOME='$HOME/dev/openjdk23/Contents/Home'"
-
 
 	export PGPASSWORD="password"
 	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
