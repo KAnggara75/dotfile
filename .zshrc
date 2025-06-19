@@ -172,7 +172,6 @@ darwin)
 	fpath=("$HOME/.docker/completions" $fpath)
 	;;
 linux)
-	eval "$(ssh-agent -s)" 2>/dev/null
 	alias k="kubectl $@"
 	alias kga="kubectl get all"
 	alias kgp="kubectl get pod $@"
@@ -245,16 +244,16 @@ prompt_dir() {
 }
 
 if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
-    # Deteksi: Bukan SSH
-    if [ "${TERM_PROGRAM:-}" != "tmux" ] && [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
-        # Cek apakah ada minimal 1 tmux session
-        last_session=$(tmux ls 2>/dev/null | tail -n 1 | cut -d: -f1)
-        if [ -n "$last_session" ]; then
-            tmux attach-session -t "$last_session"
-        else
-            tmux new-session -s KA
-        fi
-    fi
+	# Deteksi: Bukan SSH
+	if [ "${TERM_PROGRAM:-}" != "tmux" ] && [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
+		# Cek apakah ada minimal 1 tmux session
+		last_session=$(tmux ls 2>/dev/null | tail -n 1 | cut -d: -f1)
+		if [ -n "$last_session" ]; then
+			tmux attach-session -t "$last_session"
+		else
+			tmux new-session -s KA
+		fi
+	fi
 fi
 
 # Amazon Q post block. Keep at the bottom of this file.
