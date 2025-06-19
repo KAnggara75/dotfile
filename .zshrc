@@ -213,10 +213,10 @@ compinit
 
 prompt_context() {}
 prompt_dir() {
-	if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-		prompt_segment red white $(shrink_path -f)
+	if [[ -z "$SSH_CLIENT" && -z "$SSH_TTY" ]]; then
+		prompt_segment red white "$(shrink_path -f)"
 	else
-		prompt_segment blue white $(shrink_path -f)
+		prompt_segment blue white "$(shrink_path -f)"
 	fi
 }
 
