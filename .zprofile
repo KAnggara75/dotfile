@@ -23,3 +23,5 @@ fi
 if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/KAnggara75.pub | awk '{print $2}')" 2>/dev/null; then
 	[ -f ~/.ssh/KAnggara75 ] && ssh-add ~/.ssh/KAnggara75
 fi
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
