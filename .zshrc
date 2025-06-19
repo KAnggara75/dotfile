@@ -9,7 +9,7 @@ export TERM=xterm-256color
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-plugins=(git zsh-autosuggestions shrink-path mvn)
+plugins=(git shrink-path mvn)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source $ZSH/oh-my-zsh.sh
@@ -128,28 +128,19 @@ alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 # Change Directory
 alias kcc="cd $HOME/work/KAnggara/scc"
 alias wp="cd $HOME/work"
-alias xl="cd $HOME/Axiata"
-alias xll="cd $HOME/AxiataGo"
 alias yt="cd $HOME/YouTube"
-alias da="cd /Volumes/DATA/"
 alias dot="cd $HOME/dotfile"
-alias wo="cd /Volumes/DATA/Work"
 alias ply="cd $HOME/work/playground"
-alias xldb="cd $HOME/Axiata/xlDB"
-alias ka="cd /Volumes/DATA/Work/KAnggara"
-alias 75="cd /Volumes/DATA/Work/KAnggara75"
-alias hk="cd ~/work/KAnggara75/HK"
 alias pwa="cd ~/work/PakaiWA"
+alias ka="cd ~/work/KAnggara"
 alias ids="cd ~/work/IDScript"
-alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
-alias goland='open -na "GoLand.app" --args nosplash "$@"'
+alias 75="cd ~/work/KAnggara75"
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
+alias goland='open -na "GoLand.app" --args nosplash "$@"'
+alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 
 # my Project Folder
-# alias eday="cd $HOME/Pictures/Photo\ Booth\ Library/Pictures"
 alias eday="cd $HOME/work/KAnggara75/eday"
-alias efts="cd /Volumes/DATA/efts/atm"
-alias wa="cd ~/work/wa"
 
 # ALIAS
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
@@ -183,6 +174,8 @@ fi
 
 # PATH
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
+	export PGPASSWORD="password"
+	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
 	# General Path both mac and linux
 	export PNPM_HOME="$HOME/Library/pnpm"
 	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
@@ -218,9 +211,6 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
-# Amazon Q post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
-
 prompt_context() {}
 prompt_dir() {
 	if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
@@ -242,3 +232,6 @@ if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
 		fi
 	fi
 fi
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
