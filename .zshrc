@@ -85,22 +85,19 @@ alias pmg="pnpm prisma generate"
 alias stopsql="brew services stop mysql"
 alias startsql="brew services start mysql"
 
-# Python Virtual Env
+# Python
 alias pip="pip3"
-# alias python="python3"
-# alias act="source .env/bin/activate"
-# alias venv="python3 -m venv .env && source .env/bin/activate"
 
-# ZSH Alias
+# ZSH
 alias reload="source ~/.zshrc && clear"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
 
-# TMUX ALIAS
+# TMUX
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
 
-# Custom Alias
+# Misc
 alias c="clear"
 alias st="stree ."
 alias cod="code ."
@@ -112,32 +109,31 @@ alias migrate="php artisan migrate"
 alias val="valet link && valet open"
 alias mfs="php artisan migrate:fresh --seed"
 
-# Web Framework alias
+# Web Framework
 alias ci4="composer create-project codeigniter4/appstarter --no-dev $1"
 
-# Java Spring Maven Alias
+# Java Spring Maven
 alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
 alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
 alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 
-# =================================================================================================
 # Change Directory
 alias kcc="cd $HOME/work/KAnggara/scc"
 alias wp="cd $HOME/work"
 alias yt="cd $HOME/YouTube"
 alias dot="cd $HOME/dotfile"
 alias ply="cd $HOME/work/playground"
-alias pwa="cd ~/work/PakaiWA"
-alias ka="cd ~/work/KAnggara"
-alias ids="cd ~/work/IDScript"
-alias 75="cd ~/work/KAnggara75"
+alias pwa="cd $HOME/work/PakaiWA"
+alias ka="cd $HOME/work/KAnggara"
+alias ids="cd $HOME/work/IDScript"
+alias 75="cd $HOME/work/KAnggara75"
+alias eday="cd $HOME/work/KAnggara75/eday"
+
+# JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
-
-# my Project Folder
-alias eday="cd $HOME/work/KAnggara75/eday"
 
 # ALIAS
 if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
