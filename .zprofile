@@ -5,8 +5,10 @@ if [[ "$(uname -s | tr '[:upper:]' '[:lower:]')" == "linux" ]] && [[ -n "$SSH_CL
 		eval "$(ssh-agent -s)"
 	fi
 
-	# Add SSH key jika belum dimasukkan ke agent
-	if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/KAnggara75.pub | awk '{print $2}')" 2>/dev/null; then
-		[ -f ~/.ssh/KAnggara75 ] && ssh-add ~/.ssh/KAnggara75
+	# Gunakan file private key (tanpa .pub)
+	if [ -f ~/.ssh/KAnggara75 ]; then
+		if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/KAnggara75.pub | awk '{print $2}')" 2>/dev/null; then
+			ssh-add ~/.ssh/KAnggara75
+		fi
 	fi
 fi
