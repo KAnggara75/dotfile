@@ -1,30 +1,30 @@
-# Amazon Q pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-
-# Path to your oh-my-zsh installation.
+# -------------------------------------
+# OH-MY-ZSH & BASIC ENV
+# -------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export TERM=xterm-256color
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export TERM="xterm-256color"
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
 plugins=(git shrink-path mvn)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
-source $ZSH/oh-my-zsh.sh
+source "$ZSH/oh-my-zsh.sh"
 
+# -------------------------------------
+# BASE PATHS & ENV VARS
+# -------------------------------------
 export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/usr/local/opt/ruby/bin"
-export SVN_PATH="/Users/k/dev/svn/bin"
 export NODE_PATH="/usr/local/opt/node@20/bin"
 export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
-export COMPOSER_HOME="$HOME/.composer/vendor/bin"
-export COMPOSER_BIN="$COMPOSER_HOME/vendor/bin"
+export COMPOSER_HOME="$HOME/.composer/vendor"
 # Personal dev PATH
 export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
