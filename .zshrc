@@ -1,3 +1,5 @@
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 # -------------------------------------
 # OH-MY-ZSH & BASIC ENV
 # -------------------------------------
@@ -31,6 +33,7 @@ export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
 export GOPATH="$HOME/go"
+export AWS_DEFAULT_REGION=ap-southeast-3
 
 # Node Compiler Config
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
@@ -241,17 +244,17 @@ prompt_dir() {
 	fi
 }
 
-if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-	if [ $TERM_PROGRAM != tmux ]; then
-		if [ $TERM_PROGRAM != "WarpTerminal" ]; then
-			# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh" || true
-			if (tmux ls 2>/dev/null) | tail -1 | grep -q "windows"; then
-				tmux a -t $(tmux ls | tail -1 | cut -d : -f1)
-			else
-				tmux new -s KA
-			fi
-		fi
-	fi
+if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
+    # Deteksi: Bukan SSH
+    if [ "${TERM_PROGRAM:-}" != "tmux" ] && [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
+        # Cek apakah ada minimal 1 tmux session
+        last_session=$(tmux ls 2>/dev/null | tail -n 1 | cut -d: -f1)
+        if [ -n "$last_session" ]; then
+            tmux attach-session -t "$last_session"
+        else
+            tmux new-session -s KA
+        fi
+    fi
 fi
 
 # Amazon Q post block. Keep at the bottom of this file.
