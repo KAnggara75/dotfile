@@ -144,14 +144,8 @@ if [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "darwin" ]; then
 
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
-
-	# DNS cache Clear
 	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 	alias chdns="networksetup -getdnsservers Wi-Fi"
-	alias rmdns="networksetup -setdnsservers Wi-Fi 9.9.9.9 1.1.1.1 8.8.8.8 8.8.4.4 && chdns"
-	alias addns="networksetup -setdnsservers Wi-Fi 10.26.171.174 10.26.171.175 8.8.8.8 && chdns"
-
-	# JDK Version
 	alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
 	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
 	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
@@ -199,8 +193,38 @@ elif [ "$(uname -s | tr '[:upper:]' '[:lower:]')" = "linux" ]; then
 
 fi
 
-# Update PATH
-export PATH=$MY_BIN:$GOPATH/bin:$BUN_INSTALL:$MONGO_HOME:$LIBPQ:$MYSQL_CLIENT:$DART_PUB:$SBIN_PATH:$RUBY_PATH:$SVN_PATH:$NODE_PATH:$MAVEN_HOME:$FLUTTER_HOME:$COMPOSER_HOME:$COMPOSER_BIN:$ANDROID_HOME/tools:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$NVM_DIR:$PATH
+# -------------------------------------
+# PATH HANDLING: Unique, clean, ordered
+# -------------------------------------
+typeset -U path
+ZSH_PATHS=(
+	"$MY_BIN"
+	"$GOPATH/bin"
+	"$BUN_INSTALL"
+	"$MONGO_HOME"
+	"$LIBPQ"
+	"$MYSQL_CLIENT"
+	"$DART_PUB"
+	"$SBIN_PATH"
+	"$RUBY_PATH"
+	"$NODE_PATH"
+	"$MAVEN_HOME"
+	"$FLUTTER_HOME"
+	"$COMPOSER_HOME/bin"
+	"$COMPOSER_HOME/vendor/bin"
+	"$ANDROID_HOME/tools"
+	"$ANDROID_HOME/cmdline-tools/latest/bin"
+	"$ANDROID_HOME/platform-tools"
+	"$NVM_DIR"
+	"$PNPM_HOME"
+	"$IDEA_HOME"
+	"$SOLACE_JMS"
+	"$PATH"
+)
+for d in $ZSH_PATHS; do
+	[[ -d "$d" ]] && path+=("$d")
+done
+export PATH
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/k/.docker/completions $fpath)
