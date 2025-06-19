@@ -36,10 +36,23 @@ export GOPATH="$HOME/go"
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
 export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
 
-# For tkinter
-# export PATH="/usr/local/opt/tcl-tk/bin:$PATH"
+# -------------------------------------
+# CUSTOM FUNCTIONAL ALIASES
+# -------------------------------------
+# Helper for alias with arguments (zsh function style)
+add() { git add "$@"; }
+diff() { git diff "$@"; }
+gcmm() { git commit -m "$*"; }
+gcms() { git commit -S -m "$*"; }
+gcma() { git commit --amend -S -m "$*"; }
+gcld() { git clone --depth=1 "$1"; }
+fpa() { flutter pub add "$1"; }
+fcr() { flutter create "$1"; }
+nv() { nvim "$@"; }
+new() { touch "$@"; }
+artisan() { php artisan "$@"; }
 
-# KAnggara auto Setup
+# Aliases
 alias gitsetup='/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/KAnggara75/dotfile/main/gitsetup.sh)"'
 alias upv='/bin/bash -c "$(curl -fsSL https://gist.githubusercontent.com/KAnggara75/e7f3d7f7c114c1348fec3b2c22f7041e/raw/c9cface5d79fd565c6aa8d147146aa57ff78454c/GitVersion.sh)"'
 
@@ -49,39 +62,26 @@ alias la='ls -lah'
 alias ll='ls --git -l'
 alias lt='ls -a --tree -I .git -I node_modules'
 
-# ADB alias
-alias adbwifi='adb tcpip 5555'
-
-# Git Custom alisa
-alias add="git add $1"
-alias diff="git diff $1"
+# Git quick
 alias gcq="git checkout qa"
-alias gcmm="git commit -m "$1""
 alias gcr="git checkout release"
-alias gcms="git commit -S -m "$1""
-alias gcma="git commit --amend -S -m "$1""
 alias gv='echo v$(gitversion | jq -r ".MajorMinorPatch")'
-alias gcld="git clone --depth=1 $1"
 alias gpt="git push --follow-tags"
 alias gtag='git tag v$(gitversion | jq -r ".MajorMinorPatch") && git push origin v$(gitversion | jq -r ".MajorMinorPatch")'
 alias ghpage="git add . && git status && git commit -m 'Some descriptive commit message' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
 
-# Flutter alias
+# Flutter
 alias frn="flutter run"
 alias fcl="flutter clean"
-alias fpa="flutter pub add $1"
 alias fpg="flutter pub get"
-alias fcr="flutter create $1"
 alias fcrun="fcl && fpg && frn"
 
-# node js
-# alias npm="pnpm $1"
-# alias npx="pnpm dlx"
+# Node
 alias pnpx="pnpm exec"
 alias psu="pnpm self-update"
 alias pmg="pnpm prisma generate"
 
-#mySQL Alias
+# mySQL
 alias stopsql="brew services stop mysql"
 alias startsql="brew services start mysql"
 
@@ -103,14 +103,11 @@ alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux spli
 # Custom Alias
 alias c="clear"
 alias st="stree ."
-alias nv="nvim $1"
 alias cod="code ."
-alias new="touch $1"
 alias rmnm="rm -rf node_modules"
 alias iphone="open -a simulator"
 
-# Laravel alias
-alias artisan="php artisan $1"
+# Laravel
 alias migrate="php artisan migrate"
 alias val="valet link && valet open"
 alias mfs="php artisan migrate:fresh --seed"
@@ -211,6 +208,9 @@ autoload -Uz compinit
 compinit
 # End of Docker CLI completions
 
+# -------------------------------------
+# PROMPT CONFIG
+# -------------------------------------
 prompt_context() {}
 prompt_dir() {
 	if [[ -z "$SSH_CLIENT" && -z "$SSH_TTY" ]]; then
