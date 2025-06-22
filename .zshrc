@@ -256,5 +256,8 @@ if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
 	fi
 fi
 
+# bun completions
+[ -s "/Users/k/.bun/bin/_bun" ] && source "/Users/k/.bun/bin/_bun"
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
