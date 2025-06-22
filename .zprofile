@@ -12,7 +12,7 @@ function start_agent {
 # Jika file env ada, source dan cek agent masih hidup
 if [ -f "$SSH_ENV" ]; then
 	. "$SSH_ENV"
-	if ! kill -0 $SSH_AGENT_PID 2>/dev/null; then
+	if ! kill -0 $SSH_AGENT_PID 2>/dev/null || [ ! -S "$SSH_AUTH_SOCK" ]; then
 		start_agent
 	fi
 else
