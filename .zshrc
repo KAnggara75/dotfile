@@ -243,16 +243,15 @@ prompt_dir() {
 	fi
 }
 
-if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
-	# Deteksi: Bukan SSH
-	if [ "${TERM_PROGRAM:-}" != "tmux" ] && [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
-		# Cek apakah ada minimal 1 tmux session
+if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ] && [ -z "$TMUX" ]; then
+	if [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
 		last_session=$(tmux ls 2>/dev/null | tail -n 1 | cut -d: -f1)
 		if [ -n "$last_session" ]; then
 			tmux attach-session -t "$last_session"
 		else
 			tmux new-session -s KA
 		fi
+		exit
 	fi
 fi
 
