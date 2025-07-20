@@ -10,7 +10,7 @@ export TERM="xterm-256color"
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-plugins=(git shrink-path mvn)
+plugins=(git shrink-path mvn zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 
 source "$ZSH/oh-my-zsh.sh"
@@ -124,10 +124,11 @@ alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
 # Redis CLI
 
 # Change Directory
-alias kcc="cd $HOME/work/KAnggara/scc"
+alias dev="cd $HOME/dev"
 alias wp="cd $HOME/work"
 alias yt="cd $HOME/YouTube"
 alias dot="cd $HOME/dotfile"
+alias kcc="cd $HOME/work/KAnggara/scc"
 alias ply="cd $HOME/work/playground"
 alias pwa="cd $HOME/work/PakaiWA"
 alias ka="cd $HOME/work/KAnggara"
@@ -139,6 +140,18 @@ alias eday="cd $HOME/work/KAnggara75/eday"
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
+
+# Kubernetes
+alias k="kubectl $@"
+alias kga="kubectl get all"
+alias kgn="kubectl get namespace"
+alias kgi='kubectl get ingress -A'
+alias kge="kubectl events $@"
+alias kpf="kubectl port-forward $@"
+alias kgp="kubectl get pod $@"
+alias kgs="kubectl get svc $@"
+alias kgpa="kubectl get pod -A"
+alias kgsa="kubectl get svc -A"
 
 # -------------------------------------
 # OS SPECIFIC ALIAS & ENV
@@ -172,9 +185,6 @@ darwin)
 	fpath=("$HOME/.docker/completions" $fpath)
 	;;
 linux)
-	alias k="kubectl $@"
-	alias kga="kubectl get all"
-	alias kgp="kubectl get pod $@"
 	alias kaad="/usr/bin/ssh-add ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
 	alias nnginx="sudo certbot --nginx -d $1"
