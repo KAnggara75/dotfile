@@ -17,8 +17,7 @@ source "$ZSH/oh-my-zsh.sh"
 # BASE PATHS & ENV VARS
 # -------------------------------------
 export SBIN_PATH="/usr/local/sbin"
-export RUBY_PATH="/usr/local/opt/ruby/bin"
-export NODE_PATH="/usr/local/opt/node@20/bin"
+export RUBY_PATH="/opt/homebrew/opt/ruby"
 export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
@@ -26,7 +25,6 @@ export MY_BIN="$HOME/dev/bin"
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor"
 # Personal dev PATH
-export DART_PUB="$HOME/.pub-cache/bin"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
@@ -139,6 +137,9 @@ alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 
+# Podman
+alias p="podman $@"
+
 # Kubernetes
 alias k="kubectl $@"
 alias kga="kubectl get all"
@@ -170,7 +171,6 @@ darwin)
 	export PNPM_HOME="$HOME/Library/pnpm"
 	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
-	export SOLACE_JMS="$HOME/dev/solace-jms/bin"
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
 	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
 
@@ -205,33 +205,30 @@ esac
 # PATH HANDLING: Unique, clean, ordered
 # -------------------------------------
 typeset -U path
+
 ZSH_PATHS=(
-	"$MY_BIN"
-	"$GOPATH/bin"
-	"$BUN_INSTALL"
-	"$MONGO_HOME"
-	"$LIBPQ"
-	"$MYSQL_CLIENT"
-	"$DART_PUB"
-	"$SBIN_PATH"
-	"$RUBY_PATH"
-	"$NODE_PATH"
-	"$MAVEN_HOME"
-	"$FLUTTER_HOME"
-	"$COMPOSER_HOME/bin"
-	"$COMPOSER_HOME/vendor/bin"
-	"$ANDROID_HOME/tools"
-	"$ANDROID_HOME/cmdline-tools/latest/bin"
-	"$ANDROID_HOME/platform-tools"
-	"$NVM_DIR"
-	"$PNPM_HOME"
-	"$IDEA_HOME"
-	"$SOLACE_JMS"
-	"$PATH"
+  "$MY_BIN"
+  "$GOPATH/bin"
+  "$BUN_INSTALL"
+  "$MONGO_HOME"
+  "$LIBPQ"
+  "$MYSQL_CLIENT"
+  "$SBIN_PATH"
+  "$RUBY_PATH"
+  "$MAVEN_HOME"
+  "$FLUTTER_HOME"
+  "$COMPOSER_HOME/bin"
+  "$COMPOSER_HOME/vendor/bin"
+  "$ANDROID_HOME/cmdline-tools/latest/bin"
+  "$ANDROID_HOME/platform-tools"
+  "$NVM_DIR"
+  "$PNPM_HOME"
 )
+
 for d in $ZSH_PATHS; do
-	[[ -d "$d" ]] && path+=("$d")
+  [[ -d "$d" ]] && path+=("$d")
 done
+
 export PATH
 
 # -------------------------------------
