@@ -10,6 +10,9 @@ ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
 plugins=(git shrink-path mvn zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
+export HOMEBREW_AUTO_UPDATE_SECS=86400  # update otomatis setiap 24 jam
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ENV_HINTS=1
 
 source "$ZSH/oh-my-zsh.sh"
 
@@ -151,16 +154,19 @@ alias kgp="kubectl get pod $@"
 alias kgs="kubectl get svc $@"
 alias kgpa="kubectl get pod -A"
 alias kgsa="kubectl get svc -A"
+alias ktest="kubectl apply --dry-run=client -f $@"
 
 # -------------------------------------
 # OS SPECIFIC ALIAS & ENV
 # -------------------------------------
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 darwin)
+	alias docker="podman"
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
 	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 	alias chdns="networksetup -getdnsservers Wi-Fi"
+	alias pgtun="autossh -M 0 -N psql"
 	alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
 	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
 	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
@@ -232,9 +238,8 @@ done
 export PATH
 
 # -------------------------------------
-# DOCKER COMPLETIONS (autoload once)
 # -------------------------------------
-autoload -Uz compinit && compinit
+
 
 # -------------------------------------
 # PROMPT CONFIG
