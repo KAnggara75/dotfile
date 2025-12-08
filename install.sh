@@ -146,6 +146,7 @@ kanggara_config() {
   git clone --depth=1 https://github.com/KAnggara75/dotfile.git ~/dotfile
   ln -sf $(pwd)/dotfile/.zshrc ~/.zshrc
   ln -sf $(pwd)/dotfile/.vimrc ~/.vimrc
+  ln -sf $(pwd)/dotfile/nvim ~/config/nvim
   ln -sf $(pwd)/dotfile/.zprofile ~/.zprofile
   autosuggestions
 }
