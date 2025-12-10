@@ -2,6 +2,28 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AIFeatureFunctionCalling</key>
+	<true/>
+	<key>AIFeatureHostedCodeInterpeter</key>
+	<true/>
+	<key>AIFeatureHostedFileSearch</key>
+	<true/>
+	<key>AIFeatureHostedWebSearch</key>
+	<true/>
+	<key>AIFeatureStreamingResponses</key>
+	<true/>
+	<key>AITermAPI</key>
+	<integer>2</integer>
+	<key>AIVectorStore</key>
+	<integer>0</integer>
+	<key>AiMaxTokens</key>
+	<integer>400000</integer>
+	<key>AiModel</key>
+	<string>gpt-5.1</string>
+	<key>AiResponseMaxTokens</key>
+	<integer>128000</integer>
+	<key>AitermURL</key>
+	<string>https://api.openai.com/v1/responses</string>
 	<key>AllowClipboardAccess</key>
 	<true/>
 	<key>AlternateMouseScroll</key>
@@ -562,6 +584,8 @@
 	</dict>
 	<key>Default Bookmark Guid</key>
 	<string>5C95E25F-970B-41A8-9CE2-0051910BA4C1</string>
+	<key>Default Browser Profile Guid</key>
+	<string>5C95E25F-970B-41A8-9CE2-0051910BA4C1</string>
 	<key>FallbackLCCType</key>
 	<string>UTF-8</string>
 	<key>GlobalKeyMap</key>
@@ -679,6 +703,8 @@
 			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
+			<false/>
+			<key>Animate Movement</key>
 			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
@@ -901,6 +927,8 @@
 				<key>Red Component</key>
 				<real>0.70213186740875244</real>
 			</dict>
+			<key>Cursor Hidden When Unfocused</key>
+			<true/>
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Blue Component</key>

@@ -1,12 +1,4 @@
 return {{
-    "stevearc/conform.nvim",
-    opts = require "configs.conform"
-}, {
-    "neovim/nvim-lspconfig",
-    config = function()
-        require "configs.lspconfig"
-    end
-}, {
     "mason-org/mason.nvim",
     opts = {
         ui = {
@@ -23,4 +15,12 @@ return {{
         ensure_installed = {"gopls"},
         automatic_installation = true
     }
+}, {
+    "stevearc/conform.nvim",
+    opts = require "configs.conform"
+}, {
+    "neovim/nvim-lspconfig",
+    config = function()
+        require "configs.lspconfig"
+    end
 }}

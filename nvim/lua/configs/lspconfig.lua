@@ -1,6 +1,16 @@
 require("nvchad.configs.lspconfig").defaults()
 
-local servers = { "html", "cssls" }
-vim.lsp.enable(servers)
+local lspconfig = require "lspconfig"
 
--- read :h vim.lsp.config for changing options of lsp servers 
+lspconfig.gopls.setup {
+    settings = {
+        gopls = {
+            gofumpt = true,
+            staticcheck = true,
+            analyses = {
+                unusedvariable = true,
+                unusedparams = true
+            }
+        }
+    }
+}
