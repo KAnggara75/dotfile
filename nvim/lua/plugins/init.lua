@@ -1,26 +1,45 @@
-return {{
-    "mason-org/mason.nvim",
-    opts = {
-        ui = {
-            icons = {
-                package_installed = "✓",
-                package_pending = "➜",
-                package_uninstalled = "✗"
-            }
-        }
-    }
-}, {
-    "mason-org/mason-lspconfig.nvim",
-    opts = {
-        ensure_installed = {"gopls"},
-        automatic_installation = true
-    }
-}, {
+print("PLUGIN FILE EXECUTED")
+
+return {
+
+  -- Formatter
+  {
     "stevearc/conform.nvim",
-    opts = require "configs.conform"
-}, {
+    event = { "BufWritePre" },
+    opts = require "configs.conform",
+  },
+
+  -- LSP
+  {
     "neovim/nvim-lspconfig",
+    event = "User FilePost",
     config = function()
-        require "configs.lspconfig"
-    end
-}}
+      require "configs.lspconfig"
+    end,
+  },
+  -- Mason
+  {
+    "mason-org/mason.nvim",
+    cmd = { "Mason", "MasonInstall", "MasonUpdate" },
+    opts = {
+      ui = {
+        icons = {
+          package_installed = "✓",
+          package_pending = "➜",
+          package_uninstalled = "✗",
+        },
+      },
+    },
+  },
+
+  -- Mason LSP Bridge
+  {
+    "mason-org/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    opts = {
+      ensure_installed = { "gopls" },
+    },
+  },
+
+
+}
