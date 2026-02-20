@@ -174,7 +174,9 @@ darwin)
 
 	export PGPASSWORD="password"
 	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
+	export PGPORT="5432"
 	export PNPM_HOME="$HOME/Library/pnpm"
+	export CLAUDE_HOME="$HOME/.local/bin"
 	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
 	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
@@ -229,6 +231,7 @@ ZSH_PATHS=(
   "$ANDROID_HOME/platform-tools"
   "$NVM_DIR"
   "$PNPM_HOME"
+  "$CLAUDE_HOME"
 )
 
 for d in $ZSH_PATHS; do
@@ -240,6 +243,8 @@ export PATH
 # -------------------------------------
 # -------------------------------------
 
+# Added by Antigravity
+export PATH="/Users/k/.antigravity/antigravity/bin:$PATH"
 
 # -------------------------------------
 # PROMPT CONFIG

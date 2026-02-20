@@ -585,7 +585,7 @@
 	<key>Default Bookmark Guid</key>
 	<string>5C95E25F-970B-41A8-9CE2-0051910BA4C1</string>
 	<key>Default Browser Profile Guid</key>
-	<string>5C95E25F-970B-41A8-9CE2-0051910BA4C1</string>
+	<string>B8AA4965-DBBB-4E51-B670-3F4B9F5106DC</string>
 	<key>FallbackLCCType</key>
 	<string>UTF-8</string>
 	<key>GlobalKeyMap</key>
@@ -981,7 +981,34 @@
 				<string>telnet</string>
 			</array>
 			<key>Keyboard Map</key>
-			<dict/>
+			<dict>
+				<key>0x5b-0x100000-0x21</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>[\ </string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+				<key>0x5d-0x100000-0x1e</key>
+				<dict>
+					<key>Action</key>
+					<integer>10</integer>
+					<key>Apply Mode</key>
+					<integer>0</integer>
+					<key>Escaping</key>
+					<integer>2</integer>
+					<key>Text</key>
+					<string>]\</string>
+					<key>Version</key>
+					<integer>2</integer>
+				</dict>
+			</dict>
 			<key>Link Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -3103,6 +3130,8 @@
 	<true/>
 	<key>ZippyTextDrawing</key>
 	<false/>
+	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
+	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewPreferredModeKey</key>
