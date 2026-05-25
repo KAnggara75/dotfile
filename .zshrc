@@ -145,6 +145,9 @@ alias p="podman $@"
 
 # Kubernetes
 alias k="kubectl $@"
+alias agy="agy-ide $@"
+alias h="helm $@"
+alias hl="helm list $@"
 alias kga="kubectl get all"
 alias kgn="kubectl get namespace"
 alias kgi='kubectl get ingress -A'
@@ -167,17 +170,17 @@ darwin)
 	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 	alias chdns="networksetup -getdnsservers Wi-Fi"
 	alias pgtun="autossh -M 0 -N psql"
-	alias jdk="export JAVA_HOME='$HOME/dev/openjdk/Contents/Home'"
-	alias jdk17="export JAVA_HOME='$HOME/dev/openjdk17/Contents/Home'"
-	alias jdk21="export JAVA_HOME='$HOME/dev/openjdk21/Contents/Home'"
-	alias jdk23="export JAVA_HOME='$HOME/dev/openjdk23/Contents/Home'"
+	alias jdk='export JAVA_HOME=$(/usr/libexec/java_home -v 21); export PATH=$JAVA_HOME/bin:$PATH'
+	alias jdk17='export JAVA_HOME=$(/usr/libexec/java_home -v 17); export PATH=$JAVA_HOME/bin:$PATH'
+	alias jdk21='export JAVA_HOME=$(/usr/libexec/java_home -v 21); export PATH=$JAVA_HOME/bin:$PATH'
+	alias jdk23='export JAVA_HOME=$(/usr/libexec/java_home -v 23); export PATH=$JAVA_HOME/bin:$PATH'
 
 	export PGPASSWORD="password"
 	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
 	export PGPORT="5432"
 	export PNPM_HOME="$HOME/Library/pnpm"
 	export CLAUDE_HOME="$HOME/.local/bin"
-	export JAVA_HOME="$HOME/dev/openjdk/Contents/Home"
+	export JAVA_HOME=$(/usr/libexec/java_home -v 21)
 	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
 	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
@@ -206,10 +209,6 @@ linux)
 esac
 
 # -------------------------------------
-# AUTH & SERVICE URL
-# -------------------------------------
-
-# -------------------------------------
 # PATH HANDLING: Unique, clean, ordered
 # -------------------------------------
 typeset -U path
@@ -223,6 +222,7 @@ ZSH_PATHS=(
   "$MYSQL_CLIENT"
   "$SBIN_PATH"
   "$RUBY_PATH"
+	"$JAVA_HOME/bin"
   "$MAVEN_HOME"
   "$FLUTTER_HOME"
   "$COMPOSER_HOME/bin"
@@ -245,6 +245,9 @@ export PATH
 
 # Added by Antigravity
 export PATH="/Users/k/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity IDE
+export PATH="/Users/k/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # -------------------------------------
 # PROMPT CONFIG
