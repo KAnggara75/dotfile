@@ -37,7 +37,7 @@ export AWS_DEFAULT_REGION=ap-southeast-3
 # Node Compiler Config
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
 export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
-
+export MAVEN_OPTS="-Dmaven.repo.local=/Users/Shared/.m2/repository"
 # -------------------------------------
 # CUSTOM FUNCTIONAL ALIASES
 # -------------------------------------
@@ -135,6 +135,12 @@ alias ids="cd $HOME/work/IDScript"
 alias 75="cd $HOME/work/KAnggara75"
 alias eday="cd $HOME/work/KAnggara75/eday"
 
+alias aops="cd $HOME/work/aops"
+alias ifpo="cd $HOME/work/ifpo"
+alias ifde="cd $HOME/work/ifde"
+alias ifkd="cd $HOME/work/ifkd"
+alias ifka="cd $HOME/work/ifka"
+
 # JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
@@ -222,7 +228,7 @@ ZSH_PATHS=(
   "$MYSQL_CLIENT"
   "$SBIN_PATH"
   "$RUBY_PATH"
-	"$JAVA_HOME/bin"
+  "$JAVA_HOME/bin"
   "$MAVEN_HOME"
   "$FLUTTER_HOME"
   "$COMPOSER_HOME/bin"
