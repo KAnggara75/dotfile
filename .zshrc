@@ -8,7 +8,7 @@ export TERM="xterm-256color"
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
-plugins=(git shrink-path mvn zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
+plugins=(git shrink-path zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
 export HOMEBREW_AUTO_UPDATE_SECS=86400  # update otomatis setiap 24 jam
 export HOMEBREW_NO_AUTO_UPDATE=1
