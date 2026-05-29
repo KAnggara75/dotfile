@@ -24,6 +24,7 @@ export RUBY_PATH="/opt/homebrew/opt/ruby"
 export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
+export WORK_BIN="$HOME//work/podman"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor"
@@ -221,6 +222,7 @@ typeset -U path
 
 ZSH_PATHS=(
   "$MY_BIN"
+  "$WORK_BIN"
   "$GOPATH/bin"
   "$BUN_INSTALL"
   "$MONGO_HOME"
