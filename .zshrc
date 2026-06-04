@@ -66,7 +66,7 @@ alias ll='ls --git -l'
 alias lt='ls -a --tree -I .git -I node_modules'
 
 # Git quick
-alias gcq="git checkout qa"
+alias gcu="git checkout uat"
 alias gcr="git checkout release"
 alias gv='echo v$(gitversion | jq -r ".MajorMinorPatch")'
 alias gpt="git push --follow-tags"
