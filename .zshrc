@@ -120,6 +120,8 @@ alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
 alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
 alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
+alias qdev="mvn clean quarkus:dev"
+alias mcp="mvn clean package -DskipTests"
 
 # Redis CLI
 
