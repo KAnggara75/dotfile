@@ -156,21 +156,37 @@ alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 # Podman
 alias p="podman $@"
 
+alias agy='agy-ide'
+alias h='helm'
+alias hl='helm list'
+
 # Kubernetes
-alias k="kubectl $@"
-alias agy="agy-ide $@"
-alias h="helm $@"
-alias hl="helm list $@"
-alias kga="kubectl get all"
-alias kgn="kubectl get namespace"
-alias kgi='kubectl get ingress -A'
-alias kge="kubectl events $@"
-alias kpf="kubectl port-forward $@"
-alias kgp="kubectl get pod $@"
-alias kgs="kubectl get svc $@"
-alias kgpa="kubectl get pod -A"
-alias kgsa="kubectl get svc -A"
-alias ktest="kubectl apply --dry-run=client -f $@"
+alias k='kubectl'
+alias kga="k get all"
+alias kgp='k get pod'
+alias kgpa='k get pod -A'
+alias kgs='k get svc'
+alias kgsa='k get svc -A'
+alias kgn='k get ns'
+alias kgi='k get ingress -A'
+alias kpf='k port-forward'
+alias kge="k events"
+alias ktest="k apply --dry-run=client -f"
+
+kcfg() {
+    export KUBECONFIG="$HOME/work/kubeconfig/$1.yaml"
+}
+
+kk() {
+    local cfg="$1"
+    shift
+    KUBECONFIG="$HOME/work/kubeconfig/${cfg}.yaml" kubectl "$@"
+}
+
+kls() {
+    find "$HOME/work/kubeconfig" -name "*.yaml" -exec basename {} .yaml \;
+}
+
 
 # -------------------------------------
 # OS SPECIFIC ALIAS & ENV
