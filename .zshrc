@@ -31,11 +31,10 @@ export COMPOSER_HOME="$HOME/.composer/vendor"
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
-export GOPATH="$HOME/go"
-export AWS_DEFAULT_REGION=ap-southeast-3
+export GOPATH=/Users/Shared/go
 export GOMODCACHE=/Users/Shared/go/pkg/mod
 export GOCACHE=/Users/Shared/go-build-cache
-
+export AWS_DEFAULT_REGION=ap-southeast-3
 # Node Compiler Config
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
 export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
