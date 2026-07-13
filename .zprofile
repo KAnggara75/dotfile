@@ -24,6 +24,10 @@ if [[ -z "$__SSH_AGENT_ALREADY_RUN" ]]; then
 		[ -f ~/.ssh/KAnggara75 ] && ssh-add ~/.ssh/KAnggara75
 	fi
 
+	if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/ProgrammerMode.pub | awk '{print $2}')" 2>/dev/null; then
+		echo "Adding SSH key to agent..."
+		[ -f ~/.ssh/ProgrammerMode ] && ssh-add ~/.ssh/ProgrammerMode
+	fi
 fi
 
 if [ "$(uname)" = "Darwin" ]; then

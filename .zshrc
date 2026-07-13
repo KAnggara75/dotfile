@@ -24,6 +24,7 @@ export RUBY_PATH="/opt/homebrew/opt/ruby"
 export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
+export WORK_BIN="$HOME//work/podman"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor"
@@ -37,7 +38,7 @@ export AWS_DEFAULT_REGION=ap-southeast-3
 # Node Compiler Config
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
 export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
-
+export MAVEN_OPTS="-Dmaven.repo.local=/Users/Shared/.m2/repository"
 # -------------------------------------
 # CUSTOM FUNCTIONAL ALIASES
 # -------------------------------------
@@ -65,7 +66,7 @@ alias ll='ls --git -l'
 alias lt='ls -a --tree -I .git -I node_modules'
 
 # Git quick
-alias gcq="git checkout qa"
+alias gcu="git checkout uat"
 alias gcr="git checkout release"
 alias gv='echo v$(gitversion | jq -r ".MajorMinorPatch")'
 alias gpt="git push --follow-tags"
@@ -119,6 +120,8 @@ alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
 alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
 alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
+alias qdev="mvn clean quarkus:dev"
+alias mcp="mvn clean package -DskipTests"
 
 # Redis CLI
 
@@ -135,6 +138,16 @@ alias ids="cd $HOME/work/IDScript"
 alias 75="cd $HOME/work/KAnggara75"
 alias eday="cd $HOME/work/KAnggara75/eday"
 
+alias aops="cd $HOME/work/aops"
+alias corpo="cd $HOME/work/aops/corpo"
+alias wrapperps="cd $HOME/work/aops/wrapperps"
+alias ifpo="cd $HOME/work/ifpo"
+alias pms="cd $HOME/work/ifpo/pms"
+alias pss="cd $HOME/work/ifpo/pss"
+alias ifde="cd $HOME/work/ifde"
+alias ifkd="cd $HOME/work/ifkd"
+alias ifka="cd $HOME/work/ifka"
+
 # JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
@@ -143,21 +156,37 @@ alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 # Podman
 alias p="podman $@"
 
+alias agy='agy-ide'
+alias h='helm'
+alias hl='helm list'
+
 # Kubernetes
-alias k="kubectl $@"
-alias agy="agy-ide $@"
-alias h="helm $@"
-alias hl="helm list $@"
-alias kga="kubectl get all"
-alias kgn="kubectl get namespace"
-alias kgi='kubectl get ingress -A'
-alias kge="kubectl events $@"
-alias kpf="kubectl port-forward $@"
-alias kgp="kubectl get pod $@"
-alias kgs="kubectl get svc $@"
-alias kgpa="kubectl get pod -A"
-alias kgsa="kubectl get svc -A"
-alias ktest="kubectl apply --dry-run=client -f $@"
+alias k='kubectl'
+alias kga="k get all"
+alias kgp='k get pod'
+alias kgpa='k get pod -A'
+alias kgs='k get svc'
+alias kgsa='k get svc -A'
+alias kgn='k get ns'
+alias kgi='k get ingress -A'
+alias kpf='k port-forward'
+alias kge="k events"
+alias ktest="k apply --dry-run=client -f"
+
+kcfg() {
+    export KUBECONFIG="$HOME/work/kubeconfig/$1.yaml"
+}
+
+kk() {
+    local cfg="$1"
+    shift
+    KUBECONFIG="$HOME/work/kubeconfig/${cfg}.yaml" kubectl "$@"
+}
+
+kls() {
+    find "$HOME/work/kubeconfig" -name "*.yaml" -exec basename {} .yaml \;
+}
+
 
 # -------------------------------------
 # OS SPECIFIC ALIAS & ENV
@@ -215,6 +244,7 @@ typeset -U path
 
 ZSH_PATHS=(
   "$MY_BIN"
+  "$WORK_BIN"
   "$GOPATH/bin"
   "$BUN_INSTALL"
   "$MONGO_HOME"
@@ -222,7 +252,7 @@ ZSH_PATHS=(
   "$MYSQL_CLIENT"
   "$SBIN_PATH"
   "$RUBY_PATH"
-	"$JAVA_HOME/bin"
+  "$JAVA_HOME/bin"
   "$MAVEN_HOME"
   "$FLUTTER_HOME"
   "$COMPOSER_HOME/bin"
