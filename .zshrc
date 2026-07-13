@@ -21,7 +21,6 @@ source "$ZSH/oh-my-zsh.sh"
 # -------------------------------------
 export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/opt/homebrew/opt/ruby"
-export NVM_DIR="$HOME/.nvm"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
 export WORK_BIN="$HOME//work/podman"
@@ -34,6 +33,8 @@ export FLUTTER_HOME="$HOME/dev/flutter/bin"
 export MONGO_HOME="$HOME/dev/mongo/bin"
 export GOPATH="$HOME/go"
 export AWS_DEFAULT_REGION=ap-southeast-3
+export GOMODCACHE=/Users/Shared/go/pkg/mod
+export GOCACHE=/Users/Shared/go-build-cache
 
 # Node Compiler Config
 export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
@@ -120,8 +121,9 @@ alias sbsit="mvn-color spring-boot:run -Dspring-boot.run.profiles=sit"
 alias sbstg="mvn-color spring-boot:run -Dspring-boot.run.profiles=stg"
 alias sbprd="mvn-color spring-boot:run -Dspring-boot.run.profiles=prd"
 alias sbdev="mvn-color spring-boot:run -Dspring-boot.run.profiles=dev"
-alias qdev="mvn clean quarkus:dev"
+alias qdev="mvn clean && mvn quarkus:dev -Dquarkus.live-reload.enabled=false -Dio.netty.noUnsafe=true"
 alias mcp="mvn clean package -DskipTests"
+alias mcc="mvn clean compile -DskipTests"
 
 # Redis CLI
 
@@ -213,6 +215,18 @@ darwin)
 	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
 	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
+	export NVM_DIR="/Users/Shared/.nvm"
+
+	export KOGITO_PERSISTENCE_TYPE=infinispan
+	export KOGITO_DATAINDEX_WS_URL=ws://localhost:8180
+	export KOGITO_DATAINDEX_HTTP_URL=http://localhost:8180
+	export KOGITO_FILE_PATH_SEPARATOR=/
+	export KOGITO_PERSISTENCE_DELETE_PROCESS_INSTANCE_ON_COMPLETION=true
+
+	export QUARKUS_INFINISPAN_CLIENT_HOSTS=localhost:11222
+	export QUARKUS_INFINISPAN_CLIENT_USE_AUTH=false
+	export QUARKUS_INFINISPAN_CLIENT_USERNAME=admin
+	export QUARKUS_INFINISPAN_CLIENT_PASSWORD=admin
 
 	# NVM & bun
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
