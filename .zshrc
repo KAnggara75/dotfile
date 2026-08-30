@@ -157,7 +157,6 @@ alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 # Podman
 alias p="podman $@"
 
-alias agy='agy-ide'
 alias h='helm'
 alias hl='helm list'
 
