@@ -26,11 +26,11 @@ export MY_BIN="$HOME/dev/bin"
 export SHARED_BIN="$HOME/work/podman"
 export WORK_BIN="/Users/Shared/dev/bin"
 # User PATH
-export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor"
 # Personal dev PATH
 export MAVEN_HOME="$HOME/dev/mvn/bin"
-export FLUTTER_HOME="$HOME/dev/flutter/bin"
+export ANDROID_HOME=/Users/Shared/android
+export FLUTTER_HOME=/Users/Shared/flutter/bin
 export MONGO_HOME="$HOME/dev/mongo/bin"
 export GOPATH=/Users/Shared/go
 export GOMODCACHE=/Users/Shared/go/pkg/mod
