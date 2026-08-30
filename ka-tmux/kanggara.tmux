@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (c) 2022-present Kelvin Anggara <kanggara@kanggara.me>(https://kanggara.me)
+# Copyright (c) 2022-present Kelvin Anggara <kanggara@kanggara.my.id>(https://kanggara.my.id)
 
 # Project:    KAnggara Tmux Theme
 # Repository: https://github.com/kanggara75/ka-tmux
