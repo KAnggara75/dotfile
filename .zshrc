@@ -23,7 +23,8 @@ export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/opt/homebrew/opt/ruby"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
-export WORK_BIN="$HOME//work/podman"
+export SHARED_BIN="$HOME/work/podman"
+export WORK_BIN="/Users/Shared/dev/bin"
 # User PATH
 export ANDROID_HOME="$HOME/dev/android"
 export COMPOSER_HOME="$HOME/.composer/vendor"
@@ -256,6 +257,7 @@ typeset -U path
 
 ZSH_PATHS=(
   "$MY_BIN"
+  "$SHARED_BIN"
   "$WORK_BIN"
   "$GOPATH/bin"
   "$BUN_INSTALL"
