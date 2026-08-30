@@ -27,6 +27,7 @@ export SHARED_BIN="$HOME/work/podman"
 export WORK_BIN="/Users/Shared/dev/bin"
 # User PATH
 export COMPOSER_HOME="$HOME/.composer/vendor"
+export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
 # Personal dev PATH
 export MAVEN_HOME="$HOME/dev/mvn/bin"
 export ANDROID_HOME=/Users/Shared/android
@@ -284,7 +285,7 @@ done
 
 export PATH
 
-# -------------------------------------
+# LOCAL TESTING -------------------------------------
 # -------------------------------------
 
 # Added by Antigravity
