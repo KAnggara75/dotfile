@@ -704,6 +704,8 @@
 			<true/>
 			<key>ASCII Ligatures</key>
 			<true/>
+			<key>Allow Title Setting</key>
+			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Animate Movement</key>
@@ -1087,7 +1089,7 @@
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
 			<key>Title Components</key>
-			<integer>32</integer>
+			<integer>0</integer>
 			<key>Transparency</key>
 			<real>0.099999999999999908</real>
 			<key>Unicode Normalization</key>
