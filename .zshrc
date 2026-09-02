@@ -157,7 +157,7 @@ alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
 
 # Podman
-alias p="podman $@"
+alias p="podman"
 
 alias h='helm'
 alias hl='helm list'
@@ -216,6 +216,7 @@ darwin)
 	export LIBPQ="/opt/homebrew/opt/libpq/bin"
 	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
 	export NVM_DIR="/Users/Shared/.nvm"
+	export BUN_BIN_DIR="/Users/Shared/.bun/bin/bin"
 
 	export KOGITO_PERSISTENCE_TYPE=infinispan
 	export KOGITO_DATAINDEX_WS_URL=ws://localhost:8180
@@ -227,6 +228,8 @@ darwin)
 	export QUARKUS_INFINISPAN_CLIENT_USE_AUTH=false
 	export QUARKUS_INFINISPAN_CLIENT_USERNAME=admin
 	export QUARKUS_INFINISPAN_CLIENT_PASSWORD=admin
+	export SMOCKER_PERSISTENCE_DIRECTORY="/Users/i/work/podman/smocker"
+	export KUBECONFIG=$(ls -1 /Users/i/work/kubeconfig/*.yaml | grep -v -E 'kafka-keystore-secret.yaml|ifgl-msk.yaml' | tr '\n' ':')
 
 	# NVM & bun
 	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
@@ -258,6 +261,7 @@ typeset -U path
 
 ZSH_PATHS=(
   "$MY_BIN"
+  "$BUN_BIN_DIR"
   "$SHARED_BIN"
   "$WORK_BIN"
   "$GOPATH/bin"
@@ -306,14 +310,11 @@ prompt_dir() {
 	fi
 }
 
-if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ] && [ -z "$TMUX" ]; then
-	if [ "${TERM_PROGRAM:-}" != "WarpTerminal" ]; then
-		last_session=$(tmux ls 2>/dev/null | tail -n 1 | cut -d: -f1)
-		if [ -n "$last_session" ]; then
-			tmux attach-session -t "$last_session"
-		else
-			tmux new-session -s KA
-		fi
-		exit
+# -------------------------------------
+# AUTO TMUX
+# -------------------------------------
+if [[ -o interactive ]] && [ -t 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
+	if [ "${TERM_PROGRAM:-}" != "WarpTerminal" ] && command -v tmux >/dev/null 2>&1; then
+		exec tmux new-session -A -s KA
 	fi
 fi
