@@ -1,46 +1,16 @@
 # -------------------------------------
-# OH-MY-ZSH & BASIC ENV
+# OH-MY-ZSH & INTERACTIVE CONFIGURATION
 # -------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
 [[ -z "$TMUX" ]] && export TERM="xterm-256color"
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
 plugins=(git shrink-path mvn zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=cyan'
-export HOMEBREW_AUTO_UPDATE_SECS=86400  # update otomatis setiap 24 jam
-export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_NO_ENV_HINTS=1
 
 source "$ZSH/oh-my-zsh.sh"
 
-# -------------------------------------
-# BASE PATHS & ENV VARS
-# -------------------------------------
-export SBIN_PATH="/usr/local/sbin"
-export RUBY_PATH="/opt/homebrew/opt/ruby"
-export BUN_INSTALL="$HOME/.bun/bin"
-export MY_BIN="$HOME/dev/bin"
-export PODMAN_BUILD_BIN="$HOME/work/podman/scripts/build"
-export WORK_BIN="/Users/Shared/dev/bin"
-# User PATH
-export COMPOSER_HOME="$HOME/.composer/vendor"
-export CHROME_EXECUTABLE="/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge"
-# Personal dev PATH
-export MAVEN_HOME="$HOME/dev/mvn/bin"
-export ANDROID_HOME=/Users/Shared/android
-export FLUTTER_HOME=/Users/Shared/flutter/bin
-export MONGO_HOME="$HOME/dev/mongo/bin"
-export GOPATH=/Users/Shared/go
-export GOMODCACHE=/Users/Shared/go/pkg/mod
-export GOCACHE=/Users/Shared/go-build-cache
-export AWS_DEFAULT_REGION=ap-southeast-3
-# Node Compiler Config
-export LDFLAGS="-L$NVM_DIR/versions/node/v22.16.0/lib"
-export CPPFLAGS="-I$NVM_DIR/versions/node/v22.16.0/include"
-export MAVEN_OPTS="-Dmaven.repo.local=/Users/Shared/.m2/repository"
 # -------------------------------------
 # CUSTOM FUNCTIONAL ALIASES
 # -------------------------------------
@@ -95,7 +65,7 @@ alias pip="pip3"
 
 # ZSH
 alias reload="source ~/.zshrc && clear -x"
-alias zshconfig="code ~/.zshrc"
+alias zshconfig="code ~/.zshenv ~/.zshrc ~/.zshrc.secret"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
 
@@ -208,35 +178,9 @@ darwin)
 	alias jdk17='export JAVA_HOME=$(/usr/libexec/java_home -v 17); export PATH=$JAVA_HOME/bin:$PATH'
 	alias jdk21='export JAVA_HOME=$(/usr/libexec/java_home -v 21); export PATH=$JAVA_HOME/bin:$PATH'
 	alias jdk23='export JAVA_HOME=$(/usr/libexec/java_home -v 23); export PATH=$JAVA_HOME/bin:$PATH'
+	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d \$1"
 
-	export PGPASSWORD="password"
-	alias posql="psql -h 127.0.0.1 -p 5432 -U postgresql -d $1"
-	export PGPORT="5432"
-	export PNPM_HOME="$HOME/Library/pnpm"
-	export CLAUDE_HOME="$HOME/.local/bin"
-	export JAVA_HOME=$(/usr/libexec/java_home -v 21)
-	export GRALVM_HOME="$HOME/dev/openjdk/Contents/Home"
-	export LIBPQ="/opt/homebrew/opt/libpq/bin"
-	export MYSQL_CLIENT="/opt/homebrew/opt/mysql-client@8.4/bin"
-	export NVM_DIR="/Users/Shared/.nvm"
-	export BUN_BIN_DIR="/Users/Shared/.bun/bin/bin"
-
-	export KOGITO_PERSISTENCE_TYPE=infinispan
-	export KOGITO_DATAINDEX_WS_URL=ws://localhost:8180
-	export KOGITO_DATAINDEX_HTTP_URL=http://localhost:8180
-	export KOGITO_FILE_PATH_SEPARATOR=/
-	export KOGITO_PERSISTENCE_DELETE_PROCESS_INSTANCE_ON_COMPLETION=true
-
-	export QUARKUS_INFINISPAN_CLIENT_HOSTS=localhost:11222
-	export QUARKUS_INFINISPAN_CLIENT_USE_AUTH=false
-	export QUARKUS_INFINISPAN_CLIENT_USERNAME=admin
-	export QUARKUS_INFINISPAN_CLIENT_PASSWORD=admin
-	export SMOCKER_PERSISTENCE_DIRECTORY="/Users/i/work/podman/smocker"
-	export KUBECONFIG=$(ls -1 /Users/i/work/kubeconfig/*.yaml | grep -v -E 'kafka-keystore-secret.yaml|ifgl-msk.yaml' | tr '\n' ':')
-
-	# NVM & bun
-	[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-	[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	# Bun completion (Mac)
 	[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 	# Docker completion (Mac)
@@ -245,55 +189,28 @@ darwin)
 linux)
 	alias kaad="/usr/bin/ssh-add ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add ~/.ssh/KAnggara75"
-	alias nnginx="sudo certbot --nginx -d $1"
-
-	export KUBECONFIG="$HOME/.kube/config"
-	export LIBPQ="/usr/local/opt/libpq/bin"
-	export MYSQL_CLIENT="/usr/local/opt/mysql-client/bin"
-
-	# NVM
-	[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-	[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
+	alias nnginx="sudo certbot --nginx -d \$1"
 	;;
 esac
 
 # -------------------------------------
-# PATH HANDLING: Unique, clean, ordered
+# NVM LAZY LOAD (Saves 500-600ms on shell startup)
 # -------------------------------------
-typeset -U path
+if [ -d "$NVM_DIR" ]; then
+	load_nvm() {
+		unset -f nvm load_nvm
+		[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+		[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	}
+	nvm() { load_nvm; nvm "$@"; }
+fi
 
-ZSH_PATHS=(
-  "$MY_BIN"
-  "$BUN_BIN_DIR"
-  "$PODMAN_BUILD_BIN"
-  "$WORK_BIN"
-  "$GOPATH/bin"
-  "$BUN_INSTALL"
-  "$MONGO_HOME"
-  "$LIBPQ"
-  "$MYSQL_CLIENT"
-  "$SBIN_PATH"
-  "$RUBY_PATH"
-  "$JAVA_HOME/bin"
-  "$MAVEN_HOME"
-  "$FLUTTER_HOME"
-  "$COMPOSER_HOME/bin"
-  "$COMPOSER_HOME/vendor/bin"
-  "$ANDROID_HOME/cmdline-tools/latest/bin"
-  "$ANDROID_HOME/platform-tools"
-  "$NVM_DIR"
-  "$PNPM_HOME"
-  "$CLAUDE_HOME"
-)
-
-for d in $ZSH_PATHS; do
-  [[ -d "$d" ]] && path+=("$d")
-done
-
-export PATH
-
-# LOCAL TESTING -------------------------------------
 # -------------------------------------
+# LOCAL & SENSITIVE CONFIGURATION
+# -------------------------------------
+# Load private envs/tokens from ignored secret files if present
+[[ -f "$HOME/.zshrc.secret" ]] && source "$HOME/.zshrc.secret"
+[[ -f "${ZDOTDIR:-$HOME}/dotfile/.zshrc.secret" ]] && source "${ZDOTDIR:-$HOME}/dotfile/.zshrc.secret"
 
 # Added by Antigravity
 export PATH="/Users/k/.antigravity/antigravity/bin:$PATH"
