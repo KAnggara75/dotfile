@@ -2,183 +2,171 @@
 # KAnggara dotfile Automatic Installer
 # url: https://github.com/KAnggara75/dotfile
 
-# Global Variable
-KA_DIR=~/.tmux/themes/ka-tmux
-OH_ZSH_DIR=~/.oh-my-zsh/oh-my-zsh.sh
-platform=''
+set -eo pipefail
+
+# Configuration & Directories
+DOTFILE_DIR="${HOME}/dotfile"
+KA_TMUX_DIR="${HOME}/.tmux/themes/ka-tmux"
+OH_MY_ZSH_DIR="${HOME}/.oh-my-zsh"
+OH_ZSH_FILE="${OH_MY_ZSH_DIR}/oh-my-zsh.sh"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLATFORM=""
 
 abort() {
-  echo $platform
-  echo "$@"
+  echo >&2 "[ERROR] $*"
   exit 1
 }
 
-main() {
-  local platform
-  platform="$(detect_platform)" || abort "Sorry! currently only provides for UNIX System."
-  if [ "${platform}" = "macos" ]; then
-    brew_check
-  fi
-
-  git_check
-  lsd_check
-  zsh_check
-  ohzsh_check
-  if [ "${platform}" = "macos" ]; then
-    nerd_check
-    iterm_check
-  fi
-
-  kanggara_config
-
-  if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
-    tmux_check
-    tmux source-file ~/.tmux.conf
-  fi
-  exec zsh -l
-}
-
 detect_platform() {
-  local platform
-  platform="$(uname -s | tr '[:upper:]' '[:lower:]')"
-
-  case "${platform}" in
-  linux) platform="linux" ;;
-  darwin) platform="macos" ;;
-  windows) platform="win" ;;
+  case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
+    linux) echo "linux" ;;
+    darwin) echo "macos" ;;
+    *) return 1 ;;
   esac
-
-  if [ "${platform}" = "win" ]; then
-    return 1
-  fi
-
-  # set platform to variable
-  printf '%s' "${platform}"
 }
 
 brew_check() {
-  if (brew -v) | sort -Vk3 | tail -1 | grep -q brew; then
-    echo "Brew already installed."
+  if command -v brew >/dev/null 2>&1; then
+    echo "==> Homebrew already installed."
   else
-    clear
-    echo "Homebrew is not installed."
-    echo "Installing Homebrew."
+    echo "==> Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [ -x "/opt/homebrew/bin/brew" ]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [ -x "/usr/local/bin/brew" ]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
   fi
 }
 
 git_check() {
-  if (git --version) | sort -Vk3 | tail -1 | grep -q git; then
-    echo "Git	already installed."
+  if command -v git >/dev/null 2>&1; then
+    echo "==> Git already installed."
   else
-    clear
-    echo "Git is not installed."
-    echo "Installing Git."
-    if [ "${platform}" = "macos" ]; then
+    echo "==> Installing Git..."
+    if [ "${PLATFORM}" = "macos" ]; then
       brew install git
-    fi
-    if [ "${platform}" = "linux" ]; then
-      sudo apt install git -y
+    elif [ "${PLATFORM}" = "linux" ]; then
+      sudo apt-get update && sudo apt-get install -y git
     fi
   fi
 }
 
 lsd_check() {
-  if (lsd -V) | sort -Vk3 | tail -1 | grep -q lsd; then
-    echo "lsd	already installed."
+  if command -v lsd >/dev/null 2>&1; then
+    echo "==> lsd already installed."
   else
-    clear
-    echo "lsd is not installed."
-    echo "Installing lsd."
-    if [ "${platform}" = "macos" ]; then
+    echo "==> Installing lsd..."
+    if [ "${PLATFORM}" = "macos" ]; then
       brew install lsd
-    fi
-    if [ "${platform}" = "linux" ]; then
-      sudo apt install lsd -y
+    elif [ "${PLATFORM}" = "linux" ]; then
+      sudo apt-get update && sudo apt-get install -y lsd
     fi
   fi
 }
 
 zsh_check() {
-  if (zsh --version) | sort -Vk3 | tail -1 | grep -q zsh; then
-    echo "ZSH	already installed."
+  if command -v zsh >/dev/null 2>&1; then
+    echo "==> Zsh already installed."
   else
-    clear
-    echo "Zsh is not installed."
-    echo "Installing Zsh."
-    if [ "${platform}" = "macos" ]; then
+    echo "==> Installing Zsh..."
+    if [ "${PLATFORM}" = "macos" ]; then
       brew install zsh
-    fi
-    if [ "${platform}" = "linux" ]; then
-      sudo apt-get install -y language-pack-en zsh
+    elif [ "${PLATFORM}" = "linux" ]; then
+      sudo apt-get update && sudo apt-get install -y language-pack-en zsh
     fi
   fi
 }
 
 ohzsh_check() {
-  if [ -f $OH_ZSH_DIR ]; then
-    echo "OMZ	already installed."
+  if [ -f "${OH_ZSH_FILE}" ]; then
+    echo "==> Oh My Zsh already installed."
   else
-    clear
-    echo "Installing Oh-my-zsh"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/KAnggara75/dotfile/main/ohmyzsh.sh)"
+    echo "==> Installing Oh My Zsh..."
+    RUNZSH=no CHSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
-  sleep 30s
 }
 
 nerd_check() {
-  if (fc-list) | grep -q "FiraCodeNerdFont"; then
-    echo "FiraCodeNerdFont already installed."
+  local font_dir="${HOME}/Library/Fonts"
+  mkdir -p "${font_dir}"
+
+  if [ -f "${font_dir}/FiraCodeNerdFont-Regular.ttf" ]; then
+    echo "==> FiraCode Nerd Font already installed."
+    return 0
+  fi
+
+  echo "==> Installing FiraCode Nerd Font..."
+  if [ -d "${DOTFILE_DIR}/fonts" ]; then
+    cp "${DOTFILE_DIR}/fonts/"*.ttf "${font_dir}/"
+  elif [ -d "${SCRIPT_DIR}/fonts" ]; then
+    cp "${SCRIPT_DIR}/fonts/"*.ttf "${font_dir}/"
   else
-    clear
-    echo "Installing FiraCodeNerdFont"
-    rm ~/Library/Fonts/FiraCodeNerdFont-Regular.ttf
-    rm ~/Library/Fonts/FiraCodeNerdFontPropo-Regular.ttf
-    cp fonts/FiraCodeNerdFont-Regular.ttf ~/Library/Fonts
-    cp fonts/FiraCodeNerdFontPropo-Regular.ttf ~/Library/Fonts
-    cd ~
+    echo "==> Warning: Font directory not found. Skipping font copy."
   fi
 }
 
 kanggara_config() {
-  echo "Installing KAnggara config."
-  rm -rf ~/dotfile
-  git clone --depth=1 https://github.com/KAnggara75/dotfile.git ~/dotfile
-  ln -sf $(pwd)/dotfile/.zshrc ~/.zshrc
-  ln -sf $(pwd)/dotfile/.vimrc ~/.vimrc
-  ln -sf $(pwd)/dotfile/nvim ~/config/nvim
-  ln -sf $(pwd)/dotfile/.zprofile ~/.zprofile
-  autosuggestions
+  echo "==> Setting up dotfiles symlinks..."
+
+  # If running remotely / fresh install without existing dotfile repo
+  if [ ! -d "${DOTFILE_DIR}/.git" ]; then
+    if [ -d "${SCRIPT_DIR}/.git" ]; then
+      DOTFILE_DIR="${SCRIPT_DIR}"
+    else
+      echo "==> Cloning dotfile repo to ${DOTFILE_DIR}..."
+      git clone --depth=1 https://github.com/KAnggara75/dotfile.git "${DOTFILE_DIR}"
+    fi
+  fi
+
+  ln -sf "${DOTFILE_DIR}/.zshrc" "${HOME}/.zshrc"
+  ln -sf "${DOTFILE_DIR}/.vimrc" "${HOME}/.vimrc"
+  ln -sf "${DOTFILE_DIR}/.zprofile" "${HOME}/.zprofile"
+
+  mkdir -p "${HOME}/.config"
+  ln -sf "${DOTFILE_DIR}/nvim" "${HOME}/.config/nvim"
+
+  install_plugins
 }
 
-autosuggestions() {
-  read -p "Install zsh-autosuggestions? (Y/n) " yn
+clone_or_update_plugin() {
+  local repo_url="$1"
+  local target_dir="$2"
 
-  case $yn in
-  [Yy]*)
-    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat
-    git clone https://github.com/fdellwing/zsh-bat.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-bat
-    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use
-    git clone https://github.com/MichaelAquilina/zsh-you-should-use.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/you-should-use
-    rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-    rm -rf  ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    ;;
-  [Nn]*)
-    echo "Skip."
-    ;;
-  *) echo "Install" ;;
+  if [ -d "${target_dir}/.git" ]; then
+    echo "==> Updating $(basename "${target_dir}")..."
+    git -C "${target_dir}" pull --quiet
+  else
+    echo "==> Cloning $(basename "${target_dir}")..."
+    git clone --depth=1 "${repo_url}" "${target_dir}"
+  fi
+}
+
+install_plugins() {
+  read -r -p "Install/update recommended Zsh plugins? (Y/n) " yn
+  case "${yn}" in
+    [Nn]*)
+      echo "==> Skipped plugin installation."
+      ;;
+    *)
+      local custom_plugins="${ZSH_CUSTOM:-${OH_MY_ZSH_DIR}/custom}/plugins"
+      mkdir -p "${custom_plugins}"
+
+      clone_or_update_plugin "https://github.com/fdellwing/zsh-bat.git" "${custom_plugins}/zsh-bat"
+      clone_or_update_plugin "https://github.com/MichaelAquilina/zsh-you-should-use.git" "${custom_plugins}/you-should-use"
+      clone_or_update_plugin "https://github.com/zsh-users/zsh-autosuggestions" "${custom_plugins}/zsh-autosuggestions"
+      clone_or_update_plugin "https://github.com/zsh-users/zsh-syntax-highlighting.git" "${custom_plugins}/zsh-syntax-highlighting"
+      ;;
   esac
 
-  if [ "${platform}" = "linux" ]; then
+  if [ "${PLATFORM}" = "linux" ] && command -v update-locale >/dev/null 2>&1; then
     sudo update-locale
   fi
 }
 
 tmux_check() {
-  if (tmux -V) | sort -Vk3 | tail -1 | grep -q tmux; then
-    echo "tmux already installed."
+  if command -v tmux >/dev/null 2>&1; then
+    echo "==> tmux already installed."
   else
     tmux_install
   fi
@@ -186,42 +174,72 @@ tmux_check() {
 }
 
 tmux_install() {
-  clear
-  read -p "Do you wish to install tmux? (Y/n) " yn
-  case $yn in
-  [Yy]*)
-    echo "Tmux is not installed."
-    echo "Installing Tmux."
-    if [ "${platform}" = "macos" ]; then
-      brew install tmux
-    fi
-    if [ "${platform}" = "linux" ]; then
-      sudo apt install tmux -y
-    fi
-    clear
-    ;;
-  [Nn]*) ;;
-  *) echo "Install" ;;
+  read -r -p "Do you wish to install tmux? (Y/n) " yn
+  case "${yn}" in
+    [Nn]*)
+      echo "==> Skipped tmux installation."
+      ;;
+    *)
+      echo "==> Installing tmux..."
+      if [ "${PLATFORM}" = "macos" ]; then
+        brew install tmux
+      elif [ "${PLATFORM}" = "linux" ]; then
+        sudo apt-get update && sudo apt-get install -y tmux
+      fi
+      ;;
   esac
 }
 
 tmux_config() {
-  echo "Installing Tmux config."
-  rm -rf $KA_DIR
-  mkdir -p ~/.tmux/themes
-  ln -sf $(pwd)/dotfile/ka-tmux/ ~/.tmux/themes/ka-tmux
-  mv ~/.tmux.conf ~/.tmux.conf.old 2>/dev/null
-  ln -sf $(pwd)/dotfile/.tmux.conf ~/.tmux.conf
+  echo "==> Configuring tmux..."
+  mkdir -p "${HOME}/.tmux/themes"
+  rm -rf "${KA_TMUX_DIR}"
+  ln -sf "${DOTFILE_DIR}/ka-tmux" "${KA_TMUX_DIR}"
+
+  if [ -f "${HOME}/.tmux.conf" ] && [ ! -L "${HOME}/.tmux.conf" ]; then
+    mv "${HOME}/.tmux.conf" "${HOME}/.tmux.conf.old"
+  fi
+  ln -sf "${DOTFILE_DIR}/.tmux.conf" "${HOME}/.tmux.conf"
 }
 
 iterm_check() {
-  if (mdfind "kMDItemCFBundleIdentifier == com.googlecode.iterm2") | grep -q app; then
-    echo "iTerm2 is already installed"
+  if [ -d "/Applications/iTerm.app" ] || mdfind "kMDItemCFBundleIdentifier == 'com.googlecode.iterm2'" | grep -q app; then
+    echo "==> iTerm2 already installed."
   else
-    clear
-    echo "iTerm2 is not installed"
-    echo "Installing iTerm2"
+    echo "==> Installing iTerm2..."
     brew install --cask iterm2
+  fi
+}
+
+main() {
+  PLATFORM="$(detect_platform)" || abort "Sorry! Currently only macOS and Linux are supported."
+
+  if [ "${PLATFORM}" = "macos" ]; then
+    brew_check
+  fi
+
+  git_check
+  lsd_check
+  zsh_check
+  ohzsh_check
+
+  if [ "${PLATFORM}" = "macos" ]; then
+    nerd_check
+    iterm_check
+  fi
+
+  kanggara_config
+
+  if [ -z "${SSH_CLIENT}" ] && [ -z "${SSH_TTY}" ] && command -v tmux >/dev/null 2>&1; then
+    tmux_check
+    if [ -f "${HOME}/.tmux.conf" ]; then
+      tmux source-file "${HOME}/.tmux.conf" 2>/dev/null || true
+    fi
+  fi
+
+  echo "==> Installation completed successfully!"
+  if [ -t 0 ] && [ -n "${SHELL}" ]; then
+    exec zsh -l
   fi
 }
 
