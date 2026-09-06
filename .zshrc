@@ -157,7 +157,7 @@ alias ifka="cd $HOME/work/ifka"
 # JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
 alias goland='open -na "GoLand.app" --args nosplash "$@"'
-alias idea='open -na "IntelliJ IDEA.app" --args nosplash "$@"'
+alias idea='$HOME/dotfile/setup/idea.sh'
 
 # Podman
 alias p="podman"
