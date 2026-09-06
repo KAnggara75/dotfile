@@ -4,7 +4,7 @@
 export ZSH="$HOME/.oh-my-zsh"
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-export TERM="xterm-256color"
+[[ -z "$TMUX" ]] && export TERM="xterm-256color"
 
 ZSH_THEME="agnoster"
 DISABLE_UPDATE_PROMPT="true"
@@ -94,7 +94,7 @@ alias startsql="brew services start mysql"
 alias pip="pip3"
 
 # ZSH
-alias reload="source ~/.zshrc && clear"
+alias reload="source ~/.zshrc && clear -x"
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias tmuxconfig="code ~/.tmux.conf"
@@ -103,7 +103,8 @@ alias tmuxconfig="code ~/.tmux.conf"
 alias ide='tmux split-window -v -p 30 && tmux split-window -h -p 66 && tmux split-window -h -p 50'
 
 # Misc
-alias c="clear"
+alias clear="clear -x"
+alias c="clear -x"
 alias st="stree ."
 alias cod="code ."
 alias rmnm="rm -rf node_modules"
