@@ -28,12 +28,15 @@ Run the automatic installer script:
 
 | Configuration                                                                             | Target Path               | Description                                                 |
 | :---------------------------------------------------------------------------------------- | :------------------------ | :---------------------------------------------------------- |
-| [.zshrc](file:///Users/i/dotfile/.zshrc) / [.zprofile](file:///Users/i/dotfile/.zprofile) | `~/.zshrc`, `~/.zprofile` | Aliases, shell optimizations, PATH configuration            |
-| [.tmux.conf](file:///Users/i/dotfile/.tmux.conf)                                          | `~/.tmux.conf`            | Mouse mode, prefix binding, split panes, 100k history limit |
-| [ka-tmux/](file:///Users/i/dotfile/ka-tmux)                                               | `~/.tmux/themes/ka-tmux`  | Custom minimalist tmux theme & status line                  |
-| [com.googlecode.iterm2.plist](file:///Users/i/dotfile/com.googlecode.iterm2.plist)        | Preferences               | Custom iTerm2 preferences and profile settings              |
-| [nvim/](file:///Users/i/dotfile/nvim)                                                     | `~/.config/nvim`          | Neovim configuration                                        |
-| [.vimrc](file:///Users/i/dotfile/.vimrc)                                                  | `~/.vimrc`                | Vim configuration                                           |
+| [.zshenv](file:///Users/i/dotfile/.zshenv) | `~/.zshenv` | Global environment variables, runtimes, SDKs, and clean PATH setup |
+| [.zshrc](file:///Users/i/dotfile/.zshrc) | `~/.zshrc` | Interactive shell configuration, Oh My Zsh plugins, aliases, and prompts |
+| [.zprofile](file:///Users/i/dotfile/.zprofile) | `~/.zprofile` | Login shell configuration, SSH agent management, Homebrew environment |
+| [.zshrc.secret.example](file:///Users/i/dotfile/.zshrc.secret.example) | `~/.zshrc.secret` | Template for local tokens and secrets (ignored from git tracking) |
+| [.tmux.conf](file:///Users/i/dotfile/.tmux.conf) | `~/.tmux.conf` | Mouse mode, prefix binding, split panes, 100k history limit |
+| [ka-tmux/](file:///Users/i/dotfile/ka-tmux) | `~/.tmux/themes/ka-tmux` | Custom minimalist tmux theme & status line |
+| [com.googlecode.iterm2.plist](file:///Users/i/dotfile/com.googlecode.iterm2.plist) | Preferences | Custom iTerm2 preferences and profile settings |
+| [nvim/](file:///Users/i/dotfile/nvim) | `~/.config/nvim` | Neovim configuration |
+| [.vimrc](file:///Users/i/dotfile/.vimrc) | `~/.vimrc` | Vim configuration |
 
 ---
 
