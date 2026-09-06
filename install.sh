@@ -120,6 +120,7 @@ kanggara_config() {
   fi
 
   ln -sf "${DOTFILE_DIR}/.zshrc" "${HOME}/.zshrc"
+  ln -sf "${DOTFILE_DIR}/.zshenv" "${HOME}/.zshenv"
   ln -sf "${DOTFILE_DIR}/.vimrc" "${HOME}/.vimrc"
   ln -sf "${DOTFILE_DIR}/.zprofile" "${HOME}/.zprofile"
 
