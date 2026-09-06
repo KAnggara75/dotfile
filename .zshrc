@@ -221,6 +221,7 @@ export PATH="/Users/k/.antigravity-ide/antigravity-ide/bin:$PATH"
 # -------------------------------------
 # PROMPT CONFIG
 # -------------------------------------
+setopt prompt_subst
 prompt_context() {}
 prompt_dir() {
 	if [[ -z "$SSH_CLIENT" && -z "$SSH_TTY" ]]; then
