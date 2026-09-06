@@ -65,9 +65,11 @@ darwin)
 
 	# Fast native zsh glob for KUBECONFIG
 	if [ -d "$HOME/work/kubeconfig" ]; then
-		setopt localoptions extendedglob nullglob
-		local _kube_configs=("$HOME/work/kubeconfig"/(^(*kafka-keystore-secret*|*ifgl-msk*)).yaml)
-		export KUBECONFIG="${(j.:.)_kube_configs}"
+		() {
+			setopt localoptions extendedglob nullglob
+			local _kube_configs=("$HOME/work/kubeconfig"/(^(*kafka-keystore-secret*|*ifgl-msk*)).yaml)
+			export KUBECONFIG="${(j.:.)_kube_configs}"
+		}
 	fi
 	;;
 linux)
@@ -115,9 +117,11 @@ ZSH_PATHS=(
 
 # Latest installed Node binary (fast instant node/npm availability)
 if [ -d "$NVM_DIR/versions/node" ]; then
-	setopt localoptions nullglob
-	_node_bins=("$NVM_DIR"/versions/node/*/bin(N))
-	[ ${#_node_bins} -gt 0 ] && ZSH_PATHS=("${_node_bins[-1]}" "${ZSH_PATHS[@]}")
+	() {
+		setopt localoptions nullglob
+		local _node_bins=("$NVM_DIR"/versions/node/*/bin(N))
+		[ ${#_node_bins} -gt 0 ] && ZSH_PATHS=("${_node_bins[-1]}" "${ZSH_PATHS[@]}")
+	}
 fi
 
 for d in $ZSH_PATHS; do
