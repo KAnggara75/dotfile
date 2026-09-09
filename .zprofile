@@ -19,15 +19,17 @@ if [[ -z "$__SSH_AGENT_ALREADY_RUN" ]]; then
 		start_agent
 	fi
 
-	if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/KAnggara75.pub | awk '{print $2}')" 2>/dev/null; then
-		echo "Adding SSH key to agent..."
-		[ -f ~/.ssh/KAnggara75 ] && ssh-add ~/.ssh/KAnggara75
-	fi
-
-	if ! ssh-add -l | grep -q "$(ssh-keygen -lf ~/.ssh/ProgrammerMode.pub | awk '{print $2}')" 2>/dev/null; then
-		echo "Adding SSH key to agent..."
-		[ -f ~/.ssh/ProgrammerMode ] && ssh-add ~/.ssh/ProgrammerMode
-	fi
+	for pubkey in "$HOME"/.ssh/*.pub; do
+		[ -f "$pubkey" ] || continue
+		key="${pubkey%.pub}"
+		if [ -f "$key" ]; then
+			fingerprint="$(ssh-keygen -lf "$pubkey" 2>/dev/null | awk '{print $2}')"
+			if [ -n "$fingerprint" ] && ! ssh-add -l 2>/dev/null | grep -q "$fingerprint"; then
+				echo "Adding SSH key $(basename "$key") to agent..."
+				ssh-add "$key"
+			fi
+		fi
+	done
 fi
 
 if [ "$(uname)" = "Darwin" ]; then

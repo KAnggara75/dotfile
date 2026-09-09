@@ -169,6 +169,8 @@ kls() {
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 darwin)
 	alias docker="podman"
+	alias ifg="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/IFG"
+	alias pmod="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/ProgrammerMode"
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
 	alias sadd="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara75"
 	alias dnsclear="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
