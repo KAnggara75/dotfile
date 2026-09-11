@@ -12,33 +12,34 @@ font-feature = ["calt", "liga"]
 # ---------------------------------------------------------
 # Theme / Color Palette
 # ---------------------------------------------------------
-# Preset Ayu atau custom palette berbasis iTerm2 KAnggara profile
-# (Aktifkan salah satu; default menggunakan tema bawaan Ayu)
-theme = "Ayu"
+# Color Scheme asli dimigrasikan dari iTerm2 (KAnggara Profile)
+foreground = #00ff00
+background = #000000
+cursor-color = #23ff18
+cursor-text = #ff0018
+selection-foreground = #ffffff
+selection-background = #083905
 
-# Custom palette dari profil iTerm2 KAnggara (opsional jika ingin pure retro green-on-black):
-# foreground = #00ff00
-# background = #000000
-# cursor-color = #23ff18
-# cursor-text = #ff0018
-# selection-foreground = #ffffff
-# selection-background = #083905
-# palette = 0=#000000
-# palette = 1=#990000
-# palette = 2=#00a600
-# palette = 3=#999900
-# palette = 4=#0000b2
-# palette = 5=#b200b2
-# palette = 6=#00a6b2
-# palette = 7=#bfbfbf
-# palette = 8=#666666
-# palette = 9=#e50000
-# palette = 10=#00d900
-# palette = 11=#e5e500
-# palette = 12=#0000ff
-# palette = 13=#e500e5
-# palette = 14=#00e5e5
-# palette = 15=#e5e5e5
+# ANSI 16 Colors Palette
+palette = 0=#000000
+palette = 1=#990000
+palette = 2=#00a600
+palette = 3=#999900
+palette = 4=#0000b2
+palette = 5=#b200b2
+palette = 6=#00a6b2
+palette = 7=#bfbfbf
+palette = 8=#666666
+palette = 9=#e50000
+palette = 10=#00d900
+palette = 11=#e5e500
+palette = 12=#0000ff
+palette = 13=#e500e5
+palette = 14=#00e5e5
+palette = 15=#e5e5e5
+
+# Alternatif tema jika sewaktu-waktu ingin berganti:
+# theme = "Ayu"
 
 # ---------------------------------------------------------
 # Window & Appearance
@@ -51,6 +52,9 @@ window-padding-y = 8
 window-padding-balance = true
 # Simpan dan pulihkan ukuran serta posisi window dari session sebelumnya (macOS)
 window-save-state = always
+
+# Buka window langsung dalam mode fullscreen
+fullscreen = true
 
 # Ukuran default awal jika belum ada saved state
 window-width = 83
