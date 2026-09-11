@@ -1,0 +1,84 @@
+# Ghostty Configuration
+# Migrated from com.googlecode.iterm2.plist
+
+# ---------------------------------------------------------
+# Typography / Fonts
+# ---------------------------------------------------------
+# iTerm2 font: FiraCodeNFP-Reg (FiraCode Nerd Font Propo) 11pt
+font-family = "FiraCode Nerd Font Propo"
+font-size = 11
+font-feature = ["calt", "liga"]
+
+# ---------------------------------------------------------
+# Theme / Color Palette
+# ---------------------------------------------------------
+# Preset Ayu atau custom palette berbasis iTerm2 KAnggara profile
+# (Aktifkan salah satu; default menggunakan tema bawaan Ayu)
+theme = "Ayu"
+
+# Custom palette dari profil iTerm2 KAnggara (opsional jika ingin pure retro green-on-black):
+# foreground = #00ff00
+# background = #000000
+# cursor-color = #23ff18
+# cursor-text = #ff0018
+# selection-foreground = #ffffff
+# selection-background = #083905
+# palette = 0=#000000
+# palette = 1=#990000
+# palette = 2=#00a600
+# palette = 3=#999900
+# palette = 4=#0000b2
+# palette = 5=#b200b2
+# palette = 6=#00a6b2
+# palette = 7=#bfbfbf
+# palette = 8=#666666
+# palette = 9=#e50000
+# palette = 10=#00d900
+# palette = 11=#e5e500
+# palette = 12=#0000ff
+# palette = 13=#e500e5
+# palette = 14=#00e5e5
+# palette = 15=#e5e5e5
+
+# ---------------------------------------------------------
+# Window & Appearance
+# ---------------------------------------------------------
+# iTerm2: Transparency 0.1 (opacity 0.90), Blur enabled (radius 10)
+background-opacity = 0.90
+background-blur = 10
+window-padding-x = 8
+window-padding-y = 8
+window-padding-balance = true
+# Simpan dan pulihkan ukuran serta posisi window dari session sebelumnya (macOS)
+window-save-state = always
+
+# Ukuran default awal jika belum ada saved state
+window-width = 83
+window-height = 66
+window-theme = auto
+macos-titlebar-style = transparent
+
+# ---------------------------------------------------------
+# Cursor & Mouse
+# ---------------------------------------------------------
+# Kursor garis (| / vertical bar) dan berkedip
+cursor-style = bar
+cursor-style-blink = true
+cursor-click-to-move = true
+mouse-reporting = true
+copy-on-select = true
+right-click-action = context-menu
+
+# ---------------------------------------------------------
+# Terminal Behavior & Scrollback
+# ---------------------------------------------------------
+# iTerm2: Unlimited Scrollback / Scrollback Lines 100000
+scrollback-limit = 10000000
+confirm-close-surface = false
+quit-after-last-window-closed = true
+
+# ---------------------------------------------------------
+# Bell
+# ---------------------------------------------------------
+# iTerm2: Visual Bell = true, Silence Bell = false
+bell-features = border,attention,title

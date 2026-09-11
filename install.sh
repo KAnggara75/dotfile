@@ -127,6 +127,11 @@ kanggara_config() {
   mkdir -p "${HOME}/.config"
   ln -sf "${DOTFILE_DIR}/nvim" "${HOME}/.config/nvim"
 
+  if [ "${PLATFORM}" = "macos" ]; then
+    mkdir -p "${HOME}/Library/Application Support/com.mitchellh.ghostty"
+    ln -sf "${DOTFILE_DIR}/config.ghostty" "${HOME}/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+  fi
+
   install_plugins
 }
 
