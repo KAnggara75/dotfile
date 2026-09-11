@@ -208,12 +208,12 @@ tmux_config() {
   ln -sf "${DOTFILE_DIR}/.tmux.conf" "${HOME}/.tmux.conf"
 }
 
-iterm_check() {
-  if [ -d "/Applications/iTerm.app" ] || mdfind "kMDItemCFBundleIdentifier == 'com.googlecode.iterm2'" | grep -q app; then
-    echo "==> iTerm2 already installed."
+ghostty_check() {
+  if [ -d "/Applications/Ghostty.app" ] || mdfind "kMDItemCFBundleIdentifier == 'com.mitchellh.ghostty'" | grep -q app; then
+    echo "==> Ghostty already installed."
   else
-    echo "==> Installing iTerm2..."
-    brew install --cask iterm2
+    echo "==> Installing Ghostty..."
+    brew install --cask ghostty
   fi
 }
 
@@ -231,7 +231,7 @@ main() {
 
   if [ "${PLATFORM}" = "macos" ]; then
     nerd_check
-    iterm_check
+    ghostty_check
   fi
 
   kanggara_config
