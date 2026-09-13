@@ -132,6 +132,11 @@ kanggara_config() {
     ln -sf "${DOTFILE_DIR}/config.ghostty" "${HOME}/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
   fi
 
+  # Aktifkan pre-commit security hooks
+  if [ -d "${DOTFILE_DIR}/.githooks" ]; then
+    git -C "${DOTFILE_DIR}" config core.hooksPath .githooks
+  fi
+
   install_plugins
 }
 
