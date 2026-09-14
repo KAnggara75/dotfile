@@ -17,7 +17,7 @@ export SBIN_PATH="/usr/local/sbin"
 export RUBY_PATH="/opt/homebrew/opt/ruby"
 export BUN_INSTALL="$HOME/.bun/bin"
 export MY_BIN="$HOME/dev/bin"
-export PODMAN_BUILD_BIN="$HOME/work/podman/scripts/build"
+export PODMAN_BUILD_BIN="$HOME/work/podmans/scripts/build"
 export WORK_BIN="/Users/Shared/dev/bin"
 
 # Language SDKs & Runtimes
@@ -61,7 +61,7 @@ darwin)
 	export QUARKUS_INFINISPAN_CLIENT_USE_AUTH="false"
 	export QUARKUS_INFINISPAN_CLIENT_USERNAME="admin"
 	export QUARKUS_INFINISPAN_CLIENT_PASSWORD="admin"
-	export SMOCKER_PERSISTENCE_DIRECTORY="/Users/i/work/podman/smocker"
+	export SMOCKER_PERSISTENCE_DIRECTORY="/Users/i/work/podmans/smocker"
 
 	# Fast native zsh glob for KUBECONFIG
 	if [ -d "$HOME/work/kubeconfig" ]; then
