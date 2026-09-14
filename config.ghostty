@@ -73,6 +73,10 @@ mouse-reporting = true
 copy-on-select = true
 right-click-action = context-menu
 
+# Buka link/URL saat diklik (tahan Cmd di macOS lalu klik)
+link-url = true
+link-previews = true
+
 # ---------------------------------------------------------
 # Terminal Behavior & Scrollback
 # ---------------------------------------------------------
