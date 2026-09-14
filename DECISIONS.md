@@ -66,3 +66,29 @@ Dokumen ini bersifat **append-only**. Keputusan baru ditambahkan secara beruruta
 - **Consequences**:
   - `install.sh` menjaga `ghostty_check` hanya dieksekusi saat platform terdeteksi sebagai macOS.
   - Tidak ada overhead memelihara dependensi atau package builder Ghostty untuk Linux.
+
+---
+
+## ADR-006: Integrasi Pre-Commit Security Hook untuk Secret Leak Prevention
+
+- **Status**: Accepted
+- **Date**: 2026-09-13
+- **Source**: Codebase evidence (`.githooks/pre-commit`, `install.sh`)
+- **Context**: Sebagai dotfile publik, risiko tidak sengaja melakukan commit terhadap token, file kredensial privat (`.env`, `id_rsa`, `.zshrc.secret`), atau API keys sangat fatal.
+- **Decision**: Mengimplementasikan pre-commit hook berbasis script di `.githooks/pre-commit` yang memindai pola file sensitif dan regex entropy/tokens pada staged changes. Repositori mengonfigurasi `core.hooksPath .githooks`, yang juga otomatis diaktifkan via `install.sh`.
+- **Consequences**:
+  - Semua commit lokal otomatis diverifikasi keamanannya sebelum tersimpan ke riwayat git.
+  - Mengabaikan file `.example` secara otomatis agar template tetap dapat di-commit.
+
+---
+
+## ADR-007: Modul Status Baterai Dinamis pada ka-tmux
+
+- **Status**: Accepted
+- **Date**: 2026-09-13
+- **Source**: Codebase evidence (`ka-tmux/scripts/battery.sh`, `ka-tmux/src/status-bar.conf`)
+- **Context**: Pengguna membutuhkan visibilitas persentase daya dan status pengisian baterai laptop secara real-time langsung di statusline Tmux tanpa dependensi berat.
+- **Decision**: Membuat script `ka-tmux/scripts/battery.sh` yang mengekstrak status baterai secara native via `pmset` (macOS) atau `/sys/class/power_supply` (Linux) dengan ikon indikator dinamis berbasis level persentase dan status charging, lalu menyematkannya ke `status-right`.
+- **Consequences**:
+  - Status baterai terlihat jelas di seluruh window/pane Tmux.
+  - Kompatibel lintas platform macOS dan Linux tanpa membutuhkan runtime eksternal selain Bash standar.

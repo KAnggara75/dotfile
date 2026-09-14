@@ -70,7 +70,11 @@ graph TD
 
 ## 5. Observability & Telemetry
 - **CI Static Analysis**: [.github/workflows/reviewdog.yaml](file:///Users/i/dotfile/.github/workflows/reviewdog.yaml) menggunakan GitHub Actions untuk menjalankan `shellcheck` secara otomatis pada setiap pull request melalui `reviewdog`.
-- **Runtime Monitoring**: Shell logging standar via return code (`$?`) dan status line Tmux yang menampilkan host, active window, dan session info.
+- **Runtime Monitoring & Status Telemetry**:
+  - Tmux statusline menampilkan session name, jumlah window, active pane title, jam, tanggal, dan indikator host.
+  - Telemetri daya baterai real-time di-poll via [ka-tmux/scripts/battery.sh](file:///Users/i/dotfile/ka-tmux/scripts/battery.sh) setiap interval status Tmux (`status-interval 2`).
+- **Pre-Commit Security Gate**:
+  - [.githooks/pre-commit](file:///Users/i/dotfile/.githooks/pre-commit) mengeksekusi inspeksi statis berbasis Python regex terhadap staged changes untuk menghentikan commit jika terdeteksi kredensial atau file sensitif.
 
 ## 6. Data & Domain Boundaries
 - **Public vs Secret Boundary**:

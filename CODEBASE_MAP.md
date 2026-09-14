@@ -19,10 +19,11 @@
   - [.tmux.conf](file:///Users/i/dotfile/.tmux.conf) — Prefix `Ctrl+a`, mouse control, extended-keys (csi-u), truecolor RGB support, OSC 52 clipboard, dan passthrough image preview.
   - [ka-tmux/kanggara.tmux](file:///Users/i/dotfile/ka-tmux/kanggara.tmux) — Script loader tema status bar kustom tmux.
   - [ka-tmux/src/status-bar.conf](file:///Users/i/dotfile/ka-tmux/src/status-bar.conf) — Konfigurasi layout dan format status line tmux.
+  - [ka-tmux/scripts/battery.sh](file:///Users/i/dotfile/ka-tmux/scripts/battery.sh) — Script kalkulasi level persentase dan indikator charging baterai secara real-time.
 - **Dependencies**: Ghostty (macOS), Tmux 3.2+, Fira Code Nerd Font.
 - **Consumers**: User interactive developer workflow.
 - **External Integrations**: Kitty Graphics Protocol, terminal escape sequences (OSC 52, OSC 133).
-- **Key Notes**: Tmux dikonfigurasi dengan `allow-passthrough on` dan `terminal-features ',xterm-ghostty:RGB:extkeys:sync:clipboard'` agar preview gambar dan clipboard OS tembus tanpa glitch.
+- **Key Notes**: Tmux dikonfigurasi dengan `allow-passthrough on` dan `terminal-features ',xterm-ghostty:RGB:extkeys:sync:clipboard'` agar preview gambar dan clipboard OS tembus tanpa glitch. Dilengkapi modul status baterai dinamis.
 
 ## Neovim & Editor Suite
 - **Responsibility**: Lingkungan text editor berbasis modal untuk software development.
@@ -54,3 +55,12 @@
   - [.github/workflows/reviewdog.yaml](file:///Users/i/dotfile/.github/workflows/reviewdog.yaml) — GitHub Actions workflow menggunakan ShellCheck + reviewdog pada pull request.
 - **Dependencies**: GitHub Actions runner, ShellCheck.
 - **Consumers**: GitHub Pull Requests.
+
+## Security & Repository Protection
+- **Responsibility**: Mencegah kebocoran rahasia (secret leak), token, dan private keys sebelum tersimpan ke riwayat git.
+- **Entry / Key Files**:
+  - [.githooks/pre-commit](file:///Users/i/dotfile/.githooks/pre-commit) — Pre-commit hook validator yang memblokir staging file sensitif dan konten berkredensial tinggi.
+- **Dependencies**: Git, Bash, Python 3 (regex scanning).
+- **Consumers**: `git commit` di local development.
+- **Key Notes**: Dikonfigurasi otomatis melalui `core.hooksPath .githooks` di `install.sh`.
+
