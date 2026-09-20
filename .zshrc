@@ -63,6 +63,9 @@ alias startsql="brew services start mysql"
 # Python
 alias pip="pip3"
 
+# Browser
+alias swbr="$HOME/dotfile/script/swbr.sh"
+
 # ZSH
 alias reload="source ~/.zshrc && clear -x"
 alias zshconfig="code ~/.zshenv ~/.zshrc ~/.zshrc.secret"
