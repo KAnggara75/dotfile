@@ -21,13 +21,30 @@ check_installed() {
 }
 
 get_current_bundle_id() {
-  swift -e '
-    import ApplicationServices
-    import Foundation
-    if let cur = LSCopyDefaultHandlerForURLScheme("http" as CFString)?.takeRetainedValue() as String? {
-      print(cur)
-    }
-  ' 2>/dev/null
+  python3 -c "
+import plistlib, os
+
+plist_path = os.path.expanduser('~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist')
+if not os.path.exists(plist_path):
+    print('')
+    exit(0)
+
+try:
+    with open(plist_path, 'rb') as f:
+        data = plistlib.load(f)
+
+    res = ''
+    for h in data.get('LSHandlers', []):
+        if h.get('LSHandlerContentType') == 'com.apple.default-app.web-browser':
+            res = h.get('LSHandlerRoleAll', '')
+            break
+        if h.get('LSHandlerURLScheme') == 'http':
+            res = h.get('LSHandlerRoleAll', '')
+
+    print(res)
+except Exception:
+    print('')
+" 2>/dev/null
 }
 
 get_current_browser_name() {
@@ -63,23 +80,36 @@ set_browser() {
   local target_id
   target_id=$(echo "$bundle_id" | tr '[:upper:]' '[:lower:]')
 
-  if [[ "$current_id" == "$target_id" ]]; then
+  if [[ -n "$current_id" && "$current_id" == "$target_id" ]]; then
     echo "ℹ️  $app_name sudah menjadi default browser saat ini."
     exit 0
   fi
 
-  # Cukup 1 kali pemanggilan skema 'http'.
-  # Memanggil http + https sekaligus menyebabkan macOS memunculkan 2 popup konfirmasi.
-  # Saat 'http' diubah, macOS secara otomatis menyinkronkan default web handler (termasuk https).
-  swift -e "
-    import ApplicationServices
-    import Foundation
-    let target = \"$bundle_id\" as CFString
-    let status = LSSetDefaultHandlerForURLScheme(\"http\" as CFString, target)
-    exit(status)
-  " 2>/dev/null
+  # Gunakan Python ctypes langsung ke CoreServices macOS.
+  # Hanya memanggil skema 'http' 1 kali saja.
+  # Pemanggilan http + https terpisah (seperti pada tool 'defaultbrowser')
+  # adalah penyebab utama munculnya 2 kali pop-up konfirmasi.
+  python3 -c "
+import ctypes, sys
 
-  echo "✅ Default browser berhasil diarahkan ke $app_name."
+cs = ctypes.cdll.LoadLibrary('/System/Library/Frameworks/CoreServices.framework/CoreServices')
+cs.CFStringCreateWithCString.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_uint32]
+cs.CFStringCreateWithCString.restype = ctypes.c_void_p
+kCFStringEncodingUTF8 = 0x08000100
+
+def to_cf(s):
+    return cs.CFStringCreateWithCString(None, s.encode('utf-8'), kCFStringEncodingUTF8)
+
+cs.LSSetDefaultHandlerForURLScheme.argtypes = [ctypes.c_void_p, ctypes.c_void_p]
+cs.LSSetDefaultHandlerForURLScheme.restype = ctypes.c_int32
+
+scheme = to_cf('http')
+handler = to_cf('$bundle_id')
+ret = cs.LSSetDefaultHandlerForURLScheme(scheme, handler)
+sys.exit(ret)
+" 2>/dev/null
+
+  echo "✅ Permintaan default browser ke $app_name telah dikirim (hanya 1 konfirmasi pop-up)."
 }
 
 main() {
