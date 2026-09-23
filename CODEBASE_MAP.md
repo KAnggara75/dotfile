@@ -7,10 +7,11 @@
   - [.zprofile](file:///Users/i/dotfile/.zprofile) — Login shell bootstrap, auto-start `ssh-agent`, dan registrasi dinamis SSH keys (`~/.ssh/*.pub`).
   - [.zshrc](file:///Users/i/dotfile/.zshrc) — Konfigurasi interaktif, integrasi Oh My Zsh (tema Agnoster), custom alias git/flutter/lsd, dan fallback loader `~/.zshrc.secret`.
   - [.zshrc.secret.example](file:///Users/i/dotfile/.zshrc.secret.example) — Template token & kredensial rahasia lokal yang diabaikan git.
+  - [.zsh_history](file:///Users/i/dotfile/.zsh_history) — Template file riwayat command Zsh yang dilindungi via `git update-index --skip-worktree`.
 - **Dependencies**: Zsh, Oh My Zsh, OpenSSH (`ssh-agent`, `ssh-keygen`, `ssh-add`).
-- **Consumers**: Login shell (Ghostty, iTerm2, SSH sessions, tmux panes).
+- **Consumers**: Login shell (Ghostty, SSH sessions, tmux panes).
 - **External Integrations**: Homebrew, NVM, Composer, Maven, Flutter, Android SDK.
-- **Key Notes**: Menggunakan pattern evaluasi berjenjang Zsh (`.zshenv` -> `.zprofile` -> `.zshrc`).
+- **Key Notes**: Menggunakan pattern evaluasi berjenjang Zsh (`.zshenv` -> `.zprofile` -> `.zshrc`). Perubahan riwayat command lokal di `.zsh_history` tidak mengotori git index karena dilindungi skip-worktree.
 
 ## Terminal & Multiplexer Configuration
 - **Responsibility**: Antarmuka terminal emulator GPU-accelerated dan multiplexer sesi terminal.
@@ -44,10 +45,11 @@
   - [setup/docker.sh](file:///Users/i/dotfile/setup/docker.sh) — Provisioning Docker CE & Docker Compose di Debian/Ubuntu.
   - [pma.sh](file:///Users/i/dotfile/pma.sh) — Installer phpMyAdmin, Laravel Valet, dan MySQL di macOS.
   - [swap.sh](file:///Users/i/dotfile/swap.sh) — Kalkulator alokasi optimal swap Linux berbasis total RAM.
-- **Dependencies**: Bash, curl, Homebrew, apt-get, Git.
+  - [script/swbr.sh](file:///Users/i/dotfile/script/swbr.sh) — Utility pengubah browser default macOS via AppleScript & LaunchServices (`swbr s|e|c`).
+- **Dependencies**: Bash, curl, Homebrew, apt-get, Git, Python 3, osascript.
 - **Consumers**: Setup mesin baru atau sinkronisasi environment.
-- **External Integrations**: GitHub, Homebrew Cask, Docker official apt repo.
-- **Key Notes**: [install.sh](file:///Users/i/dotfile/install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.tmux.conf`, `~/.config/nvim`, dan Ghostty Library path di macOS.
+- **External Integrations**: GitHub, Homebrew Cask, Docker official apt repo, macOS CoreServices.
+- **Key Notes**: [install.sh](file:///Users/i/dotfile/install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.zsh_history`, `~/.tmux.conf`, `~/.config/nvim`, dan Ghostty Library path di macOS.
 
 ## CI & Repository Quality
 - **Responsibility**: Linting dan quality check otomatis untuk shell scripts.

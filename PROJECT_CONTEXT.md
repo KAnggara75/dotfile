@@ -5,11 +5,11 @@ Menyediakan lingkungan pengembangan software yang terstandardisasi, terautomasi,
 
 ## System Boundary
 - **Dalam Cakupan (In Scope)**:
-  - Dotfiles shell (`.zshenv`, `.zprofile`, `.zshrc`, `.vimrc`).
+  - Dotfiles shell (`.zshenv`, `.zprofile`, `.zshrc`, `.zsh_history`, `.vimrc`).
   - Terminal configs ([config.ghostty](file:///Users/i/dotfile/config.ghostty), [.tmux.conf](file:///Users/i/dotfile/.tmux.conf), [ka-tmux/](file:///Users/i/dotfile/ka-tmux)).
   - Editor config ([nvim/](file:///Users/i/dotfile/nvim)).
   - Script instalasi otomatis sistem dan symlink provisioning ([install.sh](file:///Users/i/dotfile/install.sh)).
-  - Helper scripts setup development tooling ([setup/](file:///Users/i/dotfile/setup), [pma.sh](file:///Users/i/dotfile/pma.sh), [swap.sh](file:///Users/i/dotfile/swap.sh)).
+  - Helper scripts setup development tooling ([setup/](file:///Users/i/dotfile/setup), [pma.sh](file:///Users/i/dotfile/pma.sh), [swap.sh](file:///Users/i/dotfile/swap.sh), [script/swbr.sh](file:///Users/i/dotfile/script/swbr.sh)).
 - **Di Luar Cakupan (Out of Scope)**:
   - Manajemen rahasia pribadi dan kredensial (didelegasikan ke `~/.zshrc.secret` dan `~/.ssh/`).
   - Manajemen lisensi OS atau software pihak ketiga berbayar.

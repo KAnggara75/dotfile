@@ -92,3 +92,29 @@ Dokumen ini bersifat **append-only**. Keputusan baru ditambahkan secara beruruta
 - **Consequences**:
   - Status baterai terlihat jelas di seluruh window/pane Tmux.
   - Kompatibel lintas platform macOS dan Linux tanpa membutuhkan runtime eksternal selain Bash standar.
+
+---
+
+## ADR-008: Default Browser Switcher Utility (swbr)
+
+- **Status**: Accepted
+- **Date**: 2026-09-20
+- **Source**: Codebase evidence (`script/swbr.sh`, `.zshrc`)
+- **Context**: Developer sering perlu beralih browser default (Safari, Microsoft Edge, Google Chrome) untuk pengujian web dan alur kerja harian di macOS tanpa membuka antarmuka System Settings secara manual.
+- **Decision**: Menambahkan utility script `script/swbr.sh` yang menggunakan AppleScript dan CoreServices LaunchServices configuration untuk mengubah browser default secara instan, serta mendaftarkan alias `swbr` di `.zshrc`.
+- **Consequences**:
+  - Pergantian default browser dapat dilakukan langsung dari CLI (`swbr s`, `swbr e`, `swbr c`).
+  - Menggunakan direct CoreServices single HTTP handler untuk menghindari pop-up dialog konfirmasi ganda pada macOS.
+
+---
+
+## ADR-009: Tracking Template dan Isolasi .zsh_history via Skip-Worktree
+
+- **Status**: Accepted
+- **Date**: 2026-09-23
+- **Source**: Codebase evidence (`.zsh_history`, `install.sh`)
+- **Context**: File riwayat Zsh (`~/.zsh_history`) perlu dihubungkan (*symlinked*) ke repository dotfile agar terpusat, namun riwayat eksekusi command lokal pengguna tidak boleh terekspos atau membuat git status menjadi *dirty* setiap saat.
+- **Decision**: Membuat file template kosong `.zsh_history` yang di-commit ke Git, lalu di-symlink ke `~/.zsh_history` via `install.sh`. Flag Git index `--skip-worktree` diterapkan pada file tersebut agar modifikasi riwayat lokal diabaikan sepenuhnya oleh Git tracking.
+- **Consequences**:
+  - File `.zsh_history` terkelola di dalam dotfile tanpa risiko commit command history harian secara tidak sengaja.
+  - Perintah `install.sh` secara idempoten mengaplikasikan flag `git update-index --skip-worktree .zsh_history`.

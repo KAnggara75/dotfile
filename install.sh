@@ -123,6 +123,12 @@ kanggara_config() {
   ln -sf "${DOTFILE_DIR}/.zshenv" "${HOME}/.zshenv"
   ln -sf "${DOTFILE_DIR}/.vimrc" "${HOME}/.vimrc"
   ln -sf "${DOTFILE_DIR}/.zprofile" "${HOME}/.zprofile"
+  ln -sf "${DOTFILE_DIR}/.zsh_history" "${HOME}/.zsh_history"
+
+  # Abaikan perubahan lokal pada .zsh_history agar tidak terlacak git
+  if [ -d "${DOTFILE_DIR}/.git" ]; then
+    git -C "${DOTFILE_DIR}" update-index --skip-worktree .zsh_history 2>/dev/null || true
+  fi
 
   mkdir -p "${HOME}/.config"
   ln -sf "${DOTFILE_DIR}/nvim" "${HOME}/.config/nvim"
