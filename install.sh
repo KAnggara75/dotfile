@@ -136,6 +136,12 @@ kanggara_config() {
   if [ "${PLATFORM}" = "macos" ]; then
     mkdir -p "${HOME}/Library/Application Support/com.mitchellh.ghostty"
     ln -sf "${DOTFILE_DIR}/config.ghostty" "${HOME}/Library/Application Support/com.mitchellh.ghostty/config.ghostty"
+
+    mkdir -p "${HOME}/dev/bin"
+    ln -sf "${DOTFILE_DIR}/script/swbr.sh" "${HOME}/dev/bin/swbr"
+
+    mkdir -p "${HOME}/.config/raycast/scripts"
+    ln -sf "${DOTFILE_DIR}/script/swbr.sh" "${HOME}/.config/raycast/scripts/swbr.sh"
   fi
 
   # Aktifkan pre-commit security hooks

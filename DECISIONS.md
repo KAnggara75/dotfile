@@ -118,3 +118,16 @@ Dokumen ini bersifat **append-only**. Keputusan baru ditambahkan secara beruruta
 - **Consequences**:
   - File `.zsh_history` terkelola di dalam dotfile tanpa risiko commit command history harian secara tidak sengaja.
   - Perintah `install.sh` secara idempoten mengaplikasikan flag `git update-index --skip-worktree .zsh_history`.
+
+---
+
+## ADR-010: Integrasi Raycast Script Command dan Rotasi Otomatis Browser pada swbr
+
+- **Status**: Accepted
+- **Date**: 2026-10-02
+- **Source**: Codebase evidence (`script/swbr.sh`, `install.sh`) & Developer interview
+- **Context**: Pengguna ingin beralih browser default dengan cepat tanpa harus mengetik flag argumen (cukup menjalankan perintah langsung untuk berganti ke browser berikutnya) serta dapat dipicu langsung melalui launcher Raycast di macOS.
+- **Decision**: Menambahkan metadata resmi Raycast Script Command (`@raycast.schemaVersion`, `@raycast.mode compact`, icon `🌐`, dan optional argument) ke `script/swbr.sh`. Jika dieksekusi tanpa parameter, script otomatis mendeteksi browser aktif dan merotasikannya ke kandidat berikutnya (Safari $\rightarrow$ Microsoft Edge $\rightarrow$ Google Chrome $\rightarrow$ Safari). Menambahkan symlink otomatis `~/.config/raycast/scripts/swbr.sh` dan binary `~/dev/bin/swbr` pada `install.sh`.
+- **Consequences**:
+  - Script dapat dipicu dari Raycast dengan shortcut/kata kunci "Switch Default Browser" maupun terminal (`swbr`).
+  - Menekan Enter langsung di Raycast atau terminal akan merotasi browser secara otomatis tanpa prompt tambahan.

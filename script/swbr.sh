@@ -1,9 +1,25 @@
 #!/usr/bin/env bash
+
+# Required parameters:
+# @raycast.schemaVersion 1
+# @raycast.title Switch Default Browser
+# @raycast.mode compact
+
+# Optional parameters:
+# @raycast.icon 🌐
+# @raycast.argument1 { "type": "text", "placeholder": "s / e / c (opsional)", "optional": true }
+# @raycast.packageName System Utilities
+
+# Documentation:
+# @raycast.description Switch default web browser on macOS between Safari, Edge, and Chrome. If no argument is provided, cycles to the next browser.
+# @raycast.author KAnggara75
+
 # Script to switch default browser on macOS
 # Usage:
-#   swbr s  -> Safari
-#   swbr e  -> Microsoft Edge
-#   swbr c  -> Google Chrome
+#   swbr        -> cycle ke browser berikutnya (Safari -> Edge -> Chrome -> Safari)
+#   swbr s      -> Safari
+#   swbr e      -> Microsoft Edge
+#   swbr c      -> Google Chrome
 
 set -eo pipefail
 
@@ -65,8 +81,38 @@ show_usage() {
   echo "  s : Safari"
   echo "  e : Microsoft Edge"
   echo "  c : Google Chrome"
+  echo "  (tanpa argumen : beralih otomatis ke browser berikutnya)"
   echo ""
   echo "Browser default saat ini: $(get_current_browser_name)"
+}
+
+get_next_target() {
+  local cur
+  cur=$(get_current_bundle_id)
+
+  local candidates=("s" "e")
+  if mdfind "kMDItemCFBundleIdentifier == 'com.google.Chrome'" 2>/dev/null | grep -q app; then
+    candidates+=("c")
+  fi
+
+  case "$cur" in
+    *Safari*|*safari*)
+      echo "e"
+      ;;
+    *edgemac*|*Edge*|*edge*)
+      if [[ " ${candidates[*]} " =~ " c " ]]; then
+        echo "c"
+      else
+        echo "s"
+      fi
+      ;;
+    *Chrome*|*chrome*)
+      echo "s"
+      ;;
+    *)
+      echo "${candidates[0]}"
+      ;;
+  esac
 }
 
 set_browser() {
@@ -116,8 +162,8 @@ main() {
   local target="$1"
 
   if [[ -z "$target" ]]; then
-    show_usage
-    exit 1
+    target=$(get_next_target)
+    echo "🔄 Berpindah dari $(get_current_browser_name) ke browser berikutnya..."
   fi
 
   case "$target" in
@@ -129,6 +175,10 @@ main() {
       ;;
     c|chrome)
       set_browser "com.google.Chrome" "Google Chrome"
+      ;;
+    -h|--help|help)
+      show_usage
+      exit 0
       ;;
     *)
       echo "❌ Argumen tidak dikenal: '$target'" >&2

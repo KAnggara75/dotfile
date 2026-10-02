@@ -45,11 +45,11 @@
   - [setup/docker.sh](file:///Users/i/dotfile/setup/docker.sh) — Provisioning Docker CE & Docker Compose di Debian/Ubuntu.
   - [pma.sh](file:///Users/i/dotfile/pma.sh) — Installer phpMyAdmin, Laravel Valet, dan MySQL di macOS.
   - [swap.sh](file:///Users/i/dotfile/swap.sh) — Kalkulator alokasi optimal swap Linux berbasis total RAM.
-  - [script/swbr.sh](file:///Users/i/dotfile/script/swbr.sh) — Utility pengubah browser default macOS via AppleScript & LaunchServices (`swbr s|e|c`).
-- **Dependencies**: Bash, curl, Homebrew, apt-get, Git, Python 3, osascript.
-- **Consumers**: Setup mesin baru atau sinkronisasi environment.
-- **External Integrations**: GitHub, Homebrew Cask, Docker official apt repo, macOS CoreServices.
-- **Key Notes**: [install.sh](file:///Users/i/dotfile/install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.zsh_history`, `~/.tmux.conf`, `~/.config/nvim`, dan Ghostty Library path di macOS.
+  - [script/swbr.sh](file:///Users/i/dotfile/script/swbr.sh) — Utility pengubah browser default macOS dan Raycast Script Command dengan rotasi otomatis (Safari $\rightarrow$ Edge $\rightarrow$ Chrome $\rightarrow$ Safari).
+- **Dependencies**: Bash, curl, Homebrew, apt-get, Git, Python 3, osascript, Raycast.
+- **Consumers**: CLI (`swbr`), Raycast Launcher, setup mesin baru atau sinkronisasi environment.
+- **External Integrations**: GitHub, Homebrew Cask, Docker official apt repo, macOS CoreServices, Raycast Script Commands.
+- **Key Notes**: [install.sh](file:///Users/i/dotfile/install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.zsh_history`, `~/.tmux.conf`, `~/.config/nvim`, Ghostty Library path, binary `~/dev/bin/swbr`, dan folder `~/.config/raycast/scripts/`.
 
 ## CI & Repository Quality
 - **Responsibility**: Linting dan quality check otomatis untuk shell scripts.

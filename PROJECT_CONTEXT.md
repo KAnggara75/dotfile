@@ -29,6 +29,7 @@ Menyediakan lingkungan pengembangan software yang terstandardisasi, terautomasi,
 - **Homebrew**: Package manager utama di macOS untuk CLI tools, fonts, dan aplikasi Cask.
 - **GitHub**: Repository hosting, remote origin, dan CI runner target.
 - **Ghostty Ecosystem**: Terminal emulator GPU native yang membaca konfigurasi dari `~/Library/Application Support/com.mitchellh.ghostty/config.ghostty`.
+- **Raycast**: Desktop launcher di macOS yang memuat Script Commands lokal dari `~/.config/raycast/scripts/`.
 
 ## Runtime Environment & Constraints
 - **Operating Systems**: macOS (Primary, Apple Silicon `/opt/homebrew`), Linux (Secondary, Debian/Ubuntu apt-get).
