@@ -102,33 +102,63 @@ alias mcc="mvn clean compile -DskipTests"
 
 # Redis CLI
 
-# Change Directory
+# Change Directory & Work Navigation (DRY Helper)
+_gw() {
+	local path="$1"
+	cd "$HOME/work/$path" || return
+	[[ "$2" == "-c" ]] && agy -c
+}
+
 alias dev="cd $HOME/dev"
 alias wp="cd $HOME/work"
 alias yt="cd $HOME/YouTube"
 alias dot="cd $HOME/dotfile"
-alias kcc="cd $HOME/work/KAnggara/scc"
-alias ply="cd $HOME/work/playground"
-alias pwa="cd $HOME/work/PakaiWA"
-alias ka="cd $HOME/work/KAnggara"
-alias ids="cd $HOME/work/IDScript"
-alias 75="cd $HOME/work/KAnggara75"
-alias eday="cd $HOME/work/KAnggara75/eday"
 
-alias jira="cd $HOME/work/jira"
-alias aodb="cd $HOME/work/aodb"
-alias aops="cd $HOME/work/aops"
-alias podmans="cd $HOME/work/podmans"
-alias corpo="cd $HOME/work/aops/corpo"
-alias anuitas="cd $HOME/work/aops/anuitas"
-alias wrapperps="cd $HOME/work/aops/wrapperps"
-alias ifpo="cd $HOME/work/ifpo"
-alias pms="cd $HOME/work/ifpo/pms"
-alias pps="cd $HOME/work/ifpo/pps"
-alias pss="cd $HOME/work/ifpo/pss"
-alias ifde="cd $HOME/work/ifde"
-alias ifkd="cd $HOME/work/ifkd"
-alias ifka="cd $HOME/work/ifka"
+# Work Projects (Navigation & Antigravity)
+alias jira="_gw jira"
+alias jiraa="_gw jira -c"
+
+alias mock="_gw podmans/configs/smocker"
+alias mocka="_gw podmans/configs/smocker -c"
+
+alias sele="_gw selenium"
+alias selena="_gw selenium -c"
+
+alias aodb="_gw aodb -c"
+alias aops="_gw aops"
+alias podmans="_gw podmans"
+
+alias corpo="_gw aops/corpo"
+alias corpoa="_gw aops/corpo -c"
+
+alias wid="_gw aops/withdrawal"
+alias wida="_gw aops/withdrawal -c"
+
+alias anuitas="_gw aops/anuitas"
+alias wrapperps="_gw aops/wrapperps"
+
+alias ifpo="_gw ifpo"
+alias pms="_gw ifpo/pms"
+alias pps="_gw ifpo/pps"
+alias pss="_gw ifpo/pss"
+alias ifde="_gw ifde"
+alias ifkd="_gw ifkd"
+alias ifka="_gw ifka"
+
+alias kcc="_gw KAnggara/scc"
+alias ply="_gw playground"
+alias pwa="_gw PakaiWA"
+alias ka="_gw KAnggara"
+alias ids="_gw IDScript"
+alias 75="_gw KAnggara75"
+alias eday="_gw KAnggara75/eday"
+
+alias tms="_gw timesheet -c"
+alias tmstool="$HOME/work/timesheet/run.sh"
+alias today="$HOME/work/timesheet/today.sh"
+alias syncimg="$HOME/work/timesheet/sync-images.sh"
+alias gendocx="$HOME/work/timesheet/generate-docx.sh"
+alias aloc="_gw local -c"
 
 # JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
