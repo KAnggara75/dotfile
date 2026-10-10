@@ -111,8 +111,10 @@ ZSH_PATHS=(
   "$NVM_DIR"
   "$PNPM_HOME"
   "$CLAUDE_HOME"
-  "/Users/k/.antigravity/antigravity/bin"
-  "/Users/k/.antigravity-ide/antigravity-ide/bin"
+  "$HOME/.local/bin"
+  "$HOME/.antigravity-ide/antigravity-ide/bin"
+  "/opt/homebrew/bin"
+  "/opt/homebrew/sbin"
 )
 
 # Latest installed Node binary (fast instant node/npm availability)

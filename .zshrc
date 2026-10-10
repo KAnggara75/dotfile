@@ -106,7 +106,18 @@ alias mcc="mvn clean compile -DskipTests"
 _gw() {
 	local path="$1"
 	cd "$HOME/work/$path" || return
-	[[ "$2" == "-c" ]] && agy -c
+	if [[ "$2" == "-c" ]]; then
+		if command -v agy >/dev/null 2>&1; then
+			agy -c
+		elif [ -x "$HOME/.local/bin/agy" ]; then
+			"$HOME/.local/bin/agy" -c
+		elif [ -x "$HOME/dev/bin/agy" ]; then
+			"$HOME/dev/bin/agy" -c
+		else
+			echo "_gw: agy binary not found in PATH or ~/.local/bin/agy" >&2
+			return 1
+		fi
+	fi
 }
 
 alias dev="cd $HOME/dev"
@@ -154,11 +165,12 @@ alias 75="_gw KAnggara75"
 alias eday="_gw KAnggara75/eday"
 
 alias tms="_gw timesheet -c"
+alias locala="_gw local -c"
+alias aloc="locala"
 alias tmstool="$HOME/work/timesheet/run.sh"
 alias today="$HOME/work/timesheet/today.sh"
 alias syncimg="$HOME/work/timesheet/sync-images.sh"
 alias gendocx="$HOME/work/timesheet/generate-docx.sh"
-alias aloc="_gw local -c"
 
 # JetBrains Apps
 alias ws='open -na "WebStorm.app" --args nosplash "$@"'
@@ -250,11 +262,9 @@ fi
 [[ -f "$HOME/.zshrc.secret" ]] && source "$HOME/.zshrc.secret"
 [[ -f "${ZDOTDIR:-$HOME}/dotfile/.zshrc.secret" ]] && source "${ZDOTDIR:-$HOME}/dotfile/.zshrc.secret"
 
-# Added by Antigravity
-export PATH="/Users/k/.antigravity/antigravity/bin:$PATH"
-
-# Added by Antigravity IDE
-export PATH="/Users/k/.antigravity-ide/antigravity-ide/bin:$PATH"
+# Antigravity PATH
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+[ -d "$HOME/.antigravity-ide/antigravity-ide/bin" ] && export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
 
 # -------------------------------------
 # PROMPT CONFIG
