@@ -27,7 +27,8 @@ Before planning or executing non-trivial modifications, consult the baseline doc
 ### Shell & Execution Safety
 - **Zsh Variable Scope**: Never declare `local path` inside Zsh shell functions. In Zsh, the scalar environment variable `PATH` is tied automatically to the array `path`. Overwriting `local path` breaks command resolution (use `local target_path` instead).
 - **Zsh Function vs Alias**: When transforming an alias to a function in `.zshrc`, always precede the function declaration with `unalias <name> 2>/dev/null` to prevent Zsh alias expansion parse errors.
-- **Idempotent Installation**: Any additions to `install.sh` must be idempotent, safely runnable multiple times, and platform-aware (macOS vs Linux).
+- **Idempotency & Dry-Run Standard**: Helper scripts inside `setup/` and `swap.sh` MUST support `-n` / `--dry-run` and check preconditions (e.g. installed tools, existing files) before applying state changes.
+- **Syntax Check Gate**: All shell scripts must pass `zsh -n` and `shellcheck`. `.githooks/pre-commit` automatically verifies this locally before any commit is accepted.
 
 ---
 
