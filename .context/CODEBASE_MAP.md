@@ -38,17 +38,19 @@
 - **Key Notes**: Menggunakan arsitektur NvChad modular dengan Lazy.nvim package manager.
 
 ## Automations & System Setup
-- **Responsibility**: Automasi provisioning dotfile, pembuatan symlink, dan instalasi software dasar OS.
+- **Responsibility**: Automasi provisioning dotfile, pembuatan symlink, konfigurasi font/launcher, dan instalasi software dasar OS.
 - **Entry / Key Files**:
   - [install.sh](file:///install.sh) — Script instalasi otomatis dotfile utama (cross-platform macOS/Linux).
-  - [setup/gitsetup.sh](file:///setup/gitsetup.sh) — Konfigurasi Git SSH commit signing dan global ignore.
-  - [setup/docker.sh](file:///setup/docker.sh) — Provisioning Docker CE & Docker Compose di Debian/Ubuntu.
-  - [swap.sh](file:///swap.sh) — Kalkulator alokasi optimal swap Linux berbasis total RAM.
+  - [setup/gitsetup.sh](file:///setup/gitsetup.sh) — Konfigurasi Git SSH commit signing (dengan flag `-n` dry-run dan idenpotensi key).
+  - [setup/docker.sh](file:///setup/docker.sh) — Provisioning Docker CE & Docker Compose di Debian/Ubuntu dengan flag `-n` dry-run.
+  - [setup/fc.sh](file:///setup/fc.sh) — Font installer FiraCode untuk macOS dengan verifikasi idempotensi font dan flag `-n` dry-run.
+  - [setup/idea.sh](file:///setup/idea.sh) — Peluncur dan generator wrapper IntelliJ IDEA CLI di macOS (`idea <path>` / `--setup`).
+  - [swap.sh](file:///swap.sh) — Kalkulator alokasi optimal swap Linux berbasis total RAM, tuning sysctl.d modular, opsi custom sizing (`-s`), dan status inspeksi (`--status`).
   - [script/swbr.sh](file:///script/swbr.sh) — Utility pengubah browser default macOS dan Raycast Script Command dengan rotasi otomatis (Safari $\rightarrow$ Edge $\rightarrow$ Chrome $\rightarrow$ Safari).
 - **Dependencies**: Bash, curl, Homebrew, apt-get, Git, Python 3, osascript, Raycast.
-- **Consumers**: CLI (`swbr`), Raycast Launcher, setup mesin baru atau sinkronisasi environment.
+- **Consumers**: CLI (`swbr`, `idea`, `swap.sh`), Raycast Launcher, setup mesin baru atau sinkronisasi environment.
 - **External Integrations**: GitHub, Homebrew Cask, Docker official apt repo, macOS CoreServices, Raycast Script Commands.
-- **Key Notes**: [install.sh](file:///install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.zsh_history`, `~/.tmux.conf`, `~/.config/nvim`, Ghostty Library path, binary `~/dev/bin/swbr`, dan folder `~/.config/raycast/scripts/`.
+- **Key Notes**: [install.sh](file:///install.sh) mengotomatisasi symlink ke `~/.zshrc`, `~/.zshenv`, `~/.zprofile`, `~/.zsh_history`, `~/.tmux.conf`, `~/.config/nvim`, Ghostty Library path, binary `~/dev/bin/swbr`, dan folder `~/.config/raycast/scripts/`. Seluruh script di `setup/` dan root mendukung flag `-n`/`--dry-run`.
 
 ## CI & Repository Quality
 - **Responsibility**: Linting dan quality check otomatis untuk shell scripts.
@@ -58,10 +60,10 @@
 - **Consumers**: GitHub Pull Requests.
 
 ## Security & Repository Protection
-- **Responsibility**: Mencegah kebocoran rahasia (secret leak), token, dan private keys sebelum tersimpan ke riwayat git.
+- **Responsibility**: Mencegah kebocoran rahasia (secret leak), token, dan private keys sebelum tersimpan ke riwayat git, serta memvalidasi sintaks shell lokal sebelum commit.
 - **Entry / Key Files**:
-  - [.githooks/pre-commit](file:///.githooks/pre-commit) — Pre-commit hook validator yang memblokir staging file sensitif dan konten berkredensial tinggi.
-- **Dependencies**: Git, Bash, Python 3 (regex scanning).
+  - [.githooks/pre-commit](file:///.githooks/pre-commit) — Pre-commit hook validator yang memblokir staging file sensitif, mendeteksi kredensial rahasia via Python regex scanner, serta memvalidasi sintaks otomatis via `zsh -n` dan `shellcheck` lokal.
+- **Dependencies**: Git, Bash, Python 3 (regex scanning), Zsh (`zsh -n`), ShellCheck.
 - **Consumers**: `git commit` di local development.
-- **Key Notes**: Dikonfigurasi otomatis melalui `core.hooksPath .githooks` di `install.sh`.
+- **Key Notes**: Dikonfigurasi otomatis melalui `core.hooksPath .githooks` di `install.sh`. Menjamin integritas sintaks script shell sebelum perubahan masuk ke git tree.
 
