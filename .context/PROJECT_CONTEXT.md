@@ -37,7 +37,8 @@ Menyediakan lingkungan pengembangan software yang terstandardisasi, terautomasi,
 - **Security Constraint**: Tidak boleh ada private key, API token, atau password yang di-commit ke Git tracking.
 
 ## Coding Conventions & Standards
-- Shell Scripting: Validasi terhadap ShellCheck via GitHub Actions.
+- Shell Scripting: Validasi terhadap ShellCheck via GitHub Actions dan verifikasi lokal otomatis via [.githooks/pre-commit](file:///.githooks/pre-commit) (`zsh -n` dan `shellcheck`).
+- Idempotency & Safety: Seluruh helper scripts di [setup/](file:///setup) dan [swap.sh](file:///swap.sh) wajib mendukung flag `-n` / `--dry-run` serta memeriksa kondisi sebelum melakukan mutasi sistem.
 - Formatters: EditorConfig (`.editorconfig`) untuk indentasi dan newline.
 - Lua: Stylua (`nvim/.stylua.toml`) untuk pemformatan script konfigurasi Neovim.
 
