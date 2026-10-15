@@ -179,3 +179,33 @@ Dokumen ini bersifat **append-only**. Keputusan baru ditambahkan secara beruruta
   - Repositori lebih bersih, terfokus pada utilitas aktif, dan bebas dari dependensi PHP/Valet legacy.
   - Dokumentasi [README.md](file:///README.md) kini mencerminkan toolset aktif (Ghostty terminal, `swbr` browser switcher, Podman 4-tier routing).
 
+---
+
+## ADR-014: Integrasi Verifikasi Sintaks Shell Otomatis Lokal (zsh -n dan shellcheck) ke Pre-Commit Hook
+
+- **Status**: Accepted
+- **Date**: 2026-10-15
+- **Source**: Codebase evidence (`.githooks/pre-commit`) & Developer request
+- **Context**: Kesalahan sintaks pada skrip shell (`.sh`, `.zsh`, `.zshrc`) sering kali baru terdeteksi setelah commit dibuat atau saat CI runner gagal di pull request. Mengandalkan linting remote memperlambat siklus iterasi dan berisiko merusak environment pengguna lokal jika script dengan syntax error ter-source.
+- **Decision**: Menambahkan tahap validasi sintaks otomatis di [.githooks/pre-commit](file:///.githooks/pre-commit) dengan memanfaatkan `zsh -n` untuk semua file shell yang di-stage, serta pemeriksaan `shellcheck` lokal jika binary tersedia. Jika ditemukan syntax error, proses commit dibatalkan seketika dengan pesan deskriptif.
+- **Consequences**:
+  - Validasi sintaks terjadi instan dan lokal tanpa latency jaringan.
+  - Mencegah syntax regression masuk ke git log.
+  - Kompatibel dan graceful jika `shellcheck` belum terinstal (fallback tetap memvalidasi via `zsh -n`).
+
+---
+
+## ADR-015: Standardisasi Flag Dry-Run, Verifikasi Idempotensi, dan Modernisasi Script Setup & Swap
+
+- **Status**: Accepted
+- **Date**: 2026-10-15
+- **Source**: Codebase evidence (`setup/*.sh`, `swap.sh`) & Developer request
+- **Context**: Script utilitas di folder `setup/` (`docker.sh`, `fc.sh`, `gitsetup.sh`, `idea.sh`) dan `swap.sh` sebelumnya memiliki inkonsistensi perlakuan: beberapa melakukan instalasi tanpa memeriksa apakah komponen sudah terpasang (kurang idempoten), tidak memiliki opsi simulasi (`--dry-run`), dan kurang fleksibel dalam kustomisasi parameter.
+- **Decision**:
+  1. Menstandardisasi seluruh script di `setup/` dan `swap.sh` untuk menerima flag `-n` / `--dry-run` dan `-h` / `--help`.
+  2. Menerapkan pemeriksaan precondition idempoten (contoh: mengecek binary `docker` terpasang, keberadaan font `FiraCode`, kecocokan signing key git, dan identitas script launcher `idea`).
+  3. Memodernisasi `swap.sh` dengan opsi kustom ukuran (`-s, --size`), path (`-p, --path`), inspeksi status instan (`--status`), validasi ruang kosong disk (`df`), serta persistensi sysctl modular ke `/etc/sysctl.d/99-swap.conf`.
+- **Consequences**:
+  - Eksekusi skrip setup aman untuk dijalankan berulang kali tanpa efek samping negatif (*idempotent*).
+  - Pengguna dapat memverifikasi aksi skrip secara simulatif sebelum mengeksekusi perubahan pada sistem operasi.
+
