@@ -37,7 +37,7 @@ graph TD
 ## 2. Request & Execution Flow
 
 ### 2.1 Terminal Startup & Shell Initialization
-1. **Ghostty Execution**: Membaca [config.ghostty](file:///Users/i/dotfile/config.ghostty), menerapkan window geometry, font ligatures (*FiraCode Nerd Font Propo*), tema warna *Ayu*, dan mode fullscreen.
+1. **Ghostty Execution**: Membaca [config.ghostty](file:///config.ghostty), menerapkan window geometry, font ligatures (*FiraCode Nerd Font Propo*), tema warna *Ayu*, dan mode fullscreen.
 2. **Environment Sourcing (`.zshenv`)**: Dieksekusi untuk setiap pemanggilan subshell. Membersihkan duplications pada `PATH`, mendefinisikan direktori SDK (Node, Go, Java, Flutter, Android, Maven).
 3. **Login Shell Phase (`.zprofile`)**:
    - Memeriksa flag `__SSH_AGENT_ALREADY_RUN`.
@@ -55,6 +55,14 @@ graph TD
 2. Opsi `allow-passthrough on` mengizinkan aplikasi TUI (seperti Neovim atau CLI image viewer) mengirim escape code Kitty Graphics Protocol langsung ke Ghostty.
 3. Fitur `set-clipboard on` memetakan OSC 52 sehingga penyalinan teks di dalam Tmux langsung tersinkron ke macOS clipboard.
 
+### 2.3 Remote Podman Smart Multi-Tier Routing Flow
+1. Pemanggilan `p` atau `docker` di macOS memicu fungsi routing pintar `p()`:
+   - **LAN Probe**: Menguji port 8487 pada `$VIVO_LOCAL_IP` via `nc -z -G 1`. Jika aktif, koneksi diset ke `vivo` dan background worker mematikan local VM Mac jika berjalan.
+   - **Tailscale Linux Probe**: Menguji port 8487 pada `$VIVO_TS_LINUX`. Jika aktif, rute dialihkan ke `vivo-tailscale`.
+   - **Tailscale Windows Probe**: Menguji port 8487 pada `$VIVO_TS_WIN`. Jika aktif, rute dialihkan ke `vivo-tailscale-win`.
+   - **Local Fallback**: Jika server remote offline, sistem otomatis menyalakan dan menggunakan local machine `pod-man`.
+2. Pada mesin native Linux, pemeriksaan remote dibypass dan langsung mengeksekusi `podman` lokal.
+
 ## 3. Concurrency & Resource Management
 - **Shell Concurrency**: Model eksekusi Zsh berjalan single-threaded per process surface. Subshell dan external processes dipanggil via fork/exec.
 - **SSH Agent Daemon**: Proses `ssh-agent` berjalan persisten di level user session (`SSH_AGENT_PID`), diakses melalui socket Unix domain (`SSH_AUTH_SOCK`).
@@ -63,18 +71,18 @@ graph TD
   - Ghostty `scrollback-limit` disetel ke `10000000` baris dengan background blur dan GPU rendering native.
 
 ## 4. Error Handling & Fault Tolerance
-- **Strict Execution di Installer**: [install.sh](file:///Users/i/dotfile/install.sh) menggunakan `set -eo pipefail` dan error trap `abort()` untuk mencegah kegagalan silent saat download/symlink dependencies.
+- **Strict Execution di Installer**: [install.sh](file:///install.sh) menggunakan `set -eo pipefail` dan error trap `abort()` untuk mencegah kegagalan silent saat download/symlink dependencies.
 - **Defensive Sourcing**:
   - Pengecekan file eksis `[ -f "$file" ]` diterapkan pada seluruh script sebelum pemanggilan `source` atau eksekusi binary (`brew`, `java_home`, `lsd`, dll.).
-  - Di [.zprofile](file:///Users/i/dotfile/.zprofile), command `ssh-keygen -lf` dialihkan output error-nya ke `/dev/null` (`2>/dev/null`) agar tidak mencemari terminal jika terdapat symlink kunci yang broken.
+  - Di [.zprofile](file:///.zprofile), command `ssh-keygen -lf` dialihkan output error-nya ke `/dev/null` (`2>/dev/null`) agar tidak mencemari terminal jika terdapat symlink kunci yang broken.
 
 ## 5. Observability & Telemetry
-- **CI Static Analysis**: [.github/workflows/reviewdog.yaml](file:///Users/i/dotfile/.github/workflows/reviewdog.yaml) menggunakan GitHub Actions untuk menjalankan `shellcheck` secara otomatis pada setiap pull request melalui `reviewdog`.
+- **CI Static Analysis**: [.github/workflows/reviewdog.yaml](file:///.github/workflows/reviewdog.yaml) menggunakan GitHub Actions untuk menjalankan `shellcheck` secara otomatis pada setiap pull request melalui `reviewdog`.
 - **Runtime Monitoring & Status Telemetry**:
   - Tmux statusline menampilkan session name, jumlah window, active pane title, jam, tanggal, dan indikator host.
-  - Telemetri daya baterai real-time di-poll via [ka-tmux/scripts/battery.sh](file:///Users/i/dotfile/ka-tmux/scripts/battery.sh) setiap interval status Tmux (`status-interval 2`).
+  - Telemetri daya baterai real-time di-poll via [ka-tmux/scripts/battery.sh](file:///ka-tmux/scripts/battery.sh) setiap interval status Tmux (`status-interval 2`).
 - **Pre-Commit Security Gate**:
-  - [.githooks/pre-commit](file:///Users/i/dotfile/.githooks/pre-commit) mengeksekusi inspeksi statis berbasis Python regex terhadap staged changes untuk menghentikan commit jika terdeteksi kredensial atau file sensitif.
+  - [.githooks/pre-commit](file:///.githooks/pre-commit) mengeksekusi inspeksi statis berbasis Python regex terhadap staged changes untuk menghentikan commit jika terdeteksi kredensial atau file sensitif.
 
 ## 6. Data & Domain Boundaries
 - **Public vs Secret Boundary**:
