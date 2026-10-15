@@ -245,7 +245,7 @@ kls() {
 # -------------------------------------
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 darwin)
-	docker() { p "$@"; }
+	alias docker="p"
 	alias ifg="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/IFG"
 	alias pmod="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/ProgrammerMode"
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
