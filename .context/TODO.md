@@ -13,7 +13,6 @@ _Daftar TODO/FIXME yang tercantum langsung di dalam source code._
 ## 3. Technical Debt & Structural Improvements
 _Pekerjaan arsitektural/refactoring jangka panjang untuk maintainability sistem._
 - [x] ~~Evaluasi retensi `com.googlecode.iterm2.plist` dan file `.itermcolors`~~ *(Selesai: Dihapus permanen sesuai ADR-004)*.
-- [x] ~~Integrasi git pre-commit hook untuk pencegahan kebocoran secret lokal~~ *(Selesai: Diaktifkan di `.githooks/pre-commit` sesuai ADR-006)*.
 - [x] ~~Sentralisasi baseline memory dan dokumentasi arsitektur ke `.context/`~~ *(Selesai: Dimigrasikan via skill `ka-context`)*.
-- [ ] Standardisasi script di folder `setup/` agar konsisten mendukung flag dry-run dan verifikasi idempotensi.
-- [ ] Tambahkan verifikasi syntax check shell otomatis lokal (misal `zsh -n` dan `shellcheck`) ke dalam pre-commit hook sebelum commit dibuat.
+- [x] ~~Standardisasi script di folder `setup/` agar konsisten mendukung flag dry-run dan verifikasi idempotensi~~ *(Selesai: `docker.sh`, `fc.sh`, `gitsetup.sh`, dan `idea.sh` mendukung `-n`/`--dry-run` & pengecekan kondisi terpasang)*.
+- [x] ~~Tambahkan verifikasi syntax check shell otomatis lokal (misal `zsh -n` dan `shellcheck`) ke dalam pre-commit hook sebelum commit dibuat~~ *(Selesai: Diintegrasikan ke `.githooks/pre-commit`)*.
