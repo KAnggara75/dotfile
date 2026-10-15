@@ -93,4 +93,39 @@ if [ $? -ne 0 ] || [ "$FOUND_SENSITIVE" -eq 1 ]; then
   exit 1
 fi
 
+# 3. Validasi sintaks otomatis untuk script shell yang di-stage
+SYNTAX_ERRORS=0
+
+for file in $STAGED_FILES; do
+  # Hanya periksa file yang masih ada di disk
+  [ -f "$file" ] || continue
+
+  # Identifikasi file shell berdasarkan ekstensi atau file zsh
+  if [[ "$file" =~ \.(sh|zsh|bash)$ ]] || [[ "$file" =~ ^\.(zshrc|zshenv|zprofile)$ ]]; then
+    # Validasi sintaks via zsh -n
+    if command -v zsh >/dev/null 2>&1; then
+      if ! zsh -n "$file" 2>&1; then
+        echo -e "\033[1;31m[SYNTAX ERROR]\033[0m Syntax error terdeteksi pada \033[1;33m$file\033[0m (via zsh -n)"
+        SYNTAX_ERRORS=1
+      fi
+    fi
+
+    # Linting via shellcheck jika terinstal di mesin pengguna
+    if command -v shellcheck >/dev/null 2>&1; then
+      # Batasi ke bash/sh compatible scripts (skip file zsh syntax khusus)
+      if [[ "$file" =~ \.sh$ ]]; then
+        if ! shellcheck -e SC1090,SC1091 "$file" 2>&1; then
+          echo -e "\033[1;31m[SHELLCHECK ERROR]\033[0m ShellCheck menemukan pelanggaran pada \033[1;33m$file\033[0m"
+          SYNTAX_ERRORS=1
+        fi
+      fi
+    fi
+  fi
+done
+
+if [ "$SYNTAX_ERRORS" -ne 0 ]; then
+  echo -e "\n\033[1;31mCommit dibatalkan!\033[0m Perbaiki kesalahan sintaks shell di atas sebelum melanjutkan."
+  exit 1
+fi
+
 exit 0
