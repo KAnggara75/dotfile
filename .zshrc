@@ -104,8 +104,8 @@ alias mcc="mvn clean compile -DskipTests"
 
 # Change Directory & Work Navigation (DRY Helper)
 _gw() {
-	local path="$1"
-	cd "$HOME/work/$path" || return
+	local target_path="$1"
+	cd "$HOME/work/$target_path" || return
 	if [[ "$2" == "-c" ]]; then
 		if command -v agy >/dev/null 2>&1; then
 			agy -c
@@ -131,6 +131,9 @@ alias jiraa="_gw jira -c"
 
 alias mock="_gw podmans/configs/smocker"
 alias mocka="_gw podmans/configs/smocker -c"
+alias mgt="_gw KAnggara75/MockGate"
+alias mgta="_gw KAnggara75/MockGate -c"
+alias revi="_gw reviewer -c"
 
 alias sele="_gw selenium"
 alias selena="_gw selenium -c"
@@ -178,7 +181,33 @@ alias goland='open -na "GoLand.app" --args nosplash "$@"'
 alias idea='$HOME/dotfile/setup/idea.sh'
 
 # Podman
-alias p="podman"
+unalias p 2>/dev/null
+p() {
+    # 1. Cek vivo via LAN lokal ($VIVO_LOCAL_IP)
+    if [[ -n "\${VIVO_LOCAL_IP:-}" ]] && nc -z -G 1 "\$VIVO_LOCAL_IP" 8487 &>/dev/null; then
+        command podman system connection default vivo &>/dev/null
+        # Stop local pod-man VM jika menyala agar hemat RAM/CPU dan tidak memicu warning Podman Desktop
+        if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" == "running" ]]; then
+            command podman machine stop pod-man &>/dev/null &
+        fi
+        command podman --connection vivo "$@"
+    # 2. Cek vivo via Tailscale ($VIVO_TS_LINUX) jika di luar LAN
+    elif [[ -n "\${VIVO_TS_LINUX:-}" ]] && nc -z -G 1 "\$VIVO_TS_LINUX" 8487 &>/dev/null; then
+        command podman system connection default vivo-tailscale &>/dev/null
+        if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" == "running" ]]; then
+            command podman machine stop pod-man &>/dev/null &
+        fi
+        command podman --connection vivo-tailscale "$@"
+    # 3. Fallback ke local machine Mac jika vivo offline
+    else
+        command podman system connection default pod-man &>/dev/null
+        if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" != "running" ]]; then
+            echo "⚙ Menyalakan local pod-man machine..."
+            command podman machine start pod-man &>/dev/null
+        fi
+        command podman --connection pod-man "$@"
+    fi
+}
 
 alias h='helm'
 alias hl='helm list'
@@ -216,7 +245,7 @@ kls() {
 # -------------------------------------
 case "$(uname -s | tr '[:upper:]' '[:lower:]')" in
 darwin)
-	alias docker="podman"
+	docker() { p "$@"; }
 	alias ifg="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/IFG"
 	alias pmod="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/ProgrammerMode"
 	alias kaad="/usr/bin/ssh-add --apple-use-keychain ~/.ssh/KAnggara"
