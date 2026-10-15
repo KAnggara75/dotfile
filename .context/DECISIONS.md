@@ -131,3 +131,51 @@ Dokumen ini bersifat **append-only**. Keputusan baru ditambahkan secara beruruta
 - **Consequences**:
   - Script dapat dipicu dari Raycast dengan shortcut/kata kunci "Switch Default Browser" maupun terminal (`swbr`).
   - Menekan Enter langsung di Raycast atau terminal akan merotasi browser secara otomatis tanpa prompt tambahan.
+
+---
+
+## ADR-011: DRY Work Navigation Helper (_gw) dan Resolusi Agility Tooling
+
+- **Status**: Accepted
+- **Date**: 2026-10-10
+- **Source**: Codebase evidence (`.zshrc`, `.zshenv`) & Developer interview
+- **Context**: Terdapat repetisi kode alias perpindahan direktori kerja (`cd $HOME/work/...`) serta kebutuhan menjalankan tool AI coding `agy -c` secara instan pada direktori yang dituju. Di samping itu, variabel lokal `path` pada implementasi awal menyebabkan variabel environment sistem `PATH` tertimpa karena sifat array-binding bawaan Zsh (`path` terikat ke `PATH`), yang sempat merusak eksekusi subshell statusline Antigravity.
+- **Decision**:
+  1. Mengonsolidasikan seluruh alias navigasi kerja ke dalam fungsi helper DRY `_gw()`.
+  2. Menggunakan nama variabel lokal `local target_path="$1"` untuk menghindari interferensi dengan `PATH`.
+  3. Menyediakan fallback bertingkat untuk resolusi binary `agy` (`command -v agy` $\rightarrow$ `~/.local/bin/agy` $\rightarrow$ `~/dev/bin/agy`).
+  4. Menyelaraskan alias `locala` dan `aloc` untuk kompatibilitas plugin `you-should-use`.
+- **Consequences**:
+  - Konfigurasi `.zshrc` menjadi ringkas, terpusat, dan bebas duplikasi.
+  - Nilai environment variable `PATH` tetap utuh dan stabil saat memanggil helper navigasi dengan parameter `-c`.
+
+---
+
+## ADR-012: Smart Multi-Tier Remote Podman Routing dan Isolasi Endpoint ke .zshrc.secret
+
+- **Status**: Accepted
+- **Date**: 2026-10-15
+- **Source**: Codebase evidence (`.zshrc`, `.zshrc.secret.example`, `.zshrc.secret`) & Security audit
+- **Context**: Workstation macOS membutuhkan koneksi Podman jarak jauh ke mesin server Linux/vivo untuk efisiensi CPU dan RAM. Koneksi dapat diakses melalui LAN lokal, Tailscale Linux, Tailscale Windows, atau fallback lokal. Menuliskan IP network dan Tailscale secara eksplisit di dalam file `.zshrc` publik menimbulkan risiko eksposur topologi jaringan internal ke git history.
+- **Decision**:
+  1. Mengimplementasikan fungsi pintar `p()` dengan *4-tier routing fallback* (LAN lokal $\rightarrow$ Tailscale Linux $\rightarrow$ Tailscale Windows $\rightarrow$ Local VM Mac).
+  2. Memindahkan nilai IP network ke environment variables (`$VIVO_LOCAL_IP`, `$VIVO_TS_LINUX`, `$VIVO_TS_WIN`) yang disimpan secara terisolasi di `~/.zshrc.secret`.
+  3. Menambahkan deklarasi `unalias p 2>/dev/null` sebelum fungsi `p()` untuk mencegah parse error akibat ekspansi alias lama.
+  4. Menulis ulang riwayat git (*git filter-branch*) untuk membersihkan seluruh commit sebelumnya yang memuat alamat IP internal.
+- **Consequences**:
+  - Repositori publik sepenuhnya bersih dari alamat IP internal maupun endpoint Tailscale.
+  - Alur eksekusi `podman` dan `docker` otomatis tersambung ke endpoint tercepat yang tersedia secara seamless.
+
+---
+
+## ADR-013: Deprekasi dan Penghapusan Script Installer phpMyAdmin (pma.sh)
+
+- **Status**: Accepted
+- **Date**: 2026-10-15
+- **Source**: Developer request & Codebase evidence
+- **Context**: Script installer otomatis phpMyAdmin, Laravel Valet, dan MySQL lokal macOS (`pma.sh`) sudah tidak relevan dengan alur kerja modern yang telah beralih ke containerization (Podman / Smocker / Docker). Mempertahankan script legacy tersebut menambah beban pemeliharaan dan potensi misleading pada dokumentasi repositori.
+- **Decision**: Menghapus `pma.sh` secara permanen dari repositori dan memperbarui dokumentasi [README.md](file:///README.md), [CODEBASE_MAP.md](file:///.context/CODEBASE_MAP.md), serta [PROJECT_CONTEXT.md](file:///.context/PROJECT_CONTEXT.md).
+- **Consequences**:
+  - Repositori lebih bersih, terfokus pada utilitas aktif, dan bebas dari dependensi PHP/Valet legacy.
+  - Dokumentasi [README.md](file:///README.md) kini mencerminkan toolset aktif (Ghostty terminal, `swbr` browser switcher, Podman 4-tier routing).
+
