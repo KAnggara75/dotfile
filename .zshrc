@@ -183,22 +183,36 @@ alias idea='$HOME/dotfile/setup/idea.sh'
 # Podman
 unalias p 2>/dev/null
 p() {
-    # 1. Cek vivo via LAN lokal ($VIVO_LOCAL_IP)
-    if [[ -n "\${VIVO_LOCAL_IP:-}" ]] && nc -z -G 1 "\$VIVO_LOCAL_IP" 8487 &>/dev/null; then
+    # Jika dieksekusi langsung di mesin Linux / WSL (seperti di vivo), jalankan podman lokal secara native
+    if [[ "$(uname)" == "Linux" ]]; then
+        command podman "$@"
+        return $?
+    fi
+
+    # Logika untuk macOS (Smart 4-tier routing):
+    # 1. Cek vivo via LAN lokal
+    if [[ -n "${VIVO_LOCAL_IP:-}" ]] && nc -z -G 1 "$VIVO_LOCAL_IP" 8487 &>/dev/null; then
         command podman system connection default vivo &>/dev/null
         # Stop local pod-man VM jika menyala agar hemat RAM/CPU dan tidak memicu warning Podman Desktop
         if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" == "running" ]]; then
             command podman machine stop pod-man &>/dev/null &
         fi
         command podman --connection vivo "$@"
-    # 2. Cek vivo via Tailscale ($VIVO_TS_LINUX) jika di luar LAN
-    elif [[ -n "\${VIVO_TS_LINUX:-}" ]] && nc -z -G 1 "\$VIVO_TS_LINUX" 8487 &>/dev/null; then
+    # 2. Cek vivo via Tailscale Linux jika di luar LAN
+    elif [[ -n "${VIVO_TS_LINUX:-}" ]] && nc -z -G 1 "$VIVO_TS_LINUX" 8487 &>/dev/null; then
         command podman system connection default vivo-tailscale &>/dev/null
         if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" == "running" ]]; then
             command podman machine stop pod-man &>/dev/null &
         fi
         command podman --connection vivo-tailscale "$@"
-    # 3. Fallback ke local machine Mac jika vivo offline
+    # 3. Cek vivo via Tailscale Windows
+    elif [[ -n "${VIVO_TS_WIN:-}" ]] && nc -z -G 1 "$VIVO_TS_WIN" 8487 &>/dev/null; then
+        command podman system connection default vivo-tailscale-win &>/dev/null
+        if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" == "running" ]]; then
+            command podman machine stop pod-man &>/dev/null &
+        fi
+        command podman --connection vivo-tailscale-win "$@"
+    # 4. Fallback ke local machine Mac jika vivo offline
     else
         command podman system connection default pod-man &>/dev/null
         if [[ "$(command podman machine inspect pod-man --format '{{.State}}' 2>/dev/null)" != "running" ]]; then
