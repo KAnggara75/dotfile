@@ -70,8 +70,10 @@ graph TD
   - Tmux `history-limit` disetel ke `100000` baris.
   - Ghostty `scrollback-limit` disetel ke `10000000` baris dengan background blur dan GPU rendering native.
 
-## 4. Error Handling & Fault Tolerance
-- **Strict Execution di Installer**: [install.sh](file:///install.sh) menggunakan `set -eo pipefail` dan error trap `abort()` untuk mencegah kegagalan silent saat download/symlink dependencies.
+## 4. Error Handling, Idempotency & Fault Tolerance
+- **Strict Execution di Installer**: [install.sh](file:///install.sh) dan utility script menggunakan `set -eo pipefail` atau `set -euo pipefail` serta helper `abort()` untuk mencegah kegagalan silent saat download/symlink dependencies.
+- **Idempotency & Dry-Run Standard**:
+  - Seluruh script di [setup/](file:///setup) (`docker.sh`, `fc.sh`, `gitsetup.sh`, `idea.sh`) dan [swap.sh](file:///swap.sh) mendukung opsi `-n` / `--dry-run` untuk simulasi nondestruktif serta memverifikasi precondition (mengecek binary terpasang, direktori eksis, atau entri fstab/sysctl) sebelum mutasi diterapkan.
 - **Defensive Sourcing**:
   - Pengecekan file eksis `[ -f "$file" ]` diterapkan pada seluruh script sebelum pemanggilan `source` atau eksekusi binary (`brew`, `java_home`, `lsd`, dll.).
   - Di [.zprofile](file:///.zprofile), command `ssh-keygen -lf` dialihkan output error-nya ke `/dev/null` (`2>/dev/null`) agar tidak mencemari terminal jika terdapat symlink kunci yang broken.
@@ -81,8 +83,10 @@ graph TD
 - **Runtime Monitoring & Status Telemetry**:
   - Tmux statusline menampilkan session name, jumlah window, active pane title, jam, tanggal, dan indikator host.
   - Telemetri daya baterai real-time di-poll via [ka-tmux/scripts/battery.sh](file:///ka-tmux/scripts/battery.sh) setiap interval status Tmux (`status-interval 2`).
-- **Pre-Commit Security Gate**:
-  - [.githooks/pre-commit](file:///.githooks/pre-commit) mengeksekusi inspeksi statis berbasis Python regex terhadap staged changes untuk menghentikan commit jika terdeteksi kredensial atau file sensitif.
+- **Pre-Commit Security & Syntax Verification Gate**:
+  - [.githooks/pre-commit](file:///.githooks/pre-commit) mengeksekusi inspeksi ganda:
+    1. Pemindaian statis berbasis Python regex terhadap staged changes untuk memblokir kredensial rahasia dan file terlarang (`.env`, private keys).
+    2. Validasi sintaks otomatis lokal menggunakan `zsh -n` dan `shellcheck` pada seluruh staged shell script (`.sh`, `.zsh`, `.zshrc`) sebelum commit diizinkan.
 
 ## 6. Data & Domain Boundaries
 - **Public vs Secret Boundary**:
